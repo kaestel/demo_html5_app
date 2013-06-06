@@ -11,11 +11,11 @@
 				<li class="id:1">
 					<a href="/images/1/250x.png">Deodorant for smelly armpits</a>
 				</li>
-				<li class="id:1">
-					<a href="/images/1/250x.png">Deodorant for smelly armpits</a>
+				<li class="id:2">
+					<a href="/images/2/250x.png">Deodorant for smelly armpits</a>
 				</li>
-				<li class="id:1">
-					<a href="/images/1/250x.png">Deodorant for smelly armpits</a>
+				<li class="id:3">
+					<a href="/images/3/250x.png">Deodorant for smelly armpits</a>
 				</li>
 			</ul>
 		</div>

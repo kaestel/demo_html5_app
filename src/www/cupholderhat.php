@@ -8,17 +8,17 @@
 	<div class="product i:productview" itemscope itemtype="http://schema.org/Product">
 		<div class="images">
 			<ul class="thumbnails">
-				<li class="image_id:30 image_format:png">
-					<a href="http://shop.dearapi.com/attachments/production/30/250_width.png">Cup holder hat</a>
+				<li class="id:30">
+					<a href="/images/30/250x.png">Cup holder hat</a>
 				</li>
-				<li class="image_id:31 image_format:png">
-					<a href="http://shop.dearapi.com/attachments/production/31/250_width.png">Cup holder hat</a>
+				<li class="id:31">
+					<a href="/images/31/250x.png">Cup holder hat</a>
 				</li>
-				<li class="image_id:32 image_format:png">
-					<a href="http://shop.dearapi.com/attachments/production/32/250_width.png">Cup holder hat</a>
+				<li class="id:32">
+					<a href="/images/32/250x.png">Cup holder hat</a>
 				</li>
-				<li class="image_id:33 image_format:png">
-					<a href="http://shop.dearapi.com/attachments/production/33/250_width.png">Cup holder hat</a>
+				<li class="id:33">
+					<a href="/images/33/250x.png">Cup holder hat</a>
 				</li>
 			</ul>
 		</div>
@@ -27,14 +27,7 @@
 			<h1 class="title" itemprop="name">Cup holder hat</h1>
 			<div class="offer" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 			<p class="price" itemprop="price">200,-</p>
-			<form accept-charset="UTF-8" action="/kurv" class="simple_form buy" method="post" novalidate="novalidate">
-				<div style="margin:0;padding:0;display:inline">
-					<input name="utf8" type="hidden" value="&#x2713;" />
-					<input name="authenticity_token" type="hidden" value="y/fNtFgC7cpt/RqVrBajLy1V2SsiFC2yGcb17Ug358g=" />
-				</div>
-				<div class="field hidden cart_product_item_id">
-					<input class="hidden" id="cart_product_item_id" name="cart[product_item_id]" type="hidden" value="72" />
-				</div>
+			<form action="/kurv" class="simple_form buy" method="post">
 				<ul class="actions">
 					<li class="buy"><input class="button primary buy" name="commit" type="submit" value="buy" /></li>
 				</ul>

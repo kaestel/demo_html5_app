@@ -8,15 +8,15 @@
 	<div class="product i:productview" itemscope itemtype="http://schema.org/Product">
 		<div class="images">
 			<ul class="thumbnails">
-				<li class="image_id:20 image_format:png">
-					<a href="http://shop.dearapi.com/attachments/production/20/250_width.png">Diet Coke and Mentos Kit</a>
+				<li class="id:20">
+					<a href="/images/20/250x.png">Diet Coke and Mentos Kit</a>
 				</li>
-				<li class="image_id:21 image_format:png">
-					<a href="http://shop.dearapi.com/attachments/production/21/250_width.png">Diet Coke and Mentos Kit</a>
+				<li class="id:21">
+					<a href="/images/21/250x.png">Diet Coke and Mentos Kit</a>
 				</li>
-				<li class="image_id:22 image_format:png">
-					<a href="http://shop.dearapi.com/attachments/production/22/250_width.png">Diet Coke and Mentos Kit</a>
-				</li>
+				<li class="id:22">
+					<a href="/images/22/250x.png">Diet Coke and Mentos Kit</a>
+				</li>				
 			</ul>
 		</div>
 		
@@ -24,14 +24,7 @@
 			<h1 class="title" itemprop="name">Diet Coke and Mentos Kit</h1>
 			<div class="offer" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 			<p class="price" itemprop="price">132,-</p>
-			<form accept-charset="UTF-8" action="/kurv" class="simple_form buy" method="post" novalidate="novalidate">
-				<div style="margin:0;padding:0;display:inline">
-					<input name="utf8" type="hidden" value="&#x2713;" />
-					<input name="authenticity_token" type="hidden" value="y/fNtFgC7cpt/RqVrBajLy1V2SsiFC2yGcb17Ug358g=" />
-				</div>
-				<div class="field hidden cart_product_item_id">
-					<input class="hidden" id="cart_product_item_id" name="cart[product_item_id]" type="hidden" value="72" />
-				</div>
+			<form action="/kurv" class="simple_form buy" method="post">
 				<ul class="actions">
 					<li class="buy"><input class="button primary buy" name="commit" type="submit" value="buy" /></li>
 				</ul>
