@@ -21,9 +21,9 @@
 	<? } ?>
 
 </head>
-<body class="<?= $body_class ?>">
+<body  class="i:validdevice <?= $body_class ?>">
 
-<div id="page">
+<div id="page" class="i:page">
 
 	<div id="header">
 
