@@ -15,6 +15,7 @@ fieldset {border: none;}
 input, select, textarea {font-size: 14px;}
 input, textarea {outline: none;}
 
+
 #page {position: relative; text-align: left; margin: 0 auto; height: 100%; font-size: 0; overflow: hidden;
 	-webkit-transform: translate3d(0,0,0);
 }

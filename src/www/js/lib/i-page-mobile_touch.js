@@ -89,6 +89,100 @@ Util.Objects["page"] = new function() {
 
 		page.loaded();
 
+
+
+		page.scrollToTop = function(source) {
+//			u.bug("scroll to top:" + source);
+
+//			u.t.resetTimer(this.t_scroll);
+			u.a.setHeight(this, 2000);
+
+//			u.bug(u.gcs(this, "height"));
+			window.scrollTo(0, 0);
+//			var h = (window.orientation == 90 || window.orientation == 270) ? window.innerWidth : window.innerHeight;
+
+			this.resetHeight = function() {
+				window.scrollTo(0, 0);
+
+				var h = window.innerHeight;
+
+				// if(u.hc(document.body, "front")) {
+				// 	h = h < this.cN.offsetHeight ? this.cN.offsetHeight : h;
+				// }
+				if(this.offsetHeight != h) {
+//					u.bug("reset height:" + u.nodeId(this) + ", " + u.gcs(this, "height") + " =>" + h);
+
+					u.a.setHeight(this, h);
+					if(this.scene && typeof(this.scene.setHeight) == "function") {
+						this.scene.setHeight();
+					}
+				}
+
+			}
+			this.t_scroll = u.t.setTimer(this, this.resetHeight, 200);
+		}
+		//page.t_scroll = u.t.setTimer(page, page.scrollToTop, 1000);
+
+
+
+		page._orientationchange = function(event) {
+//			u.xInObject(event);
+
+//			u.bug("this:" + this.orientation);
+//			alert((this.orientation == 90 || this.orientation == 270) ? "landscape" : "portrait");
+
+//			page.transitioned = function() {
+//				this.transitioned = null;
+// 				u.a.transition(this, "none");
+// 
+// 				u.a.setHeight(this, 2000);
+// 				window.scrollTo(0, 0);
+// 				var h = (this.orientation == 90 || this.orientation == 270) ? window.innerWidth : window.innerHeight;
+// 				if(u.hc(document.body, "front")) {
+// 					h = h < this.cN.offsetHeight ? this.cN.offsetHeight : h;
+// 				}
+// //				u.bug("set height:" + h)
+// 				u.a.setHeight(this, h);
+//			}
+
+			// hide content to minimize flickering
+			u.a.transition(page.cN, "none");
+			u.a.setOpacity(page.cN, 0);
+
+
+			page.scrollToTop();
+
+			if(typeof(page.scene.resetScene) == "function") {
+				page.scene.resetScene();
+			}
+
+			page.cN.navigate();
+			// if(u.hc(document.body, "front")) {
+			// 	page.cN.navigate();
+			// }
+
+//			page.transitioned();
+
+			// // show content
+			// if(u.gcs(this, "opacity") == 0) {
+			// 	this.transitioned();
+			// }
+			// else {
+			// 	u.a.transition(this, this.page._gentrans_);
+			// 	u.a.setOpacity(this, 0);
+			// }
+		}
+		// redraw page if orientation changes
+		u.e.addEvent(page, "orientationchange", page._orientationchange);
+
+		// disable drag on page level
+//		u.e.drag(page, page);
+
+		// set timer with escape route, if user accidentially reached wrong segment
+//		page.t_escape = u.t.setTimer(this, this.escape, 10000);
+
+
+
 		// 
 		// page.scene_front = u.qs(".scene.front");
 		// 
