@@ -1,3 +1,5 @@
+/* IPAD LANDSCAPE */
+/*
 @media all and (min-width: 1024px) {
 
 	body {min-height: 1044px; position: relative;}
@@ -12,7 +14,10 @@
 	.warning p {padding: 0 50px 20px;}
 
 }
+*/
 
+/* IPAD PORTRAIT */
+/*
 @media all and (max-width: 1024px) {
 
 	body {min-height: 1370px; position: relative;}
@@ -29,8 +34,23 @@
 	.warning p {padding: 0 50px 20px;}
 
 }
+*/
 
-@media all and (max-width: 768px) {
+/* IPHONE LANDSCAPE */
+/*
+@media all and (max-width: 768px) {}
+*/
+
+/* IPHONE PORTRAIT */
+/*
+@media all and (max-width: 480px) {}
+*/
+
+
+
+
+/* IPHONE LANDSCAPE */
+@media all and (min-width: 480px) {
 
 	body {min-height: 395px; position: relative;}
 	.desktop_wrapper {width: 480px; height: 320px; position: absolute; top: 50%; left: 50%; margin-left: -375px; margin-top: -205px;
@@ -45,6 +65,7 @@
 
 }
 
+/* IPHONE PORTRAIT */
 @media all and (max-width: 480px) {
 
 	body {min-height: 750px; position: relative;}
