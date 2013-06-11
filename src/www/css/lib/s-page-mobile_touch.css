@@ -1,4 +1,4 @@
-* {font-family: "montserratregular"; line-height: 30px; font-size: 16px; color: #000000; font-weight: normal;}
+* {font-family: "montserratregular", arial, verdana, sans-serif; line-height: 30px; font-size: 16px; color: #000000; font-weight: normal;}
 
 html {height: 100%;}
 body {background: #ffffff url(/img/gx_loader.gif) no-repeat center center; margin: 0; overflow-y: scroll; height: 100%;}
