@@ -32,6 +32,11 @@ Util.Objects["page"] = new function() {
 
 		// navigation reference
 		page.nN = u.qs("#navigation");
+		page.nN.page = page;
+
+
+
+
 
 		u.a.translate(page.nN, 0, -40);
 		u.as(page.nN, "display", "block");
