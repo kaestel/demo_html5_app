@@ -8,14 +8,17 @@
 		<h1 class="title" itemprop="name">Nike Air Max</h1>
 		<div class="images">
 			<ul class="thumbnails">
-				<li class="id:20">
-					<a href="/images/20/250x.png">Nike Air Max</a>
+				<li class="id:air_max1">
+					<a href="/images/air_max1/250x.png">Nike Air Max</a>
 				</li>
-				<li class="id:21">
-					<a href="/images/21/250x.png">Nike Air Max</a>
+				<li class="id:air_max2">
+					<a href="/images/air_max2/250x.png">Nike Air Max</a>
 				</li>
-				<li class="id:22">
-					<a href="/images/22/250x.png">Nike Air Max</a>
+				<li class="id:air_max3">
+					<a href="/images/air_max3/250x.png">Nike Air Max</a>
+				</li>
+				<li class="id:air_max4">
+					<a href="/images/air_max4/250x.png">Nike Air Max</a>
 				</li>				
 			</ul>
 		</div>
