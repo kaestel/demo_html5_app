@@ -273,6 +273,11 @@ Util.Objects["page"] = new function() {
 
 
 function static_init() {
+
+	if(typeof(u.o.validdevice) == "object") {
+		u.o.validdevice(document.body)
+	}
+
 	u.o.page.init(u.qs("#page"));
 }
 
