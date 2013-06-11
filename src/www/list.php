@@ -13,7 +13,7 @@
 			</div>
 			<div class="published_at" itemprop="releaseDate">May 26th 2013</div>
 			<div class="offer" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-				<p class="price" itemprop="price">88,-</p>
+				<p class="price" itemprop="price">89</p>
 			</div>
 		</li>
 		<li class="product" itemscope itemtype="http://schema.org/Product">
