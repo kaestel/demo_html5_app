@@ -3,7 +3,7 @@
 <?php $page_title = "HTML5 Demo" ?>
 <?php include_once($_SERVER["LOCAL_PATH"]."/templates/shell.header.php") ?>
 
-<div class="scene">
+<div class="scene i:list">
 	<h1>List</h1>
 	<ul class="productlist i:productlist">
 		<li class="product" itemscope itemtype="http://schema.org/Product">

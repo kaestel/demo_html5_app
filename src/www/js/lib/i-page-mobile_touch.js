@@ -2,45 +2,12 @@ Util.Objects["page"] = new function() {
 	this.init = function(page) {
 
 
-		u.e.swipe(page, page);
-		page.current_page = 0;
+		// manual base initialization, remove i:page
+		u.rc(page, "i:page");
 
-		page.picked = function() {
-			
-		}
-		page.moved = function() {
-			u.a.translate(this.cN, this.current_x -(768*this.current_page), 0);
-		}
-		page.dropped = function() {
 
-			// show/hide navigation
-			if(this.current_page) {
-				u.a.transition(this.nN, "all 0.3s ease-in");
-				u.a.translate(this.nN, 0, 0);
-			}
-			else {
-				u.a.transition(this.nN, "all 0.3s ease-in");
-				u.a.translate(this.nN, 0, -40);
-			}
-			
-		}
-		page.swipedLeft = function() {
-			if(this.current_page < 3) {
-				this.current_page++;
-			}
-			u.a.transition(this.cN, "all 0.3s ease-out");
-			u.a.translate(this.cN, -(768*this.current_page), 0);
-		}
-		page.swipedRight = function() {
-			if(this.current_page > 0) {
-				this.current_page--;
-			}
 
-			u.a.transition(this.cN, "all 0.3s ease-out");
-			u.a.translate(this.cN, -(768*this.current_page), 0);
 
-//				u.a.translate(this, this.current_x, 0);
-		}
 
 
 
@@ -54,11 +21,18 @@ Util.Objects["page"] = new function() {
 		}
 //		u.preloader(page, ["/img/VM-forside-image.jpg", "/img/VM-forside-typo.png", "/img/VMC_Content.jpg", "/img/VMC_page3.jpg", "/img/VMC_page4.jpg", "/img/VMC_Overlay.jpg"]);
 
+
+		// header reference
+		page.hN = u.qs("#header");
+		page.hN.page = page;
+
+		// content reference
 		page.cN = u.qs("#content");
 		page.cN.page = page;
 
-		// Navigation - initially hidden
+		// navigation reference
 		page.nN = u.qs("#navigation");
+
 		u.a.translate(page.nN, 0, -40);
 		u.as(page.nN, "display", "block");
 
@@ -126,6 +100,9 @@ Util.Objects["page"] = new function() {
 
 
 		page._orientationchange = function(event) {
+
+			u.ac(document.body, (this.orientation == 90 || this.orientation == 270) ? "landscape" : "portrait");
+
 //			u.xInObject(event);
 
 //			u.bug("this:" + this.orientation);
@@ -180,6 +157,49 @@ Util.Objects["page"] = new function() {
 
 		// set timer with escape route, if user accidentially reached wrong segment
 //		page.t_escape = u.t.setTimer(this, this.escape, 10000);
+
+
+		// enable
+		u.e.swipe(page, page);
+
+		page.current_page = 0;
+
+
+		page.picked = function() {}
+
+		page.moved = function() {
+			u.a.translate(this.cN, this.current_x -(768*this.current_page), 0);
+		}
+		page.dropped = function() {
+
+			// show/hide navigation
+			if(this.current_page) {
+				u.a.transition(this.nN, "all 0.3s ease-in");
+				u.a.translate(this.nN, 0, 0);
+			}
+			else {
+				u.a.transition(this.nN, "all 0.3s ease-in");
+				u.a.translate(this.nN, 0, -40);
+			}
+			
+		}
+		page.swipedLeft = function() {
+			if(this.current_page < 3) {
+				this.current_page++;
+			}
+			u.a.transition(this.cN, "all 0.3s ease-out");
+			u.a.translate(this.cN, -(768*this.current_page), 0);
+		}
+		page.swipedRight = function() {
+			if(this.current_page > 0) {
+				this.current_page--;
+			}
+
+			u.a.transition(this.cN, "all 0.3s ease-out");
+			u.a.translate(this.cN, -(768*this.current_page), 0);
+
+//				u.a.translate(this, this.current_x, 0);
+		}
 
 
 
@@ -246,4 +266,9 @@ Util.Objects["page"] = new function() {
 	}
 }
 
-u.e.addDOMReadyEvent(u.init);
+
+function static_init() {
+	u.o.page.init(u.qs("#page"));
+}
+
+u.e.addDOMReadyEvent(static_init);
