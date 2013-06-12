@@ -7,7 +7,7 @@
 	<h1>List</h1>
 	<ul class="productlist i:productlist">
 		<li class="product" itemscope itemtype="http://schema.org/Product">
-			<h2 itemprop="name"><a href="/produkter/deodorant">Pointer Underachiever</a></h2>
+			<h2 itemprop="name"><a href="/pointer">Pointer Underachiever</a></h2>
 			<div class="description" itemprop="description">
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
 			</div>
@@ -17,7 +17,7 @@
 			</div>
 		</li>
 		<li class="product" itemscope itemtype="http://schema.org/Product">
-			<h2 itemprop="name"><a href="/produkter/cokementoskit">Nike Air Max</a></h2>
+			<h2 itemprop="name"><a href="/airmax">Nike Air Max</a></h2>
 			<div class="description" itemprop="description">
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
 			</div>
@@ -28,7 +28,7 @@
 
 		</li>
 		<li class="product" itemscope itemtype="http://schema.org/Product">
-			<h2 itemprop="name"><a href="/produkter/cupholderhat">Gram 380g Shoe</a></h2>
+			<h2 itemprop="name"><a href="/gram">Gram 380g Shoe</a></h2>
 			<div class="description" itemprop="description">
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
 			</div>
