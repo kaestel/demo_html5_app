@@ -1,11 +1,14 @@
 
 
 
-#page {opacity: 1;}
+#page {opacity: 0; display: none;}
 #content {opacity: 0;}
+#navigation {opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 80px;
+	background: red; 
+}
 
 
-#page .intro {display: block; background: #313942; position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
+#page .intro {display: none; background: #313942; position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
 #page .intro .sequenceplayer {width: 100%; height: 100%; position: relative;}
 #page .intro .sequence {width: 100%; height: 100%; position: relative;}
 #page .intro .sequence li {width: 100%; height: 100%; position: absolute; top: 0; left: 0; background-position: center center; background-repeat: no-repeat;}

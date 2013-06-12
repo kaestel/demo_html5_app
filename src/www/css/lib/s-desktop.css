@@ -52,12 +52,12 @@
 /* IPHONE LANDSCAPE */
 @media all and (min-width: 480px) {
 
-	body {min-height: 395px; position: relative;}
+	body {min-height: 395px; position: relative; background-color: #ffffff;}
 	.desktop_wrapper {width: 480px; height: 320px; position: absolute; top: 50%; left: 50%; margin-left: -375px; margin-top: -205px;
 		background: transparent url(/img/bg_iphone_landscape.png) no-repeat left top;
 		padding: 37px 135px 39px 134px;
 	}
-	.desktop_mask {width: 480px; height: 320px; position: relative; overflow: hidden;}
+	.desktop_mask {width: 480px; height: 320px; position: relative; overflow: hidden; background: #313942 url(/img/gx_loader.gif) no-repeat center center;}
 
 	.warning {width: 480px; height: 320px; position: absolute; z-index: 1000; top: 50%; left: 50%; margin-left: -241px; margin-top: -168px; text-align: center; background: #ffffff;}
 	.warning h1 {padding: 30px 50px 30px;}
@@ -68,12 +68,12 @@
 /* IPHONE PORTRAIT */
 @media all and (max-width: 480px) {
 
-	body {min-height: 750px; position: relative;}
+	body {min-height: 750px; position: relative; background-color: #ffffff;}
 	.desktop_wrapper {width: 320px; height: 480px; position: absolute; top: 50%; left: 50%; margin-left: -200px; margin-top: -380px;
 		background: transparent url(/img/bg_iphone_portrait.png) no-repeat left top;
-		padding: 134px 38px 149px;
+		padding: 134px 38px 149px 37px;
 	}
-	.desktop_mask {width: 320px; height: 480px; position: relative; overflow: hidden;}
+	.desktop_mask {width: 320px; height: 480px; position: relative; overflow: hidden; background: #313942 url(/img/gx_loader.gif) no-repeat center center;}
 
 	.warning {width: 320px; height: 480px; position: absolute; z-index: 1000; top: 50%; left: 50%; margin-left: -163px; margin-top: -246px; text-align: center; background: #ffffff;}
 	.warning h1 {padding: 70px 50px 30px;}

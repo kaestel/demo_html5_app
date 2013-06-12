@@ -37,16 +37,39 @@ Util.Objects["page"] = new function() {
 				u.bug("page ready")
 
 				if(!this.intro || !this.intro.parentNode) {
-					
+					u.bug("intro is done")
 
-					// page is ready
-					u.addClass(this, "ready");
+
+					this.nN.transitioned = function() {
+						this.transitioned = null;
+						u.a.transition(this, "none");
+					}
+
+					// show navigation
+					u.a.transition(this.nN, "all 0.2s ease-out");
+					u.a.setOpacity(this.nN, 1);
+
 
 					// in case content loads faster than page, call content ready controller (content ready does not execute until both content and page is ready)
 					this.cN._ready();
 
 				}
 
+
+				if(!u.hc(this, "ready")) {
+
+					// page is ready
+					u.addClass(this, "ready");
+
+					this.transitioned = function() {
+						this.transitioned = null;
+						u.a.transition(this, "none");
+					}
+
+					u.as(this, "display", "block");
+					u.a.transition(this, "all 0.2s ease-out");
+					u.a.setOpacity(this, 1);
+				}
 			}
 
 
@@ -72,6 +95,7 @@ Util.Objects["page"] = new function() {
 				if(u.hc(this.page, "ready") && u.hc(this, "ready")) {
 
 					u.bug("page is actually ready")
+
 
 				}
 			}
@@ -296,17 +320,24 @@ Util.Objects["page"] = new function() {
 		}
 
 
+		// INTRO
 
 		// create intro node
-		var intro = u.ae(page, "div", {"class":"intro"});
-		intro.page = page;
-		intro.sequence_player = u.sequencePlayer(intro);
+		page.intro = u.ae(page, "div", {"class":"intro"});
+		page.intro.page = page;
+		page.intro.sequence_player = u.sequencePlayer(page.intro);
+		page.intro.sequence_player.page = page;
 
-		u.a.setOpacity(intro, 1);
+		// intro images
+		page.intro._images = new Array();
+		for(i = 9; i <= 70; i++) {
+			page.intro._images.push("/img/intro/five_000" + (i < 10 ? "0" : "") + i + ".png");
+		}
 
-		intro.clicked = function(event) {
+		page.intro.sequence_player.ended = function() {
+//			u.bug("playback ended")
 
-			this.transitioned = function() {
+			this.page.intro.transitioned = function() {
 				u.a.transition(this, "none");
 				this.transitioned = null;
 
@@ -316,44 +347,21 @@ Util.Objects["page"] = new function() {
 				this.page._ready();
 			}
 
-			u.a.transition(this, "all 1s ease-in");
-			u.a.setOpacity(this, 0);
-			
-			u.bug("cancel intro")
-		}
-		u.e.click(intro);
-
-
-		intro.ready = function() {
-
-			u.as(this, "display", "block");
-			u.as(this, "display", "block");
-
-			u.bug("play intro")
-			
-			// this.sequenceplayer.play(this._images, {"callback":this.clicked})
-
-			this.clicked();
-
+			u.a.transition(this.page.intro, "all 0.2s ease-out");
+			u.a.setOpacity(this.page.intro, 0);
 		}
 
-
-
-		// preload intro
-		intro._images = new Array();
-		for(i = 9; i <= 70; i++) {
-			intro._images.push("/img/intro/five_000" + (i < 10 ? "0" : "") + i + ".png");
-		}
-
-		intro.sequence_player.ended = function() {
-//			u.bug("playback ended")
-		}
-
-		intro.sequence_player.loaded = function() {
+		page.intro.sequence_player.loaded = function() {
 //			u.bug("sequence loaded")
-		}
 
-		intro.sequence_player.loadAndPlay(intro._images, {"framerate":24});
+			// show intro
+			u.as(this.page.intro, "display", "block");
+
+			// show page
+			this.page._ready();
+		}
+		// load and play intro
+		page.intro.sequence_player.loadAndPlay(page.intro._images, {"framerate":24});
 
 
 

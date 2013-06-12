@@ -1,8 +1,8 @@
 * {font-family: "montserratregular", arial, verdana, sans-serif; line-height: 30px; font-size: 16px; color: #000000; font-weight: normal;}
 
 html {height: 100%;}
-body {background: #ffffff url(/img/gx_loader.gif) no-repeat center center; margin: 0; overflow-y: scroll; height: 100%;}
-body.loaded {background: #ffffff;}
+body {background: #313942 url(/img/gx_loader.gif) no-repeat center center; margin: 0; overflow-y: scroll; height: 100%;}
+body.loaded {background: #313942;}
 
 /* BASE */
 h1, h2, h3, h4, h5, h6, p, ul, li, dl, dd, dt, address {padding: 0; margin: 0;}
@@ -16,17 +16,18 @@ input, select, textarea {font-size: 14px;}
 input, textarea {outline: none;}
 
 
-#page {position: relative; text-align: left; height: 100%; font-size: 0; overflow: hidden; background: #cbdbe5;
+#page {position: relative; text-align: left; height: 100%; font-size: 0; overflow: hidden; background: #313942;
 	-webkit-transform: translate3d(0,0,0);
 }
 
-@media all and (min-width: 1024px) {
+
+@media all and (min-width: 480px) {
 
 	#page {width: 480px;}
 
 }
 
-@media all and (max-width: 1024px) {
+@media all and (max-width: 480px) {
 
 	#page {width: 320px;}
 
