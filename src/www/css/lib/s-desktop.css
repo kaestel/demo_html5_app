@@ -55,7 +55,7 @@
 	body {min-height: 395px; position: relative;}
 	.desktop_wrapper {width: 480px; height: 320px; position: absolute; top: 50%; left: 50%; margin-left: -375px; margin-top: -205px;
 		background: transparent url(/img/bg_iphone_landscape.png) no-repeat left top;
-		padding: 38px 135px 39px 134px;
+		padding: 37px 135px 39px 134px;
 	}
 	.desktop_mask {width: 480px; height: 320px; position: relative; overflow: hidden;}
 

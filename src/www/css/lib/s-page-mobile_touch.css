@@ -16,19 +16,19 @@ input, select, textarea {font-size: 14px;}
 input, textarea {outline: none;}
 
 
-#page {position: relative; text-align: left; margin: 0 auto; height: 100%; font-size: 0; overflow: hidden; background: #cbdbe5;
+#page {position: relative; text-align: left; height: 100%; font-size: 0; overflow: hidden; background: #cbdbe5;
 	-webkit-transform: translate3d(0,0,0);
 }
 
 @media all and (min-width: 1024px) {
 
-	#page {width: 1024px;}
+	#page {width: 480px;}
 
 }
 
 @media all and (max-width: 1024px) {
 
-	#page {width: 768px;}
+	#page {width: 320px;}
 
 
 	#navigation {display: none;

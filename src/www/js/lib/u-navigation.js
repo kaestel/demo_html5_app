@@ -5,40 +5,40 @@ u.navigation = function(page) {
 
 	
 	
-	page.ready = function() {
-//		u.bug("page ready")
 
-		u.h.catchEvent(this.cN.navigate, this.cN);
+	page._navigation_initiated = function() {
+		u.bug("page _navigation_ready")
 
-		// activate resizing
-		u.e.addEvent(window, "resize", this._resized);
 
-		// page is ready
-		u.addClass(this, "ready");
+		u.h.catchEvent(page.cN.navigate, page.cN);
 
-		// in case content loads faster than page, call content ready controller (content ready does not execute until both content and page is ready)
-		this.cN.ready();
+
+		
+//		this.ready();
 	}
+
 
 	// content state controller
-	page.cN.ready = function() {
-//		u.bug("page ready:" + u.hc(this.page, "ready") + "content ready:" + u.hc(this, "ready"));
-		// if all is good and ready to go
-		if(u.hc(this.page, "ready") && u.hc(this, "ready")) {
-//			u.bug("fade content up");
+// 	page.cN.ready = function() {
+// //		u.bug("page ready:" + u.hc(this.page, "ready") + "content ready:" + u.hc(this, "ready"));
+// 		// if all is good and ready to go
+// 		if(u.hc(this.page, "ready") && u.hc(this, "ready")) {
+// //			u.bug("fade content up");
+// 
+// 			if(u.gcs(this, "opacity") != 1) {
+// 				u.a.transition(this, "opacity 0.5s ease-in");
+// 				u.a.setOpacity(this, 1);
+// 			}
+// 			else {
+// 				u.a.transition(this, "none");
+// 			}
+// 
+// 			// custom - show footer
+// 			u.qs("#page").fN.show();
+// 		}
+// 	}
 
-			if(u.gcs(this, "opacity") != 1) {
-				u.a.transition(this, "opacity 0.5s ease-in");
-				u.a.setOpacity(this, 1);
-			}
-			else {
-				u.a.transition(this, "none");
-			}
 
-			// custom - show footer
-			u.qs("#page").fN.show();
-		}
-	}
 
 	window.scrollToTopHandler = function(event) {
 
@@ -135,15 +135,19 @@ u.navigation = function(page) {
 		}
 	}
 
+
+
 	page.cN.navigate = function() {
 //		u.bug("navigate:" + u.h.getCleanHash(location.hash) + "("+ (this.paths ? this.paths[0] : "") + ")")
 
-
 		// cancel scroll handler
 //		window.onscroll = null;
-		if(this.scene && typeof(this.scene.cleanup) == "function") {
-			this.scene.cleanup();
+
+
+		if(this.scene && typeof(this.scene._cleanup) == "function") {
+			this.scene._cleanup();
 		}
+
 
 		// execute navigation only if first level changes
 		if(!this.paths || this.paths[0] != u.h.getCleanHash(location.hash, 1)) {
@@ -173,23 +177,29 @@ u.navigation = function(page) {
 
 
 
+
 	// set default hash if no hash value is present
 	// no furter navigation - initialize content
 	if(location.hash.length < 2) {
-//		u.bug("set hash + init content")
+		u.bug("set hash + init content")
 		location.hash = u.h.getCleanUrl(location.href);
 		u.init(page.cN);
 	}
 	// if different hash and url, load content based on hash
 	else if(u.h.getCleanHash(location.hash) != u.h.getCleanUrl(location.href)) {
-//		u.bug("init navigate")
+		u.bug("init navigate")
 		page.cN.navigate();
 	}
 	// hash and url is aligned - init existing content
 	else {
-//		u.bug("init content")
+		u.bug("init content")
 		u.init(page.cN);
 	}
 
-	
+
+
+	// set hash event handler with small delay to avoid redirecting when actually just trying to update HASH
+	u.t.setTimer(page, page._navigation_initiated, 100);
+
+
 }
