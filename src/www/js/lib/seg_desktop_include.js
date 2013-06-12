@@ -6,4 +6,8 @@ document.write('<script type="text/javascript" src="/js/lib/i-page-mobile_touch.
 document.write('<script type="text/javascript" src="/js/lib/i-content.js"></script>');
 
 
+document.write('<script type="text/javascript" src="/js/lib/u-navigation.js"></script>');
+document.write('<script type="text/javascript" src="/js/lib/u-sequence.js"></script>');
+
+
 document.write('<script type="text/javascript" src="/js/lib/i-desktop.js"></script>');

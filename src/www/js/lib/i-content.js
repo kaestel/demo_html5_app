@@ -5,18 +5,30 @@ Util.Objects["content"] = new function() {
 		scene.cN.scene = scene;
 
 
-		scene.ready = function() {
+		scene._ready = function() {
+			u.bug("scene ready")
+
 
 			u.ac(this.cN, "ready");
-
-			this.cN.ready();
+			this.cN._ready();
 		}
 
-		scene.resized = function() {}
+		scene._resized = function() {
+			u.bug("scene resized");
+		}
 
-		scene.cleanup = function() {}
+		scene._cleanup = function() {
+			u.bug("scene cleanup");
+		}
 
-		scene.navigate = function() {}
-		
+		scene._navigate = function() {
+			u.bug("scene navigate");
+		}
+
+
+		var scene_images = new Array();
+		scene_images.push("/img/gx_loader.gif");
+
+		u.preloader(scene, scene_images, {"callback":scene._ready});
 	}
 }
