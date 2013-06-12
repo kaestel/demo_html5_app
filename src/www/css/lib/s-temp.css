@@ -3,7 +3,7 @@
 
 #page {opacity: 0; display: none;}
 #content {opacity: 0;}
-#navigation {opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 80px;
+#navigation {opacity: 0; position: absolute; top: 0; left: 0; width: 100%;
 	background: red; 
 }
 
