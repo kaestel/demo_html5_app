@@ -1,1 +1,4 @@
-h1 {font-size: 30px; line-height: 120px; font-weight: bold; color: #465159;}
+h1 {font-size: 30px; line-height: 120px; font-weight: bold; color: #465159; background-color: orange;}
+
+ul.actions li {position: relative;}
+ul.actions li input.buy {background-color: #fc335c; color: #ffffff; display: block; border: none; line-height: 120%; font-weight: bold; text-align: center; padding: 20px 0; font-size: 50px; line-height: 120%;}

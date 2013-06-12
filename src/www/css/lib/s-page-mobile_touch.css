@@ -42,7 +42,7 @@ input, textarea {outline: none;}
 	}
 	#navigation ul li {display: none;}
 
-	#content {height: 100%; width: 3072px; font-size: 0; background: #ffffff;
+	#content {height: 100%; font-size: 0;
 		-webkit-transform: translate3d(0,0,0);
 		opacity: 0;
 	}
