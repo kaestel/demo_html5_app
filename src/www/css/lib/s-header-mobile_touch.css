@@ -1,4 +1,4 @@
-#header {height: 43px; opacity: 0; background: #313942; position: relative;}
+#header {height: 43px; opacity: 0; background: #313942; position: relative; z-index: 10;}
 
 
 #header .servicenavigation {}

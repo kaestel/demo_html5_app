@@ -63,6 +63,12 @@ Util.Objects["page"] = new function() {
 					this.transitioned = function() {
 						this.transitioned = null;
 						u.a.transition(this, "none");
+
+						// recalculate content height
+						this._resized();
+
+						// show navigation AFTER page is shown
+						u.as(this.nN, "display", "block");
 					}
 
 					u.as(this, "display", "block");
@@ -88,10 +94,8 @@ Util.Objects["page"] = new function() {
 				else {
 					var h = window.innerHeight;
 					u.a.setHeight(this, h);
-					
 				}
 			}
-
 
 
 
@@ -121,19 +125,15 @@ Util.Objects["page"] = new function() {
 				}
 			}
 
-
+			// Init header 
 			page.initHeader = function() {
-
-				u.bug("init header")
-
-
+//				u.bug("init header")
 
 				this.hN.bn_nav = u.qs("li.navigation", this.hN);
 				this.hN.bn_nav.page = this;
 
 				this.hN.bn_nav.clicked = function() {
-
-					u.bug("bn_nav clicked")
+//					u.bug("bn_nav clicked")
 
 					this.page.transitioned = function() {
 						this.transitioned = null;
@@ -195,14 +195,13 @@ Util.Objects["page"] = new function() {
 
 			// global resize handler 
 			page._resized = function() {
-//				u.bug("page resized")
+				u.bug("page resized")
 
 				var page = u.qs("#page");
 
 				if(typeof(page.cN.scene._resized) == "function") {
 					page.cN.scene._resized();
 				}
-
 				if(typeof(page.intro) == "object" && typeof(page.intro._resized) == "function" && page.intro.parentNode) {
 					page.intro._resized();
 				}
@@ -210,12 +209,20 @@ Util.Objects["page"] = new function() {
 				if(typeof(page.hN._resized) == "function") {
 					page.hN._resized();
 				}
+				if(typeof(page.cN._resized) == "function") {
+					page.cN._resized();
+				}
 				if(typeof(page.fN._resized) == "function") {
 					page.fN._resized();
 				}
 			}
 			// set resize handler
 			u.e.addEvent(window, "resize", page._resized);
+
+			page.cN._resized = function() {
+				u.bug("cN resize:" + this.page.offsetHeight + ", " + this.page.hN.offsetHeight)
+				u.a.setHeight(this, this.page.offsetHeight - this.page.hN.offsetHeight);
+			}
 
 
 
@@ -356,15 +363,16 @@ Util.Objects["page"] = new function() {
 			this.page.intro.transitioned = function() {
 				u.a.transition(this, "none");
 				this.transitioned = null;
-
+			
 				this.parentNode.removeChild(this);
-
-
+			
+			
 				this.page._ready();
 			}
-
+			
 			u.a.transition(this.page.intro, "all 0.2s ease-out 1s");
 			u.a.setOpacity(this.page.intro, 0);
+
 		}
 
 		page.intro.sequence_player.loaded = function() {
