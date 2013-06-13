@@ -1,3 +1,10 @@
-#header {height: 43px;}
+#header {height: 43px; opacity: 0;}
 	
 #header .servicenavigation {}
+
+	
+	#navigation ul li.nav {position: absolute; top: 0; left: 0; display: inline-block; background: yellow url(/img/bg_icons.png) no-repeat 22px 28px; background-size: 100%;}
+	#navigation ul li.nav a {display: block; text-indent: -9999px; height: 100%;}
+
+	#navigation ul li.camera {position: absolute; top: 0; right: 0; display: inline-block; background: blue url(/img/bg_icons.png) no-repeat -383px 20px; width: 86px; height: 86px;}
+	#navigation ul li.camera a {display: block; text-indent: -9999px; height: 100%;}
