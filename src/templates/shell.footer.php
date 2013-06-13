@@ -1,12 +1,18 @@
 	</div>
 	
 	<div id="navigation">
-		<ul>
-			<li class="front"><a href="#">Front</a></li>
-			<li class="list"><a href="#">List</a></li>
-			<li class="sub1"><a href="#">Sub1</a></li>
-			<li class="sub2"><a href="#">Sub2</a></li>
-			<li class="sub3"><a href="#">Sub3</a></li>
+		<h2>Your Store</h2>
+		<ul class="topnav">
+			<li class="items"><a href="#">Your items</a></li>
+			<li class="sales"><a href="#">Your sales</a></li>
+			<li class="settings"><a href="#">Your store settings</a></li>
+		</ul>
+		<h2>Partner Stores</h2>
+		<ul class="bottomnav">
+			<li><a href="#">Latest arrivals</a></li>
+			<li><a href="#">Sneakers</a></li>
+			<li><a href="#">Loafers</a></li>
+			<li><a href="#">Boots</a></li>
 		</ul>
 	</div>
 	
