@@ -30,8 +30,6 @@ Util.Objects["page"] = new function() {
 			page.fN.page = page;
 
 
-
-
 			page._ready = function() {
 
 				u.bug("page ready")
@@ -56,7 +54,13 @@ Util.Objects["page"] = new function() {
 				}
 
 
+				// page is ready to be shown - only show if not already shown
 				if(!u.hc(this, "ready")) {
+
+					// maximize height
+					if(!u.qs(".desktop_wrapper")) {
+						this.resetHeight();
+					}
 
 					// page is ready
 					u.addClass(this, "ready");
@@ -72,6 +76,25 @@ Util.Objects["page"] = new function() {
 				}
 			}
 
+			// reset height to make adressbar disappear
+			page.resetHeight = function() {
+//				u.bug("reset height:" + u.gcs(this, "height"));
+
+				window.scrollTo(0, 0);
+
+				if(u.gcs(this, "height") != "4000px") {
+					u.a.setHeight(this, 4000);
+
+					window.scrollTo(0, 0);
+					
+					this.t_reset_height = u.t.setTimer(this, this.resetHeight, 200);
+				}
+				else {
+					var h = window.innerHeight;
+					u.a.setHeight(this, h);
+					
+				}
+			}
 
 
 
@@ -134,68 +157,25 @@ Util.Objects["page"] = new function() {
 
 
 
-			page.scrollToTop = function(source) {
-	//			u.bug("scroll to top:" + source);
-
-	//			u.t.resetTimer(this.t_scroll);
-				u.a.setHeight(this, 2000);
-
-	//			u.bug(u.gcs(this, "height"));
-				window.scrollTo(0, 0);
-	//			var h = (window.orientation == 90 || window.orientation == 270) ? window.innerWidth : window.innerHeight;
-
-				this.resetHeight = function() {
-					window.scrollTo(0, 0);
-
-					var h = window.innerHeight;
-
-					// if(u.hc(document.body, "front")) {
-					// 	h = h < this.cN.offsetHeight ? this.cN.offsetHeight : h;
-					// }
-					if(this.offsetHeight != h) {
-	//					u.bug("reset height:" + u.nodeId(this) + ", " + u.gcs(this, "height") + " =>" + h);
-
-						u.a.setHeight(this, h);
-						if(this.scene && typeof(this.scene.setHeight) == "function") {
-							this.scene.setHeight();
-						}
-					}
-
-				}
-				this.t_scroll = u.t.setTimer(this, this.resetHeight, 200);
-			}
-			//page.t_scroll = u.t.setTimer(page, page.scrollToTop, 1000);
-
-
-
-
-
 			// global resize handler 
 			page._resized = function() {
-				u.bug("page resized")
+//				u.bug("page resized")
 
-//				u.bug(u.absY(this.fN));
+				var page = u.qs("#page");
 
-				if(u.browserW() > 960) {
+				if(typeof(page.cN.scene._resized) == "function") {
+					page.cN.scene._resized();
+				}
 
-					var page = u.qs("#page");
+				if(typeof(page.intro) == "object" && typeof(page.intro._resized) == "function" && page.intro.parentNode) {
+					page.intro._resized();
+				}
 
-					if(typeof(page.cN.scene._resized) == "function") {
-						page.cN.scene._resized();
-					}
-
-
-					if(typeof(page.intro) == "object" && typeof(page.intro._resized) == "function" && page.intro.parentNode) {
-						page.intro._resized();
-					}
-
-					if(typeof(page.hN._resized) == "function") {
-						page.hN._resized();
-					}
-					if(typeof(page.fN._resized) == "function") {
-						page.fN._resized();
-					}
-
+				if(typeof(page.hN._resized) == "function") {
+					page.hN._resized();
+				}
+				if(typeof(page.fN._resized) == "function") {
+					page.fN._resized();
 				}
 			}
 			// set resize handler

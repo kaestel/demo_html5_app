@@ -14,7 +14,7 @@ Util.Objects["content"] = new function() {
 		}
 
 		scene._resized = function() {
-			u.bug("scene resized");
+//			u.bug("scene resized");
 		}
 
 		scene._cleanup = function() {

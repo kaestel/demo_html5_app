@@ -28,5 +28,6 @@ Util.Objects["validdevice"] = new function() {
 				u.saveCookie("warning", "true");
 			}
 		}
+
 	}
 }

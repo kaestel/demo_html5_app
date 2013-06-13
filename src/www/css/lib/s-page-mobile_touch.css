@@ -23,13 +23,13 @@ input, textarea {outline: none;}
 
 @media all and (min-width: 480px) {
 
-	#page {width: 480px;}
+	#page {width: 480px; height: 320px;}
 
 }
 
 @media all and (max-width: 480px) {
 
-	#page {width: 320px;}
+	#page {width: 320px; height: 480px;}
 
 
 	#navigation {display: none;
