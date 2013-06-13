@@ -7,7 +7,7 @@
 			<li class="sales"><a href="#">Your sales</a></li>
 			<li class="settings"><a href="#">Your store settings</a></li>
 		</ul>
-		<h2>Partner Stores</h2>
+		<h2 class="partners">Partner Stores</h2>
 		<ul class="bottomnav">
 			<li><a href="#">Latest arrivals</a></li>
 			<li><a href="#">Sneakers</a></li>

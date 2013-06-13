@@ -1,10 +1,14 @@
-#navigation {height: 100%; opacity: 1; position: absolute; top: 0; left: 0; width: 100%; background: #535c67; z-index: 10;}
+#navigation {height: 100%; opacity: 1; position: absolute; top: 0; left: 0; width: 100%; background: #535c67; z-index: 10; display: block !important;}
 
-#navigation h2 {font-size: 18px; line-height: 40px; color: #313941; text-shadow: 0px 2px 0px rgba(119,133,148,0.65); background: red; padding: 0 0 0 20px; text-transform: uppercase;}
+#navigation h2 {font-size: 18px; line-height: 48px; color: #313941; text-shadow: 0px 2px 0px rgba(119,133,148,0.65); padding: 0 0 0 20px; text-transform: uppercase;}
 
-#navigation ul {font-size: 0; position: relative; background: green; position: static; padding: 0 0 0 20px;}
+#navigation ul {font-size: 0; position: relative; position: static; padding: 0 0 0 20px;}
 #navigation ul li {height: 100%; display: block; height: 40px;}
-#navigation ul li a {font-size: 18px; line-height: 40px; font-weight: 600; color: #cbebd3; background: yellow; display: block;}
+#navigation ul li a {font-size: 18px; line-height: 40px; font-weight: 600; color: #cbebd3; display: block;}
 
-#navigation ul.topnav li {padding-left: 67px; background: transparent url(/img/bg_icons.png) no-repeat 0px 0px; background-size: auto 100%;}
+#navigation ul.topnav li {padding-left: 34px; background: transparent url(/img/bg_icons.png) no-repeat 0px -291px; background-size: 100px auto;}
 
+#navigation ul.topnav li.sales {background-position: 0px -393px;}
+#navigation ul.topnav li.settings {background-position: 0px -493px;}
+
+#navigation h2.partners {line-height: 20px; padding: 13px 0 3px 20px;}
