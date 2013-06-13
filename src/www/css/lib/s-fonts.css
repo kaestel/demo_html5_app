@@ -1,18 +1,27 @@
 @font-face {
-    font-family: 'montserratregular';
-    src: url('/css/fonts/montserrat-regular-webfont.woff') format('woff'),
-         url('/css/fonts/montserrat-regular-webfont.ttf') format('truetype'),
-         url('/css/fonts/montserrat-regular-webfont.svg#montserratregular') format('svg');
+    font-family: 'proximanova_regular';
+    src: url('/css/fonts/proximanova-regular-webfont.woff') format('woff'),
+         url('/css/fonts/proximanova-regular-webfont.ttf') format('truetype'),
+         url('/css/fonts/proximanova-regular-webfont.svg#montserratregular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 
 @font-face {
-    font-family: 'montserratbold';
-    src: url('/css/fonts/montserrat-bold-webfont.woff') format('woff'),
-         url('/css/fonts/montserrat-bold-webfont.ttf') format('truetype'),
-         url('/css/fonts/montserrat-bold-webfont.svg#montserratbold') format('svg');
+    font-family: 'proximanova_bold';
+    src: url('/css/fonts/proximanova-bold-webfont.woff') format('woff'),
+         url('/css/fonts/proximanova-bold-webfont.ttf') format('truetype'),
+         url('/css/fonts/proximanova-bold-webfont.svg#montserratbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'proximanova_light';
+    src: url('/css/fonts/proximanova-light-webfont.woff') format('woff'),
+         url('/css/fonts/proximanova-light-webfont.ttf') format('truetype'),
+         url('/css/fonts/proximanova-light-webfont.svg#montserratbold') format('svg');
     font-weight: normal;
     font-style: normal;
 }
