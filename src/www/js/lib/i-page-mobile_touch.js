@@ -24,8 +24,7 @@ Util.Objects["page"] = new function() {
 			// navigation reference
 			page.nN = u.qs("#navigation");
 			page.nN.page = page;
-			page.nN.ul = u.qs("ul", page.nN);
-			u.a.translate(page.nN.ul, -200, 0);
+			page.nN = u.ae(page.parentNode, page.nN);
 
 
 			// footer reference
@@ -40,14 +39,14 @@ Util.Objects["page"] = new function() {
 				if(!this.intro || !this.intro.parentNode) {
 					u.bug("intro is done")
 
-					this.nN.transitioned = function() {
+					this.hN.transitioned = function() {
 						this.transitioned = null;
 						u.a.transition(this, "none");
 					}
 
 					// show navigation
-					u.a.transition(this.nN, "all 0.2s ease-out");
-					u.a.setOpacity(this.nN, 1);
+					u.a.transition(this.hN, "all 0.2s ease-out");
+					u.a.setOpacity(this.hN, 1);
 
 
 					// in case content loads faster than page, call content ready controller (content ready does not execute until both content and page is ready)

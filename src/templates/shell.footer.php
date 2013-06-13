@@ -2,27 +2,11 @@
 	
 	<div id="navigation">
 		<ul>
-			<li class="front">
-				<h3><a href="#">Front</a></h3>
-			</li>
-			<li class="list">
-				<h3><a href="#">List</a></h3>
-			</li>
-			<li class="sub1">
-				<h3><a href="#">Sub1</a></h3>
-			</li>
-			<li class="sub2">
-				<h3><a href="#">Sub2</a></h3>
-			</li>
-			<li class="sub3">
-				<h3><a href="#">Sub3</a></h3>
-			</li>
-			<li class="nav">
-				<h3><a href="#">Nav</a></h3>
-			</li>
-			<li class="camera">
-				<h3><a href="#">Camera</a></h3>
-			</li>
+			<li class="front"><a href="#">Front</a></li>
+			<li class="list"><a href="#">List</a></li>
+			<li class="sub1"><a href="#">Sub1</a></li>
+			<li class="sub2"><a href="#">Sub2</a></li>
+			<li class="sub3"><a href="#">Sub3</a></li>
 		</ul>
 	</div>
 	

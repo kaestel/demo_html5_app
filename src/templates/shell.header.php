@@ -26,7 +26,10 @@
 <div id="page" class="i:page">
 
 	<div id="header">
-
+		<ul class="servicenavigation">
+			<li class="keynav navigation access"><a href="#navigation" rel="nofollow">Navigation</a></li>
+			<li class="keynav camera access"><a href="/camera" rel="nofollow">Camera</a></li>
+		</ul>
 	</div>
 
 	<div id="content">
