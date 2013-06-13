@@ -115,6 +115,8 @@ Util.Objects["page"] = new function() {
 
 					u.bug("page is actually ready")
 
+					u.a.transition(this, "all 0.3s ease-out");
+					u.a.setOpacity(this, 1);
 
 				}
 			}
@@ -361,7 +363,7 @@ Util.Objects["page"] = new function() {
 				this.page._ready();
 			}
 
-			u.a.transition(this.page.intro, "all 0.2s ease-out");
+			u.a.transition(this.page.intro, "all 0.2s ease-out 1s");
 			u.a.setOpacity(this.page.intro, 0);
 		}
 

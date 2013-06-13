@@ -3,11 +3,11 @@
 
 #header .servicenavigation {}
 
-#header .servicenavigation li {position: absolute; width: 43px; height: 43px; background-color: transparent; background-repeat: no-repeat; background-image: url(/img/bg_icons.png); background-size: auto 100%;}
+#header .servicenavigation li {position: absolute; width: 43px; height: 43px; background-color: transparent; background-repeat: no-repeat; background-image: url(/img/bg_icons.png); background-size: 100px auto;}
 #header .servicenavigation li a {display: block; text-indent: -9999px; height: 100%;}
 
 #header .servicenavigation li.navigation {top: 0; left: 0; background-position: 11px 14px;}
-#header .servicenavigation li.camera {top: 0; right: 0; background-position: -164px 10px;}
+#header .servicenavigation li.camera {top: 0; right: 0; background-position: 11px -189px;}
 
 
 #header .servicenavigation li.camera .field input {border: none; height: 43px; width: 43px; opacity: 0;}
