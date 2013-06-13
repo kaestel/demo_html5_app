@@ -39,14 +39,8 @@ Util.Objects["page"] = new function() {
 				if(!this.intro || !this.intro.parentNode) {
 					u.bug("intro is done")
 
-					this.hN.transitioned = function() {
-						this.transitioned = null;
-						u.a.transition(this, "none");
-					}
 
-					// show navigation
-					u.a.transition(this.hN, "all 0.2s ease-out");
-					u.a.setOpacity(this.hN, 1);
+					this.initHeader();
 
 
 					// in case content loads faster than page, call content ready controller (content ready does not execute until both content and page is ready)
@@ -76,6 +70,7 @@ Util.Objects["page"] = new function() {
 					u.a.setOpacity(this, 1);
 				}
 			}
+
 
 			// reset height to make adressbar disappear
 			page.resetHeight = function() {
@@ -124,6 +119,59 @@ Util.Objects["page"] = new function() {
 				}
 			}
 
+
+			page.initHeader = function() {
+
+				u.bug("init header")
+
+				this.hN.transitioned = function() {
+					this.transitioned = null;
+					u.a.transition(this, "none");
+				}
+
+
+				this.hN.bn_nav = u.qs("li.navigation", this.hN);
+				this.hN.bn_nav.page = this;
+
+				this.hN.bn_nav.clicked = function() {
+
+					u.bug("bn_nav clicked")
+
+					this.page.transitioned = function() {
+						this.transitioned = null;
+						u.a.transition(this, "none");
+					}
+
+					if(!u.hc(this.page.nN, "open")) {
+						u.a.transition(this.page, "all 0.3s ease-in-out");
+						u.a.translate(this.page, this.page.offsetWidth - this.offsetWidth, 0)
+
+						u.ac(this.page.nN, "open");
+					}
+					else {
+						u.a.transition(this.page, "all 0.3s ease-in-out");
+						u.a.translate(this.page, 0, 0)
+
+						u.rc(this.page.nN, "open");
+					}
+				}
+				u.ce(this.hN.bn_nav);
+
+
+
+				this.hN.bn_cam = u.qs("li.camera", this.hN);
+				this.hN.bn_cam.page = this;
+				this.hN.bn_cam.clicked = function() {
+					
+				}
+				u.ce(this.hN.bn_cam);
+
+
+				// show navigation
+				u.a.transition(this.hN, "all 0.2s ease-out");
+				u.a.setOpacity(this.hN, 1);
+				
+			}
 
 			// 
 			// u.a.translate(page.nN, 0, -40);

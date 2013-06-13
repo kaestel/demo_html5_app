@@ -1,10 +1,10 @@
-#header {height: 43px; opacity: 0;}
-	
+#header {height: 43px; opacity: 0; background: #313942; position: relative;}
+
+
 #header .servicenavigation {}
 
-	
-	#navigation ul li.nav {position: absolute; top: 0; left: 0; display: inline-block; background: yellow url(/img/bg_icons.png) no-repeat 22px 28px; background-size: 100%;}
-	#navigation ul li.nav a {display: block; text-indent: -9999px; height: 100%;}
+#header .servicenavigation li {position: absolute; width: 43px; height: 43px; background-color: transparent; background-repeat: no-repeat; background-image: url(/img/bg_icons.png); background-size: auto 100%;}
+#header .servicenavigation li a {display: block; text-indent: -9999px; height: 100%;}
 
-	#navigation ul li.camera {position: absolute; top: 0; right: 0; display: inline-block; background: blue url(/img/bg_icons.png) no-repeat -383px 20px; width: 86px; height: 86px;}
-	#navigation ul li.camera a {display: block; text-indent: -9999px; height: 100%;}
+#header .servicenavigation li.navigation {top: 0; left: 0; background-position: 11px 14px;}
+#header .servicenavigation li.camera {top: 0; right: 0; background-position: -164px 10px;}

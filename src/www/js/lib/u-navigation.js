@@ -148,30 +148,30 @@ u.navigation = function(page) {
 			this.scene._cleanup();
 		}
 
-
-		// execute navigation only if first level changes
-		if(!this.paths || this.paths[0] != u.h.getCleanHash(location.hash, 1)) {
-
-//			u.bug("base url:" + u.h.getCleanHash(location.hash));
-			
-			// content is no longer ready
-			u.rc(this, "ready");
-			
-			this.scrollToTop(true);
-
-			// handle oad-response when returned after load and fade back in
-
-
-		}
-		else {
-//			u.bug("2. level url:" + u.h.getCleanHash(location.hash));
-
-			// forward navigation event to scene
-			if(this.scene && this.scene.parentNode && typeof(this.scene.navigate) == "function") {
-				this.scene.navigate();
-			}
-
-		}
+// 
+// 		// execute navigation only if first level changes
+// 		if(!this.paths || this.paths[0] != u.h.getCleanHash(location.hash, 1)) {
+// 
+// //			u.bug("base url:" + u.h.getCleanHash(location.hash));
+// 			
+// 			// content is no longer ready
+// 			u.rc(this, "ready");
+// 			
+// 			this.scrollToTop(true);
+// 
+// 			// handle oad-response when returned after load and fade back in
+// 
+// 
+// 		}
+// 		else {
+// //			u.bug("2. level url:" + u.h.getCleanHash(location.hash));
+// 
+// 			// forward navigation event to scene
+// 			if(this.scene && this.scene.parentNode && typeof(this.scene.navigate) == "function") {
+// 				this.scene.navigate();
+// 			}
+// 
+// 		}
 
 	}
 

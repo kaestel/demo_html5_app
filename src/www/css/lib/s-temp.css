@@ -4,6 +4,7 @@
 #page {opacity: 0; display: none; z-index: 1;}
 #content {opacity: 0; background: #cbebd5;}
 
+#navigation {display: none;}
 
 #page .intro {display: none; background: #313942; position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
 #page .intro .sequenceplayer {width: 100%; height: 100%; position: relative;}
