@@ -1,5 +1,5 @@
 u.bug_force = true;
-
+u.bug_console_only = true;
 
 Util.Objects["page"] = new function() {
 	this.init = function(page) {
@@ -24,6 +24,9 @@ Util.Objects["page"] = new function() {
 			// navigation reference
 			page.nN = u.qs("#navigation");
 			page.nN.page = page;
+			page.nN.ul = u.qs("ul", page.nN);
+			u.a.translate(page.nN.ul, -200, 0);
+
 
 			// footer reference
 			page.fN = u.qs("#footer");
@@ -36,7 +39,6 @@ Util.Objects["page"] = new function() {
 
 				if(!this.intro || !this.intro.parentNode) {
 					u.bug("intro is done")
-
 
 					this.nN.transitioned = function() {
 						this.transitioned = null;
