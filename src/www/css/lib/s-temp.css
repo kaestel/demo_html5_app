@@ -1,7 +1,7 @@
 
 
 
-#page {opacity: 0; display: none;}
+#page {opacity: 0; display: none; z-index: 1;}
 #content {opacity: 0; background: #cbebd5;}
 
 #navigation {display: none;}
