@@ -124,10 +124,6 @@ Util.Objects["page"] = new function() {
 
 				u.bug("init header")
 
-				this.hN.transitioned = function() {
-					this.transitioned = null;
-					u.a.transition(this, "none");
-				}
 
 
 				this.hN.bn_nav = u.qs("li.navigation", this.hN);
@@ -166,34 +162,23 @@ Util.Objects["page"] = new function() {
 				}
 				u.ce(this.hN.bn_cam);
 
+				this.hN.bn_cam.response = function(response) {
+					this.innerHTML = u.qs(".scene", response).innerHTML;
+				}
+				u.request(this.hN.bn_cam, this.hN.bn_cam.url);
 
 				// show navigation
+				this.hN.transitioned = function() {
+					this.transitioned = null;
+					u.a.transition(this, "none");
+				}
 				u.a.transition(this.hN, "all 0.2s ease-out");
 				u.a.setOpacity(this.hN, 1);
-				
+
 			}
 
-			// 
-			// u.a.translate(page.nN, 0, -40);
-			// u.as(page.nN, "display", "block");
-			// 
-			// u.e.click(page.nN);
-			// page.nN.clicked = function() {
-			// 
-			// 	if(u.hc(this, "open")) {
-			// 		u.rc(this, "open");
-			// 
-			// 		u.a.setHeight(this, 40);
-			// 		u.a.setWidth(this, 93);
-			// 	}
-			// 	else {
-			// 		u.ac(this, "open");
-			// 
-			// 		u.a.setHeight(this, 722);
-			// 		u.a.setWidth(this, 768);
-			// 	}
-			// }
-		
+
+
 
 			// continue to animate frontpage
 			page.cN.transitioned = function() {
@@ -359,8 +344,8 @@ Util.Objects["page"] = new function() {
 
 		// intro images
 		page.intro._images = new Array();
-		for(i = 9; i <= 70; i++) {
-			page.intro._images.push("/img/intro/five_000" + (i < 10 ? "0" : "") + i + ".png");
+		for(i = 24; i <= 75; i++) {
+			page.intro._images.push("/img/intro/Untitled-1_000" + (i < 10 ? "0" : "") + i + ".jpg");
 		}
 
 		page.intro.sequence_player.ended = function() {

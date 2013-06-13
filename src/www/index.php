@@ -1,11 +1,44 @@
-<?php $body_class = "front" ?>
-<?php $page_description = "This is the intro" ?>
+<?php $body_class = "list" ?>
+<?php $page_description = "This is the list" ?>
 <?php $page_title = "HTML5 Demo" ?>
 <?php include_once($_SERVER["LOCAL_PATH"]."/templates/shell.header.php") ?>
 
 <div class="scene i:content">
-	<h1>Header</h1>
-	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat, arcu nec suscipit molestie, ante dolor posuere massa, non imperdiet nunc neque vitae mi. Cras lectus dolor, malesuada sed commodo eget, dignissim sit amet justo. Phasellus consequat suscipit pharetra. Duis dignissim ultricies erat ut cursus. Aenean viverra ornare rutrum. In tempor iaculis orci, a convallis neque vulputate non. Morbi vel purus ut nisl egestas semper. Praesent vitae purus nec felis laoreet consectetur non a turpis. Morbi congue tincidunt bibendum. Nam lorem est, sollicitudin ac suscipit ut, gravida in erat. Nulla libero erat, adipiscing ac scelerisque vitae, porttitor et lorem. Integer et augue vel tortor tempor condimentum vitae in velit. </p>
+	<h1>List</h1>
+	<ul class="productlist i:productlist">
+		<li class="product" itemscope itemtype="http://schema.org/Product">
+			<h2 itemprop="name"><a href="/pointer">Pointer Underachiever</a></h2>
+			<div class="description" itemprop="description">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
+			</div>
+			<div class="published_at" itemprop="releaseDate">May 26th 2013</div>
+			<div class="offer" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+				<p class="price" itemprop="price">1299</p>
+			</div>
+		</li>
+		<li class="product" itemscope itemtype="http://schema.org/Product">
+			<h2 itemprop="name"><a href="/airmax">Nike Air Max</a></h2>
+			<div class="description" itemprop="description">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
+			</div>
+			<div class="published_at" itemprop="releaseDate">April 3rd 2013</div>
+			<div class="offer" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+				<p class="price" itemprop="price">2049</p>
+			</div>
+
+		</li>
+		<li class="product" itemscope itemtype="http://schema.org/Product">
+			<h2 itemprop="name"><a href="/gram">Gram 380g Shoe</a></h2>
+			<div class="description" itemprop="description">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
+			</div>
+			<div class="published_at" itemprop="releaseDate">April 22nd 2013</div>
+			<div class="offer" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+				<p class="price" itemprop="price">1799</p>
+			</div>
+
+		</li>
+	</ul>
 </div>
 
 <?php include_once($_SERVER["LOCAL_PATH"]."/templates/shell.footer.php") ?>

@@ -8,3 +8,9 @@
 
 #header .servicenavigation li.navigation {top: 0; left: 0; background-position: 11px 14px;}
 #header .servicenavigation li.camera {top: 0; right: 0; background-position: -164px 10px;}
+
+
+#header .servicenavigation li.camera .field input {border: none; height: 43px; width: 43px; opacity: 0;}
+
+#header .servicenavigation li.camera label,
+#header .servicenavigation li.camera .actions {display: none;}
