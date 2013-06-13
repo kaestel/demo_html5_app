@@ -41,6 +41,7 @@ Util.Objects["page"] = new function() {
 
 
 					this.initHeader();
+					this.initNavigation();
 
 
 					// in case content loads faster than page, call content ready controller (content ready does not execute until both content and page is ready)
@@ -98,25 +99,17 @@ Util.Objects["page"] = new function() {
 			}
 
 
-
-			// show content
-			// page._loaded = function() {
-			// 	u.bug("page loaded")
-			// 
-			// 	u.ac(document.body, "loaded");
-			// 	u.a.transition(this.cN, "all 1.3s ease-out")
-			// 	u.a.setOpacity(this.cN, 1);
-			// 
-			// }
-	//		u.preloader(page, ["/img/VM-forside-image.jpg", "/img/VM-forside-typo.png", "/img/VMC_Content.jpg", "/img/VMC_page3.jpg", "/img/VMC_page4.jpg", "/img/VMC_Overlay.jpg"]);
-
-
-
 			page.cN._ready = function() {
 //				u.bug("page.cN ready")
 
 				if(u.hc(this.page, "ready") && u.hc(this, "ready")) {
 //					u.bug("page is actually ready");
+
+
+					this.transitioned = function() {
+						this.transitioned = null;
+						u.a.transition(this, "none");
+					}
 
 					u.a.transition(this, "all 0.3s ease-out");
 					u.a.setOpacity(this, 1);
@@ -180,16 +173,15 @@ Util.Objects["page"] = new function() {
 
 
 
+			page.initNavigation = function() {
 
-			// continue to animate frontpage
-			page.cN.transitioned = function() {
-				this.transitioned = null;
-				u.a.transition(this, "none");
+				var i, node;
+				var nodes = u.qsa("ul.store li", this.nN);
+				for(i = 0; node = nodes[i]; i++) {
+					location.hash = u.h.cleanHash(this.url);
+				}
 
 			}
-
-//			page.loaded();
-
 
 
 			// global resize handler 

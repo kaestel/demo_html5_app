@@ -6,9 +6,9 @@
 #navigation ul li {height: 100%; display: block; height: 40px;}
 #navigation ul li a {font-size: 18px; line-height: 40px; font-weight: 600; color: #cbebd3; display: block;}
 
-#navigation ul.topnav li {padding-left: 34px; background: transparent url(/img/bg_icons.png) no-repeat 0px -291px; background-size: 100px auto;}
+#navigation ul.store li {padding-left: 34px; background: transparent url(/img/bg_icons.png) no-repeat 0px -291px; background-size: 100px auto;}
 
-#navigation ul.topnav li.sales {background-position: 0px -393px;}
-#navigation ul.topnav li.settings {background-position: 0px -493px;}
+#navigation ul.store li.sales {background-position: 0px -393px;}
+#navigation ul.store li.settings {background-position: 0px -493px;}
 
 #navigation h2.partners {line-height: 20px; padding: 13px 0 3px 20px;}

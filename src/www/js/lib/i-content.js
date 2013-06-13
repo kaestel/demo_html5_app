@@ -10,11 +10,24 @@ Util.Objects["content"] = new function() {
 
 
 			if(u.qsa("li.product", this).length == u.qsa("li.product.ready", this).length) {
+
+				// set drag on scene
+				u.a.drag(this.cN, this.cN)
+
+				this.cN.picked = function(event) {
+					alert("picked")
+				}
+				this.cN.dropped = function(event) {
+					alert("dropped")
+				}
+
+				u.ac(this.cN, "ready");
+				this.cN._ready();
+
+
 				
 			}
 
-			u.ac(this.cN, "ready");
-			this.cN._ready();
 		}
 
 		scene._resized = function() {
@@ -38,9 +51,13 @@ Util.Objects["content"] = new function() {
 			product.clicked = function(event) {
 				alert("click")
 			}
+			product.moved = function(event) {
+				this.resetEvents(this);
+			}
 
 			product.loaded = function(event) {
-				u.as(this, "backgroundImage", "url("+event.target.src+")")
+				u.as(this, "backgroundImage", "url("+event.target.src+")");
+				u.ac(this, "ready");
 			}
 			u.preloader(product, ["/images/"+u.cv(product, "id")+"/300x.jpg"]);
 
