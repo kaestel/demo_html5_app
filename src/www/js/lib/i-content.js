@@ -9,6 +9,10 @@ Util.Objects["content"] = new function() {
 			u.bug("scene ready")
 
 
+			if(u.qsa("li.product", this).length == u.qsa("li.product.ready", this).length) {
+				
+			}
+
 			u.ac(this.cN, "ready");
 			this.cN._ready();
 		}
@@ -26,9 +30,25 @@ Util.Objects["content"] = new function() {
 		}
 
 
+		var i, product;
+		var products = u.qsa("li.product", scene);
+		for(i = 0; product = products[i]; i++) {
+
+			u.ce(product);
+			product.clicked = function(event) {
+				alert("click")
+			}
+
+			product.loaded = function(event) {
+				u.as(this, "backgroundImage", "url("+event.target.src+")")
+			}
+			u.preloader(product, ["/images/"+u.cv(product, "id")+"/300x.jpg"]);
+
+		}
+
+
 		var scene_images = new Array();
 		scene_images.push("/img/gx_loader.gif");
 
-		u.preloader(scene, scene_images, {"callback":scene._ready});
 	}
 }

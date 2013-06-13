@@ -1,11 +1,12 @@
 
 
 
-#page {opacity: 0; display: none; z-index: 2;}
-#content {opacity: 0; background: #cbebd5; position: relative; z-index: 5; overflow: auto;}
+#content {opacity: 0; background: #cbebd5; position: relative; z-index: 5; overflow: auto;
+
+	-webkit-transform: translate3d(0,0,0);
+}
 
 
-#page .intro {display: none; background: #ffffff; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 100;}
-#page .intro .sequenceplayer {width: 100%; height: 100%; position: relative;}
-#page .intro .sequence {width: 100%; height: 100%; position: relative;}
-#page .intro .sequence li {width: 100%; height: 100%; position: absolute; top: 0; left: 0; background-position: center center; background-repeat: no-repeat;}
+#content .scene {
+	-webkit-transform: translate3d(0,0,0);
+}

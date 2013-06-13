@@ -113,15 +113,13 @@ Util.Objects["page"] = new function() {
 
 
 			page.cN._ready = function() {
-				u.bug("page.cN ready")
+//				u.bug("page.cN ready")
 
 				if(u.hc(this.page, "ready") && u.hc(this, "ready")) {
-
-					u.bug("page is actually ready")
+//					u.bug("page is actually ready");
 
 					u.a.transition(this, "all 0.3s ease-out");
 					u.a.setOpacity(this, 1);
-
 				}
 			}
 
@@ -132,8 +130,9 @@ Util.Objects["page"] = new function() {
 				this.hN.bn_nav = u.qs("li.navigation", this.hN);
 				this.hN.bn_nav.page = this;
 
-				this.hN.bn_nav.clicked = function() {
+				this.hN.bn_nav.clicked = function(event) {
 //					u.bug("bn_nav clicked")
+					u.e.kill(event);
 
 					this.page.transitioned = function() {
 						this.transitioned = null;
@@ -159,7 +158,7 @@ Util.Objects["page"] = new function() {
 
 				this.hN.bn_cam = u.qs("li.camera", this.hN);
 				this.hN.bn_cam.page = this;
-				this.hN.bn_cam.clicked = function() {
+				this.hN.bn_cam.clicked = function(event) {
 					
 				}
 				u.ce(this.hN.bn_cam);
@@ -219,8 +218,8 @@ Util.Objects["page"] = new function() {
 			// set resize handler
 			u.e.addEvent(window, "resize", page._resized);
 
+			// resize content height
 			page.cN._resized = function() {
-				u.bug("cN resize:" + this.page.offsetHeight + ", " + this.page.hN.offsetHeight)
 				u.a.setHeight(this, this.page.offsetHeight - this.page.hN.offsetHeight);
 			}
 
@@ -290,7 +289,7 @@ Util.Objects["page"] = new function() {
 
 
 			// disable drag on page level
-	//		u.e.drag(page, page);
+//			u.e.drag(page, page);
 
 			// set timer with escape route, if user accidentially reached wrong segment
 	//		page.t_escape = u.t.setTimer(this, this.escape, 10000);
@@ -302,7 +301,7 @@ Util.Objects["page"] = new function() {
 	// 		page.current_page = 0;
 	// 
 	// 
-	// 		page.picked = function() {}
+	//		page.picked = function() {}
 	// 
 	// 		page.moved = function() {
 	// 			u.a.translate(this.cN, this.current_x -(768*this.current_page), 0);
