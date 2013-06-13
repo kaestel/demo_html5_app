@@ -7,9 +7,11 @@
 	<h1>List</h1>
 	<ul class="productlist i:productlist">
 		<li class="product" itemscope itemtype="http://schema.org/Product">
+			<div class="shadowbox">
 			<h2 itemprop="name"><a href="/pointer">Pointer Underachiever</a></h2>
-			<div class="description" itemprop="description">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
+				<div class="description" itemprop="description">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
+				</div>
 			</div>
 			<div class="published_at" itemprop="releaseDate">May 26th 2013</div>
 			<div class="offer" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
@@ -17,9 +19,11 @@
 			</div>
 		</li>
 		<li class="product" itemscope itemtype="http://schema.org/Product">
-			<h2 itemprop="name"><a href="/airmax">Nike Air Max</a></h2>
-			<div class="description" itemprop="description">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
+			<div class="shadowbox">
+				<h2 itemprop="name"><a href="/airmax">Nike Air Max</a></h2>
+				<div class="description" itemprop="description">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
+				</div>
 			</div>
 			<div class="published_at" itemprop="releaseDate">April 3rd 2013</div>
 			<div class="offer" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
@@ -28,9 +32,11 @@
 
 		</li>
 		<li class="product" itemscope itemtype="http://schema.org/Product">
-			<h2 itemprop="name"><a href="/gram">Gram 380g Shoe</a></h2>
-			<div class="description" itemprop="description">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
+			<div class="shadowbox">
+				<h2 itemprop="name"><a href="/gram">Gram 380g Shoe</a></h2>
+				<div class="description" itemprop="description">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
+				</div>
 			</div>
 			<div class="published_at" itemprop="releaseDate">April 22nd 2013</div>
 			<div class="offer" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
