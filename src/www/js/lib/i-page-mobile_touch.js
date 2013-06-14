@@ -194,20 +194,20 @@ Util.Objects["page"] = new function() {
 
 				var page = u.qs("#page");
 
-				if(typeof(page.cN.scene._resized) == "function") {
+				if(typeof(page.cN.scene) && typeof(page.cN.scene._resized) == "function") {
 					page.cN.scene._resized();
 				}
 				if(typeof(page.intro) == "object" && typeof(page.intro._resized) == "function" && page.intro.parentNode) {
 					page.intro._resized();
 				}
 
-				if(typeof(page.hN._resized) == "function") {
+				if(typeof(page.hN) && typeof(page.hN._resized) == "function") {
 					page.hN._resized();
 				}
-				if(typeof(page.cN._resized) == "function") {
+				if(typeof(page.cN) && typeof(page.cN._resized) == "function") {
 					page.cN._resized();
 				}
-				if(typeof(page.fN._resized) == "function") {
+				if(typeof(page.fN) && typeof(page.fN._resized) == "function") {
 					page.fN._resized();
 				}
 			}
