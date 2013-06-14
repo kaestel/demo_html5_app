@@ -8,7 +8,8 @@
 
 #navigation ul.store li {padding-left: 34px; background: transparent url(/img/bg_icons.png) no-repeat 0px -291px; background-size: 100px auto;}
 
-#navigation ul.store li.sales {background-position: 0px -393px;}
-#navigation ul.store li.settings {background-position: 0px -493px;}
+#navigation ul.store li.cart {background-position: 0px -493px;}
+#navigation ul.store li.youritems {background-position: 0px -393px;}
+#navigation ul.store li.camera {background-position: 0px -193px;}
 
 #navigation h2.partners {line-height: 20px; padding: 13px 0 3px 20px;}

@@ -6,7 +6,6 @@
 <div class="scene i:productview">
 
 	<div class="product" itemscope itemtype="http://schema.org/Product">
-		<h1 class="title" itemprop="name">Pointer Underachiever</h1>
 		<div class="images">
 			<ul class="thumbnails">
 				<li class="id:pointer1">
@@ -26,6 +25,8 @@
 				</li>				
 			</ul>
 		</div>
+		
+		<h1 class="title" itemprop="name">Pointer Underachiever</h1>
 		
 		<div class="details">
 			<div class="offer" itemprop="offers" itemscope itemtype="http://schema.org/Offer">

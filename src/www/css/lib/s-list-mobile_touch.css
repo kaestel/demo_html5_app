@@ -3,7 +3,7 @@
 
 .list #page #content .product {position: relative; padding: 480px 12px 32px 12px; background: transparent url(/images/air_max1/480x.jpg) no-repeat top left;}
 
-.list #page #content .product .price {background: #fc335c; color: #ffffff; padding: 5px; position: absolute; right: 0; top: 0px;}
+.list #page #content .product .price {background: #fc335c; color: #ffffff; padding: 10px 17px; position: absolute; right: 0; top: 0px; font-family: "proximanova_bold";}
 .list #page #content .product .price:after {content:"kr";}
 .list #page #content .product .published_at {display: none;}
 
