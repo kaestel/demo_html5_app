@@ -32,11 +32,11 @@ Util.Objects["page"] = new function() {
 			page.fN.page = page;
 
 
-			page._ready = function() {
+			page.ready = function() {
 
 				u.bug("page ready")
 
-				if(!this.intro || !this.intro.parentNode) {
+				if(!this.intro) {
 					u.bug("intro is done")
 
 
@@ -45,8 +45,7 @@ Util.Objects["page"] = new function() {
 
 
 					// in case content loads faster than page, call content ready controller (content ready does not execute until both content and page is ready)
-					this.cN._ready();
-
+					this.cN.ready();
 				}
 
 
@@ -66,15 +65,19 @@ Util.Objects["page"] = new function() {
 						u.a.transition(this, "none");
 
 						// recalculate content height
-						this._resized();
+						this.resized();
 
 						// show navigation AFTER page is shown
 						u.as(this.nN, "display", "block");
 					}
 
 					u.as(this, "display", "block");
-					u.a.transition(this, "all 0.2s ease-out");
+					u.a.transition(this, "none");
 					u.a.setOpacity(this, 1);
+
+					// enable ajax navigation
+					page.transition_method = page.cN.transitions.fadeIn;
+					u.navigation(page);
 				}
 			}
 
@@ -99,12 +102,11 @@ Util.Objects["page"] = new function() {
 			}
 
 
-			page.cN._ready = function() {
-				u.bug("page.cN ready")
+			page.cN.ready = function() {
+//				u.bug("page.cN ready")
 
-				if(u.hc(this.page, "ready") && u.hc(this, "ready")) {
+				if(!this.page.intro && u.hc(this.page, "ready") && u.hc(this, "ready")) {
 					u.bug("page is actually ready");
-
 
 					this.transitioned = function() {
 						this.transitioned = null;
@@ -115,6 +117,53 @@ Util.Objects["page"] = new function() {
 					u.a.setOpacity(this, 1);
 				}
 			}
+
+			page.cN.navigate = function(url) {
+
+				u.bug("navigation on content level")
+
+				// content received
+				this.response = function(response) {
+		//			u.bug("navigate response:" + this.url)
+
+					// set body class
+					u.setClass(document.body, response.body_class);
+					// set title
+					document.title = response.head_title;
+
+					// insert .scene in #content
+					var new_scene = u.qs(".scene", response);
+					u.as(new_scene, "display", "none");
+					new_scene = u.ae(this, new_scene);
+
+					var transition_method = this.page.hash_node.transition_method ? this.page.hash_node.transition_method : this.transitions.fadein;
+//					u.a.translate(new_scene);
+
+//					this.innerHTML = u.qs("#content", response).innerHTML;
+
+					// init content - will callback to ready when done
+					u.init(this);
+				}
+				// request new content
+				u.request(this, u.h.getCleanHash(url));
+			}
+			page.cN.transitions = new Oject();
+			page.cN.transitions.animateLeft = function() {
+				
+			}
+			page.cN.transitions.animateRight = function() {
+				
+			}
+			page.cN.transitions.dropIn = function() {
+				
+			}
+			page.cN.transitions.fadeIn = function() {
+				
+			}
+
+
+
+
 
 			// Init header 
 			page.initHeader = function() {
@@ -152,6 +201,8 @@ Util.Objects["page"] = new function() {
 				this.hN.transitioned = function() {
 					this.transitioned = null;
 					u.a.transition(this, "none");
+
+					u.ac(this, "ready");
 				}
 				u.a.transition(this.hN, "all 0.2s ease-out");
 				u.a.setOpacity(this.hN, 1);
@@ -164,8 +215,12 @@ Util.Objects["page"] = new function() {
 				var i, node;
 				var nodes = u.qsa("ul.store li", this.nN);
 				for(i = 0; node = nodes[i]; i++) {
+					node.page = page;
 					node.clicked = function() {
-						location.hash = u.h.cleanHash(this.url);
+						
+						this.page.navigate(this.url, this.page.nN);
+
+//						location.hash = u.h.cleanHash(this.url);
 					}
 					u.ce(node);
 				}
@@ -189,33 +244,33 @@ Util.Objects["page"] = new function() {
 
 
 			// global resize handler 
-			page._resized = function() {
+			page.resized = function() {
 				u.bug("page resized")
 
 				var page = u.qs("#page");
 
-				if(typeof(page.cN.scene) && typeof(page.cN.scene._resized) == "function") {
-					page.cN.scene._resized();
+				if(typeof(page.cN.scene) && typeof(page.cN.scene.resized) == "function") {
+					page.cN.scene.resized();
 				}
-				if(typeof(page.intro) == "object" && typeof(page.intro._resized) == "function" && page.intro.parentNode) {
-					page.intro._resized();
+				if(typeof(page.intro) == "object" && typeof(page.intro.resized) == "function" && page.intro.parentNode) {
+					page.intro.resized();
 				}
 
-				if(typeof(page.hN) && typeof(page.hN._resized) == "function") {
-					page.hN._resized();
+				if(typeof(page.hN) && typeof(page.hN.resized) == "function") {
+					page.hN.resized();
 				}
-				if(typeof(page.cN) && typeof(page.cN._resized) == "function") {
-					page.cN._resized();
+				if(typeof(page.cN) && typeof(page.cN.resized) == "function") {
+					page.cN.resized();
 				}
-				if(typeof(page.fN) && typeof(page.fN._resized) == "function") {
-					page.fN._resized();
+				if(typeof(page.fN) && typeof(page.fN.resized) == "function") {
+					page.fN.resized();
 				}
 			}
 			// set resize handler
-			u.e.addEvent(window, "resize", page._resized);
+			u.e.addEvent(window, "resize", page.resized);
 
 			// resize content height
-			page.cN._resized = function() {
+			page.cN.resized = function() {
 				u.a.setHeight(this, this.page.offsetHeight - this.page.hN.offsetHeight);
 			}
 
@@ -277,64 +332,6 @@ Util.Objects["page"] = new function() {
 			// redraw page if orientation changes
 			u.e.addEvent(page, "orientationchange", page._orientationchanged);
 
-
-
-			
-
-
-
-
-			// disable drag on page level
-//			u.e.drag(page, page);
-
-			// set timer with escape route, if user accidentially reached wrong segment
-	//		page.t_escape = u.t.setTimer(this, this.escape, 10000);
-
-
-			// enable
-	// 		u.e.swipe(page, page);
-	// 
-	// 		page.current_page = 0;
-	// 
-	// 
-	//		page.picked = function() {}
-	// 
-	// 		page.moved = function() {
-	// 			u.a.translate(this.cN, this.current_x -(768*this.current_page), 0);
-	// 		}
-	// 		page.dropped = function() {
-	// 
-	// 			// show/hide navigation
-	// 			if(this.current_page) {
-	// 				u.a.transition(this.nN, "all 0.3s ease-in");
-	// 				u.a.translate(this.nN, 0, 0);
-	// 			}
-	// 			else {
-	// 				u.a.transition(this.nN, "all 0.3s ease-in");
-	// 				u.a.translate(this.nN, 0, -40);
-	// 			}
-	// 		
-	// 		}
-	// 		page.swipedLeft = function() {
-	// 			if(this.current_page < 3) {
-	// 				this.current_page++;
-	// 			}
-	// 			u.a.transition(this.cN, "all 0.3s ease-out");
-	// 			u.a.translate(this.cN, -(768*this.current_page), 0);
-	// 		}
-	// 		page.swipedRight = function() {
-	// 			if(this.current_page > 0) {
-	// 				this.current_page--;
-	// 			}
-	// 
-	// 			u.a.transition(this.cN, "all 0.3s ease-out");
-	// 			u.a.translate(this.cN, -(768*this.current_page), 0);
-	// 
-	// //				u.a.translate(this, this.current_x, 0);
-	// 		}
-
-
-
 		}
 
 
@@ -360,8 +357,9 @@ Util.Objects["page"] = new function() {
 					u.a.transition(this, "none");
 					this.transitioned = null;
 					this.parentNode.removeChild(this);
+					this.page.intro = null;
 
-					this.page._ready();
+					this.page.ready();
 				}
 				u.a.transition(this.page.intro, "all 0.2s ease-out");
 				u.a.setOpacity(this.page.intro, 0);
@@ -377,15 +375,10 @@ Util.Objects["page"] = new function() {
 			u.as(this.page.intro, "display", "block");
 
 			// show page
-			this.page._ready();
+			this.page.ready();
 		}
 		// load and play intro
 		page.intro.sequence_player.loadAndPlay(page.intro._images, {"framerate":24});
-
-
-
-		// enable ajax navigation
-		u.navigation(page);
 
 
 	}
@@ -395,6 +388,7 @@ Util.Objects["page"] = new function() {
 // Controlled initialization
 function static_init() {
 
+	// wrap page if segment dictates
 	if(typeof(u.o.validdevice) == "object") {
 		u.o.validdevice.init(document.body)
 	}

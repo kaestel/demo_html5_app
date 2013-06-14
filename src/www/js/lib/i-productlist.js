@@ -5,7 +5,7 @@ Util.Objects["productlist"] = new function() {
 		scene.cN.scene = scene;
 
 
-		scene._ready = function() {
+		scene.ready = function() {
 			u.bug("scene ready:" + u.qsa("li.product", this).length)
 
 
@@ -22,7 +22,7 @@ Util.Objects["productlist"] = new function() {
 				}
 
 				u.ac(this.cN, "ready");
-				this.cN._ready();
+				this.cN.ready();
 
 
 				
@@ -30,7 +30,7 @@ Util.Objects["productlist"] = new function() {
 
 		}
 
-		scene._resized = function() {
+		scene.resized = function() {
 //			u.bug("scene resized");
 		}
 
@@ -38,7 +38,7 @@ Util.Objects["productlist"] = new function() {
 			u.bug("scene cleanup");
 		}
 
-		scene._navigate = function() {
+		scene.navigate = function() {
 			u.bug("scene navigate");
 		}
 
@@ -62,7 +62,7 @@ Util.Objects["productlist"] = new function() {
 				u.as(this, "backgroundImage", "url("+queue[0]._image.src+")");
 				u.ac(this, "ready");
 				
-				this.scene._ready();
+				this.scene.ready();
 			}
 			u.preloader(product, ["/images/"+u.cv(product, "id")+"/300x.jpg"]);
 
@@ -74,3 +74,57 @@ Util.Objects["productlist"] = new function() {
 
 	}
 }
+
+
+
+
+			// disable drag on page level
+//			u.e.drag(page, page);
+
+			// set timer with escape route, if user accidentially reached wrong segment
+	//		page.t_escape = u.t.setTimer(this, this.escape, 10000);
+
+
+			// enable
+	// 		u.e.swipe(page, page);
+	// 
+	// 		page.current_page = 0;
+	// 
+	// 
+	//		page.picked = function() {}
+	// 
+	// 		page.moved = function() {
+	// 			u.a.translate(this.cN, this.current_x -(768*this.current_page), 0);
+	// 		}
+	// 		page.dropped = function() {
+	// 
+	// 			// show/hide navigation
+	// 			if(this.current_page) {
+	// 				u.a.transition(this.nN, "all 0.3s ease-in");
+	// 				u.a.translate(this.nN, 0, 0);
+	// 			}
+	// 			else {
+	// 				u.a.transition(this.nN, "all 0.3s ease-in");
+	// 				u.a.translate(this.nN, 0, -40);
+	// 			}
+	// 		
+	// 		}
+	// 		page.swipedLeft = function() {
+	// 			if(this.current_page < 3) {
+	// 				this.current_page++;
+	// 			}
+	// 			u.a.transition(this.cN, "all 0.3s ease-out");
+	// 			u.a.translate(this.cN, -(768*this.current_page), 0);
+	// 		}
+	// 		page.swipedRight = function() {
+	// 			if(this.current_page > 0) {
+	// 				this.current_page--;
+	// 			}
+	// 
+	// 			u.a.transition(this.cN, "all 0.3s ease-out");
+	// 			u.a.translate(this.cN, -(768*this.current_page), 0);
+	// 
+	// //				u.a.translate(this, this.current_x, 0);
+	// 		}
+
+

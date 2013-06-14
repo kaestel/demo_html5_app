@@ -5,16 +5,16 @@ Util.Objects["cart"] = new function() {
 		scene.cN.scene = scene;
 
 
-		scene._ready = function() {
+		scene.ready = function() {
 			u.bug("scene ready")
 
 
 			u.ac(this.cN, "ready");
-			this.cN._ready();
+			this.cN.ready();
 
 		}
 
-		scene._resized = function() {
+		scene.resized = function() {
 //			u.bug("scene resized");
 		}
 
@@ -22,13 +22,13 @@ Util.Objects["cart"] = new function() {
 			u.bug("scene cleanup");
 		}
 
-		scene._navigate = function() {
+		scene.navigate = function() {
 			u.bug("scene navigate");
 		}
 
 
 				
-		scene._ready();
+		scene.ready();
 
 	}
 }

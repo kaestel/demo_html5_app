@@ -5,7 +5,7 @@ Util.Objects["productview"] = new function() {
 		scene.cN.scene = scene;
 
 
-		scene._ready = function() {
+		scene.ready = function() {
 			u.bug("scene ready:" + u.qsa("li.product", this).length)
 
 
@@ -22,7 +22,7 @@ Util.Objects["productview"] = new function() {
 				}
 
 				u.ac(this.cN, "ready");
-				this.cN._ready();
+				this.cN.ready();
 
 
 				
@@ -30,7 +30,7 @@ Util.Objects["productview"] = new function() {
 
 		}
 
-		scene._resized = function() {
+		scene.resized = function() {
 //			u.bug("scene resized");
 		}
 
@@ -38,7 +38,7 @@ Util.Objects["productview"] = new function() {
 			u.bug("scene cleanup");
 		}
 
-		scene._navigate = function() {
+		scene.navigate = function() {
 			u.bug("scene navigate");
 		}
 
@@ -46,13 +46,13 @@ Util.Objects["productview"] = new function() {
 		var product = u.qs(".product", scene);
 		product.scene = scene;
 
-		scene._ready();
+		scene.ready();
 
 		// product.loaded = function(queue) {
 		// 	u.as(this, "backgroundImage", "url("+queue[0]._image.src+")");
 		// 	u.ac(this, "ready");
 		// 	
-		// 	this.scene._ready();
+		// 	this.scene.ready();
 		// }
 		// u.preloader(product, ["/images/"+u.cv(product, "id")+"/300x.jpg"]);
 
