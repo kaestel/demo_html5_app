@@ -3,8 +3,9 @@
 <?php $page_title = "Nike Air Max" ?>
 <?php include_once($_SERVER["LOCAL_PATH"]."/templates/shell.header.php") ?>
 
-<div class="scene i:content">
-	<div class="product i:productview" itemscope itemtype="http://schema.org/Product">
+<div class="scene i:productview">
+
+	<div class="product" itemscope itemtype="http://schema.org/Product">
 		<h1 class="title" itemprop="name">Nike Air Max</h1>
 		<div class="images">
 			<ul class="thumbnails">
@@ -44,8 +45,8 @@
 			<h2>Buy it here</h2>
 			<div class="area"></div>
 		</div>
-
 	</div>
+
 </div>
 
 <?php include_once($_SERVER["LOCAL_PATH"]."/templates/shell.footer.php") ?>

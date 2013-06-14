@@ -1,4 +1,4 @@
-Util.Objects["product"] = new function() {
+Util.Objects["productview"] = new function() {
 	this.init = function(scene) {
 
 		scene.cN = u.qs("#content");
@@ -43,34 +43,18 @@ Util.Objects["product"] = new function() {
 		}
 
 
-		var i, product;
-		var products = u.qsa("li.product", scene);
-		for(i = 0; product = products[i]; i++) {
-			u.bug("product:" + u.qs("h2", product).innerHTML)
-			product.scene = scene;
+		var product = u.qs(".product", scene);
+		product.scene = scene;
 
+		scene._ready();
 
-			u.ce(product);
-			product.clicked = function(event) {
-				alert("click")
-			}
-			product.moved = function(event) {
-				this.resetEvents(this);
-			}
-
-			product.loaded = function(queue) {
-				u.as(this, "backgroundImage", "url("+queue[0]._image.src+")");
-				u.ac(this, "ready");
-				
-				this.scene._ready();
-			}
-			u.preloader(product, ["/images/"+u.cv(product, "id")+"/300x.jpg"]);
-
-		}
-
-
-		var scene_images = new Array();
-		scene_images.push("/img/gx_loader.gif");
+		// product.loaded = function(queue) {
+		// 	u.as(this, "backgroundImage", "url("+queue[0]._image.src+")");
+		// 	u.ac(this, "ready");
+		// 	
+		// 	this.scene._ready();
+		// }
+		// u.preloader(product, ["/images/"+u.cv(product, "id")+"/300x.jpg"]);
 
 	}
 }

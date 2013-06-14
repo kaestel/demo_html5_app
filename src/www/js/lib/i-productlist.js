@@ -1,4 +1,4 @@
-Util.Objects["content"] = new function() {
+Util.Objects["productlist"] = new function() {
 	this.init = function(scene) {
 
 		scene.cN = u.qs("#content");

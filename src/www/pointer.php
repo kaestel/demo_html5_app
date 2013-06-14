@@ -3,26 +3,26 @@
 <?php $page_title = "Pointer Underachiever" ?>
 <?php include_once($_SERVER["LOCAL_PATH"]."/templates/shell.header.php") ?>
 
-<div class="scene i:content">
+<div class="scene i:productview">
 
-	<div class="product i:productview" itemscope itemtype="http://schema.org/Product">
+	<div class="product" itemscope itemtype="http://schema.org/Product">
 		<h1 class="title" itemprop="name">Pointer Underachiever</h1>
 		<div class="images">
 			<ul class="thumbnails">
 				<li class="id:pointer1">
-					<a href="/images/pointer1/250x.png">Pointer Underachiever</a>
+					<a href="/images/pointer1/250x.jpg">Pointer Underachiever</a>
 				</li>
 				<li class="id:pointer2">
-					<a href="/images/pointer2/250x.png">Pointer Underachiever</a>
+					<a href="/images/pointer2/250x.jpg">Pointer Underachiever</a>
 				</li>
 				<li class="id:pointer3">
-					<a href="/images/pointer3/250x.png">Pointer Underachiever</a>
+					<a href="/images/pointer3/250x.jpg">Pointer Underachiever</a>
 				</li>
 				<li class="id:pointer4">
-					<a href="/images/pointer4/250x.png">Pointer Underachiever</a>
+					<a href="/images/pointer4/250x.jpg">Pointer Underachiever</a>
 				</li>
 				<li class="id:pointer5">
-					<a href="/images/pointer5/250x.png">Pointer Underachiever</a>
+					<a href="/images/pointer5/250x.jpg">Pointer Underachiever</a>
 				</li>				
 			</ul>
 		</div>
@@ -48,8 +48,8 @@
 			<h2>Buy it here</h2>
 			<div class="area"></div>
 		</div>
-
 	</div>
+
 </div>
 
 <?php include_once($_SERVER["LOCAL_PATH"]."/templates/shell.footer.php") ?>
