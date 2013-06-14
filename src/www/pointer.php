@@ -3,7 +3,8 @@
 <?php $page_title = "Pointer Underachiever" ?>
 <?php include_once($_SERVER["LOCAL_PATH"]."/templates/shell.header.php") ?>
 
-<div class="scene">
+<div class="scene i:content">
+
 	<div class="product i:productview" itemscope itemtype="http://schema.org/Product">
 		<h1 class="title" itemprop="name">Pointer Underachiever</h1>
 		<div class="images">

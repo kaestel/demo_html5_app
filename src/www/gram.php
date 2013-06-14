@@ -3,7 +3,8 @@
 <?php $page_title = "Gram 380g Shoe" ?>
 <?php include_once($_SERVER["LOCAL_PATH"]."/templates/shell.header.php") ?>
 
-<div class="scene">
+<div class="scene i:content">
+
 	<div class="product i:productview" itemscope itemtype="http://schema.org/Product">
 		<h1 class="title" itemprop="name">Gram 380g Shoe</h1>
 		<div class="images">

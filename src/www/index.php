@@ -4,11 +4,12 @@
 <?php include_once($_SERVER["LOCAL_PATH"]."/templates/shell.header.php") ?>
 
 <div class="scene i:content">
+
 	<h1>List</h1>
 	<ul class="productlist i:productlist">
-		<li class="product" itemscope itemtype="http://schema.org/Product">
+		<li class="product id:pointer1" itemscope itemtype="http://schema.org/Product">
 			<div class="shadowbox">
-			<h2 itemprop="name"><a href="/pointer">Pointer Underachiever</a></h2>
+				<h2 itemprop="name"><a href="/pointer">Pointer Underachiever</a></h2>
 				<div class="description" itemprop="description">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
 				</div>
@@ -18,7 +19,7 @@
 				<p class="price" itemprop="price">1299</p>
 			</div>
 		</li>
-		<li class="product" itemscope itemtype="http://schema.org/Product">
+		<li class="product id:air_max1" itemscope itemtype="http://schema.org/Product">
 			<div class="shadowbox">
 				<h2 itemprop="name"><a href="/airmax">Nike Air Max</a></h2>
 				<div class="description" itemprop="description">
@@ -31,7 +32,7 @@
 			</div>
 
 		</li>
-		<li class="product" itemscope itemtype="http://schema.org/Product">
+		<li class="product id:gram1" itemscope itemtype="http://schema.org/Product">
 			<div class="shadowbox">
 				<h2 itemprop="name"><a href="/gram">Gram 380g Shoe</a></h2>
 				<div class="description" itemprop="description">

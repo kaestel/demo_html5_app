@@ -6,13 +6,13 @@ Util.Objects["content"] = new function() {
 
 
 		scene._ready = function() {
-			u.bug("scene ready")
+			u.bug("scene ready:" + u.qsa("li.product", this).length)
 
 
 			if(u.qsa("li.product", this).length == u.qsa("li.product.ready", this).length) {
 
 				// set drag on scene
-				u.a.drag(this.cN, this.cN)
+				u.e.drag(this.cN, this.cN)
 
 				this.cN.picked = function(event) {
 					alert("picked")
@@ -46,6 +46,8 @@ Util.Objects["content"] = new function() {
 		var i, product;
 		var products = u.qsa("li.product", scene);
 		for(i = 0; product = products[i]; i++) {
+			product.scene = scene;
+
 
 			u.ce(product);
 			product.clicked = function(event) {
@@ -55,9 +57,11 @@ Util.Objects["content"] = new function() {
 				this.resetEvents(this);
 			}
 
-			product.loaded = function(event) {
-				u.as(this, "backgroundImage", "url("+event.target.src+")");
+			product.loaded = function(queue) {
+				u.as(this, "backgroundImage", "url("+queue[0]._image.src+")");
 				u.ac(this, "ready");
+				
+				this.scene._ready();
 			}
 			u.preloader(product, ["/images/"+u.cv(product, "id")+"/300x.jpg"]);
 

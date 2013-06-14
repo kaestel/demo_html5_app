@@ -100,10 +100,10 @@ Util.Objects["page"] = new function() {
 
 
 			page.cN._ready = function() {
-//				u.bug("page.cN ready")
+				u.bug("page.cN ready")
 
 				if(u.hc(this.page, "ready") && u.hc(this, "ready")) {
-//					u.bug("page is actually ready");
+					u.bug("page is actually ready");
 
 
 					this.transitioned = function() {
@@ -148,27 +148,13 @@ Util.Objects["page"] = new function() {
 				u.ce(this.hN.bn_nav);
 
 
-
-				this.hN.bn_cam = u.qs("li.camera", this.hN);
-				this.hN.bn_cam.page = this;
-				this.hN.bn_cam.clicked = function(event) {
-					
-				}
-				u.ce(this.hN.bn_cam);
-
-				this.hN.bn_cam.response = function(response) {
-					this.innerHTML = u.qs(".scene", response).innerHTML;
-				}
-				u.request(this.hN.bn_cam, this.hN.bn_cam.url);
-
-				// show navigation
+				// show header
 				this.hN.transitioned = function() {
 					this.transitioned = null;
 					u.a.transition(this, "none");
 				}
 				u.a.transition(this.hN, "all 0.2s ease-out");
 				u.a.setOpacity(this.hN, 1);
-
 			}
 
 
@@ -178,8 +164,26 @@ Util.Objects["page"] = new function() {
 				var i, node;
 				var nodes = u.qsa("ul.store li", this.nN);
 				for(i = 0; node = nodes[i]; i++) {
-					location.hash = u.h.cleanHash(this.url);
+					node.clicked = function() {
+						location.hash = u.h.cleanHash(this.url);
+					}
+					u.ce(node);
 				}
+
+
+
+				// this.hN.bn_cam = u.qs("li.camera", this.hN);
+				// this.hN.bn_cam.page = this;
+				// this.hN.bn_cam.clicked = function(event) {
+				// 	
+				// }
+				// u.ce(this.hN.bn_cam);
+				// 
+				// this.hN.bn_cam.response = function(response) {
+				// 	this.innerHTML = u.qs(".scene", response).innerHTML;
+				// }
+				// u.request(this.hN.bn_cam, this.hN.bn_cam.url);
+				// 
 
 			}
 
@@ -351,19 +355,19 @@ Util.Objects["page"] = new function() {
 		page.intro.sequence_player.ended = function() {
 //			u.bug("playback ended")
 
-			this.page.intro.transitioned = function() {
-				u.a.transition(this, "none");
-				this.transitioned = null;
-			
-				this.parentNode.removeChild(this);
-			
-			
-				this.page._ready();
-			}
-			
-			u.a.transition(this.page.intro, "all 0.2s ease-out 1s");
-			u.a.setOpacity(this.page.intro, 0);
+			this.ended = function() {
+				this.page.intro.transitioned = function() {
+					u.a.transition(this, "none");
+					this.transitioned = null;
+					this.parentNode.removeChild(this);
 
+					this.page._ready();
+				}
+				u.a.transition(this.page.intro, "all 0.2s ease-out");
+				u.a.setOpacity(this.page.intro, 0);
+			}
+
+			this.play({"from":51,"to":0});
 		}
 
 		page.intro.sequence_player.loaded = function() {

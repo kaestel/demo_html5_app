@@ -1,11 +1,13 @@
 	</div>
 	
 	<div id="navigation">
-		<h2>Your Store</h2>
+		<h2>Store-a-Store</h2>
 		<ul class="store">
-			<li class="items"><a href="#">Your items</a></li>
-			<li class="sales"><a href="#">Your sales</a></li>
-			<li class="settings"><a href="#">Your store settings</a></li>
+			<li class="allitems"><a href="/">All items</a></li>
+			<li class="cart"><a href="/cart">Cart</a></li>
+
+			<li class="youritems"><a href="/your-items">Your items</a></li>
+			<li class="camera"><a href="/add-item">Camera</a></li>
 		</ul>
 
 		<h2 class="partners">Partner Stores</h2>

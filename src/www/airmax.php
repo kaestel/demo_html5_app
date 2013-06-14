@@ -3,7 +3,7 @@
 <?php $page_title = "Nike Air Max" ?>
 <?php include_once($_SERVER["LOCAL_PATH"]."/templates/shell.header.php") ?>
 
-<div class="scene">
+<div class="scene i:content">
 	<div class="product i:productview" itemscope itemtype="http://schema.org/Product">
 		<h1 class="title" itemprop="name">Nike Air Max</h1>
 		<div class="images">
