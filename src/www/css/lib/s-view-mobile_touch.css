@@ -3,9 +3,14 @@ h1 {font-size: 30px; line-height: 120px; font-weight: bold; color: #465159; back
 ul.actions li {position: relative;}
 ul.actions li input.buy {background-color: #fc335c; color: #ffffff; display: block; border: none; line-height: 120%; font-weight: bold; text-align: center; padding: 20px 0; font-size: 25px; line-height: 120%; width: 100%;}
 
-body.product #page #content .product .price {background: #fc335c; color: #ffffff; padding: 5px; position: absolute; right: 0; top: 0px;}
-
-
+body.product #page #content .product .price {background: #fc335c; color: #ffffff; padding: 10px 17px; position: absolute; right: 0; top: 0px; font-family: "proximanova_bold";}
+body.product #page #content .product .price:after {content:"kr";}
+#page #content .product h1 {font-family: "proximanova_bold"; font-size: 15px; color: #465159; font-weight: bold; line-height: 30px; padding: 0px 15px;}
 #TEMP
 body.product #page #content {display: none;}
-body.product #page #content .product div.images {display: none; opacity: 0;}
+
+body.product #page #content .product div.images ul li {display: none;}
+body.product #page #content .product div.images ul li:first-child {display: block; background: transparent url(/images/air_max1/480x.jpg) no-repeat top left; padding-top: 480px;}
+
+
+body.product #page #content .product div.images ul li a {text-indent: -9999px;}
