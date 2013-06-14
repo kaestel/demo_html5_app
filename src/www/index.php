@@ -3,10 +3,10 @@
 <?php $page_title = "HTML5 Demo" ?>
 <?php include_once($_SERVER["LOCAL_PATH"]."/templates/shell.header.php") ?>
 
-<div class="scene i:content">
+<div class="scene i:productlist">
 
 	<h1>List</h1>
-	<ul class="productlist i:productlist">
+	<ul class="productlist">
 		<li class="product id:pointer1" itemscope itemtype="http://schema.org/Product">
 			<div class="shadowbox">
 				<h2 itemprop="name"><a href="/pointer">Pointer Underachiever</a></h2>
