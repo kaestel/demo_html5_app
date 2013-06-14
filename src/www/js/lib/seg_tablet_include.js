@@ -3,7 +3,9 @@ document.write('<script type="text/javascript" src="/js/jes/src/beta-u-preloader
 document.write('<script type="text/javascript" src="/js/jes/src/u-init.js"></script>');
 
 document.write('<script type="text/javascript" src="/js/lib/i-page-mobile_touch.js"></script>');
-document.write('<script type="text/javascript" src="/js/lib/i-content.js"></script>');
+document.write('<script type="text/javascript" src="/js/lib/i-productlist.js"></script>');
+document.write('<script type="text/javascript" src="/js/lib/i-productview.js"></script>');
+document.write('<script type="text/javascript" src="/js/lib/i-scene-generic.js"></script>');
 
 
 document.write('<script type="text/javascript" src="/js/lib/u-navigation.js"></script>');

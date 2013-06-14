@@ -1,9 +1,9 @@
-<?php $body_class = "camera" ?>
-<?php $page_description = "Upload image" ?>
-<?php $page_title = "Upload image" ?>
+<?php $body_class = "additem" ?>
+<?php $page_description = "Add item" ?>
+<?php $page_title = "Add item" ?>
 <?php include_once($_SERVER["LOCAL_PATH"]."/templates/shell.header.php") ?>
 
-<div class="scene i:content">
+<div class="scene i:additem">
 
 	<form action="#" method="post">
 		<fieldset>
