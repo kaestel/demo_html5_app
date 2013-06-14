@@ -43,7 +43,9 @@
 		
 		<div class="map">
 			<h2>Buy it here</h2>
-			<div class="area"></div>
+			<div class="area">
+				<!--iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/ms?msa=0&amp;msid=209981480047659854773.0004df194ca210b03c6d4&amp;ie=UTF8&amp;t=m&amp;ll=52.507628,13.390188&amp;spn=0,0&amp;output=embed"></iframe><br /><small>Vis <a href="https://www.google.com/maps/ms?msa=0&amp;msid=209981480047659854773.0004df194ca210b03c6d4&amp;ie=UTF8&amp;t=m&amp;ll=52.507628,13.390188&amp;spn=0,0&amp;source=embed" style="color:#0000FF;text-align:left">Shoeplaces</a> på et større kort</small-->
+			</div>
 		</div>
 
 	</div>
