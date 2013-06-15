@@ -1,9 +1,9 @@
-<?php $body_class = "product" ?>
+<?php $body_class = "productview" ?>
 <?php $page_description = "This is the Pointer Underachiever" ?>
 <?php $page_title = "Pointer Underachiever" ?>
 <?php include_once($_SERVER["LOCAL_PATH"]."/templates/shell.header.php") ?>
 
-<div class="scene i:productview">
+<div class="scene productview i:productview">
 
 	<div class="product" itemscope itemtype="http://schema.org/Product">
 		<div class="images">
@@ -22,7 +22,7 @@
 				</li>
 				<li class="id:pointer5">
 					<a href="/images/pointer5/250x.jpg">Pointer Underachiever</a>
-				</li>				
+				</li>
 			</ul>
 		</div>
 		
@@ -30,12 +30,13 @@
 		
 		<div class="details">
 			<div class="offer" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-			<p class="price" itemprop="price">1299</p>
-			<form action="/kurv" class="simple_form buy" method="post">
-				<ul class="actions">
-					<li class="buy"><input class="button primary buy" name="commit" type="submit" value="Add to cart" /></li>
-				</ul>
-			</form>
+				<p class="price" itemprop="price">1299</p>
+				<form action="/kurv" class="simple_form buy" method="post">
+					<ul class="actions">
+						<li class="buy"><input class="button primary buy" name="commit" type="submit" value="Add to cart" /></li>
+					</ul>
+				</form>
+			</div>
 		</div>
 		
 		<div class="description" itemprop="description">

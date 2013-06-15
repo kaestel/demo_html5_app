@@ -21,7 +21,7 @@
 	<? } ?>
 
 </head>
-<body  class="i:validdevice <?= $body_class ?>">
+<body class="i:validdevice <?= $body_class ?>">
 
 <div id="page" class="i:page">
 

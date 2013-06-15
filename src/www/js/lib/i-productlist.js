@@ -45,28 +45,40 @@ Util.Objects["productlist"] = new function() {
 
 		var i, product;
 		var products = u.qsa("li.product", scene);
-		for(i = 0; product = products[i]; i++) {
-			u.bug("product:" + u.qs("h2", product).innerHTML)
-			product.scene = scene;
+		if(products.length) {
+
+			for(i = 0; product = products[i]; i++) {
+				u.bug("product:" + u.qs("h2", product).innerHTML)
+				product.scene = scene;
 
 
-			u.ce(product);
-			product.clicked = function(event) {
-				alert("click")
-			}
-			product.moved = function(event) {
-				this.resetEvents(this);
-			}
+				u.ce(product);
+				product.clicked = function(event) {
 
-			product.loaded = function(queue) {
-				u.as(this, "backgroundImage", "url("+queue[0]._image.src+")");
-				u.ac(this, "ready");
+					this.scene.transition_method = this.scene.cN.transitions.animateLeft;
+					this.scene.cN.page.navigate(this.url, this.scene)
+
+//					alert("click")
+				}
+				product.moved = function(event) {
+					this.resetEvents(this);
+				}
+
+				product.loaded = function(queue) {
+					u.as(this, "backgroundImage", "url("+queue[0]._image.src+")");
+					u.ac(this, "ready");
 				
-				this.scene.ready();
+					this.scene.ready();
+				}
+				u.preloader(product, ["/images/"+u.cv(product, "id")+"/"+product.scene.cN.page.offsetWidth+"x.jpg"]);
+
 			}
-			u.preloader(product, ["/images/"+u.cv(product, "id")+"/300x.jpg"]);
 
 		}
+		else {
+			scene.ready();
+		}
+
 
 
 		var scene_images = new Array();

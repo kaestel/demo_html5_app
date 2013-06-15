@@ -1,15 +1,16 @@
-.list #page #content h1 {display: none;}
+#content .scene.productlist h1 {display: none;}
 
 
-.list #page #content .product {position: relative; padding: 480px 12px 32px 12px; background: transparent url(/images/air_max1/480x.jpg) no-repeat top left;}
+#content .scene.productlist .product {position: relative; padding: 480px 12px 32px 12px; background: transparent url(/images/air_max1/480x.jpg) no-repeat top left;}
 
-.list #page #content .product .price {background: #fc335c; color: #ffffff; padding: 10px 17px; position: absolute; right: 0; top: 0px; font-family: "proximanova_bold";}
-.list #page #content .product .price:after {content:"kr";}
-.list #page #content .product .published_at {display: none;}
+#content .scene.productlist .product .price {background: #fc335c; color: #ffffff; padding: 10px 17px; position: absolute; right: 0; top: 0px; font-family: "proximanova_bold";}
+#content .scene.productlist .product .price:after {content:"kr";}
+#content .scene.productlist .product .published_at {display: none;}
 
-.list #page #content .shadowbox {background: #ffffff; border-radius: 0 0 5px 5px;
+#content .scene.productlist .shadowbox {background: #ffffff; border-radius: 0 0 5px 5px;
 	box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.12);
 }
-.list #page #content .product h2 a {font-family: "proximanova_bold"; font-size: 30px; color: #465159; font-weight: bold; line-height: 60px; padding: 0px 30px;}
-.list #page #content .description {position: relative;}
-.list #page #content .description p {color: #465159; font-size: 24px; padding: 0px 30px 25px; line-height: 120%;}
+
+#content .scene.productlist .product h2 a {font-family: "proximanova_bold"; font-size: 30px; color: #465159; font-weight: bold; line-height: 60px; padding: 0px 30px;}
+#content .scene.productlist .description {position: relative;}
+#content .scene.productlist .description p {color: #465159; font-size: 24px; padding: 0px 30px 25px; line-height: 120%;}

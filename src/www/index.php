@@ -1,9 +1,9 @@
-<?php $body_class = "list" ?>
+<?php $body_class = "productlist" ?>
 <?php $page_description = "This is the list" ?>
 <?php $page_title = "HTML5 Demo" ?>
 <?php include_once($_SERVER["LOCAL_PATH"]."/templates/shell.header.php") ?>
 
-<div class="scene i:productlist">
+<div class="scene productlist i:productlist">
 
 	<h1>List</h1>
 	<ul class="productlist">

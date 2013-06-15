@@ -60,23 +60,16 @@ Util.Objects["page"] = new function() {
 					// page is ready
 					u.addClass(this, "ready");
 
-					this.transitioned = function() {
-						this.transitioned = null;
-						u.a.transition(this, "none");
-
-						// recalculate content height
-						this.resized();
-
-						// show navigation AFTER page is shown
-						u.as(this.nN, "display", "block");
-					}
-
 					u.as(this, "display", "block");
 					u.a.transition(this, "none");
 					u.a.setOpacity(this, 1);
 
+					//
+					u.as(this.nN, "display", "block");
+					// recalculate content height
+					this.resized();
+
 					// enable ajax navigation
-					page.transition_method = page.cN.transitions.fadeIn;
 					u.navigation(page);
 				}
 			}
@@ -106,15 +99,27 @@ Util.Objects["page"] = new function() {
 //				u.bug("page.cN ready")
 
 				if(!this.page.intro && u.hc(this.page, "ready") && u.hc(this, "ready")) {
-					u.bug("page is actually ready");
+					u.bug("page is actually ready:" + this.page);
 
-					this.transitioned = function() {
-						this.transitioned = null;
-						u.a.transition(this, "none");
+					u.as(this, "display", "block");
+					u.a.transition(this, "none");
+					u.a.setOpacity(this, 1);
+
+
+					if(u.qsa(".scene", this).length > 1) {
+						u.bug("replace scenes")
+						u.bug("transition:" + u.nodeId(this.page) + "," + this.page.hash_node);
+
+						var transition_method = this.page.hash_node && this.page.hash_node.transition_method ? this.page.hash_node.transition_method : this.transitions.fadeIn;
+
+//						u.bug("transition_method:" + transition_method);
+						transition_method();
+					}
+					else {
+						u.bug("show scene")
+						this.transitions.hard()
 					}
 
-					u.a.transition(this, "all 0.3s ease-out");
-					u.a.setOpacity(this, 1);
 				}
 			}
 
@@ -124,32 +129,53 @@ Util.Objects["page"] = new function() {
 
 				// content received
 				this.response = function(response) {
-		//			u.bug("navigate response:" + this.url)
+					u.bug("navigate response:" + this.request_url + ", " + response.body_class)
 
 					// set body class
-					u.setClass(document.body, response.body_class);
+					u.setClass(document.body, response.body_class.replace("i:validdevice", "").trim());
 					// set title
 					document.title = response.head_title;
 
 					// insert .scene in #content
 					var new_scene = u.qs(".scene", response);
 					u.as(new_scene, "display", "none");
-					new_scene = u.ae(this, new_scene);
-
-					var transition_method = this.page.hash_node.transition_method ? this.page.hash_node.transition_method : this.transitions.fadein;
-//					u.a.translate(new_scene);
-
-//					this.innerHTML = u.qs("#content", response).innerHTML;
+					u.ae(this, new_scene);
 
 					// init content - will callback to ready when done
 					u.init(this);
+
 				}
 				// request new content
 				u.request(this, u.h.getCleanHash(url));
 			}
-			page.cN.transitions = new Oject();
+
+			page.cN.cleanScenes = function() {
+				while(u.qsa(".scene", this).length > 1) {
+					var scene = u.qs(".scene", this);
+					scene.parentNode.removeChild(scene);
+				}
+			}
+
+			page.cN.transitions = new Object();
+			page.cN.transitions.page = page;
 			page.cN.transitions.animateLeft = function() {
 				
+				var scenes = u.qsa(".scene", this.page.cN);
+
+				scenes[0].transitioned = function() {
+					this.parentNode.removeChild(this);
+				}
+
+				u.a.translate(scenes[scenes.length-1], (this.page.offsetWidth), 0);
+				u.a.setOpacity(scenes[scenes.length-1], 1);
+				u.as(scenes[scenes.length-1], "display", "block");
+
+				u.a.transition(scenes[0], "all 0.3s ease-out");
+				u.a.translate(scenes[0], -(this.page.offsetWidth), 0);
+
+				u.a.transition(scenes[scenes.length-1], "all 0.3s ease-out");
+				u.a.translate(scenes[scenes.length-1], 0, 0);
+
 			}
 			page.cN.transitions.animateRight = function() {
 				
@@ -158,10 +184,61 @@ Util.Objects["page"] = new function() {
 				
 			}
 			page.cN.transitions.fadeIn = function() {
-				
+
+				var scene = u.qs(".scene", this.page.cN);
+
+				scene.transitioned = function(event) {
+					u.bug("remove scene:" + u.nodeId(this));
+					this.parentNode.removeChild(this);
+
+
+					this.cN.cleanScenes();
+
+
+					var scene = u.qs(".scene", this.cN);
+					scene.transitioned = function(event) {
+						this.transitioned = null;
+						u.a.transition(this, "none");
+					}
+
+					u.a.setOpacity(scene, 0);
+					u.as(scene, "display", "block");
+
+					u.a.transition(scene, "all 0.3s ease-out");
+					u.a.setOpacity(scene, 1);
+					
+				}
+
+				if(u.gcs(scene, "opacity") != 0) {
+					u.a.transition(scene, "all 0.3s ease-out");
+					u.a.setOpacity(scene, 0);
+				}
+				else {
+					scene.transitioned();
+				}
 			}
 
+			page.cN.transitions.hard = function() {
 
+				if(u.qsa(".scene", this.page.cN).length > 1) {
+					u.bug("two scenes - remove first")
+					var scene = u.qs(".scene");
+					scene.parentNode.removeChild(scene);
+				}
+
+				this.page.cN.cleanScenes();
+
+				var scene = u.qs(".scene", this.page.cN);
+				scene.transitioned = function(event) {
+					this.transitioned = null;
+					u.a.transition(this, "none");
+				}
+				u.a.setOpacity(scene, 0);
+				u.as(scene, "display", "block");
+
+				u.a.transition(scene, "all 0.3s ease-out");
+				u.a.setOpacity(scene, 1);
+			}
 
 
 
@@ -217,10 +294,10 @@ Util.Objects["page"] = new function() {
 				for(i = 0; node = nodes[i]; i++) {
 					node.page = page;
 					node.clicked = function() {
-						
+
 						this.page.navigate(this.url, this.page.nN);
 
-//						location.hash = u.h.cleanHash(this.url);
+						this.page.hN.bn_nav.clicked();
 					}
 					u.ce(node);
 				}
@@ -249,20 +326,20 @@ Util.Objects["page"] = new function() {
 
 				var page = u.qs("#page");
 
-				if(typeof(page.cN.scene) && typeof(page.cN.scene.resized) == "function") {
-					page.cN.scene.resized();
-				}
-				if(typeof(page.intro) == "object" && typeof(page.intro.resized) == "function" && page.intro.parentNode) {
+				if(page.intro && typeof(page.intro.resized) == "function" && page.intro.parentNode) {
 					page.intro.resized();
 				}
 
-				if(typeof(page.hN) && typeof(page.hN.resized) == "function") {
+				if(page.hN && typeof(page.hN.resized) == "function") {
 					page.hN.resized();
 				}
-				if(typeof(page.cN) && typeof(page.cN.resized) == "function") {
+				if(page.cN && typeof(page.cN.resized) == "function") {
 					page.cN.resized();
 				}
-				if(typeof(page.fN) && typeof(page.fN.resized) == "function") {
+				if(page.cN && page.cN.scene && typeof(page.cN.scene.resized) == "function") {
+					page.cN.scene.resized();
+				}
+				if(page.fN && typeof(page.fN.resized) == "function") {
 					page.fN.resized();
 				}
 			}

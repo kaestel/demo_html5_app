@@ -1,10 +1,11 @@
-<?php $body_class = "product" ?>
+<?php $body_class = "productview" ?>
 <?php $page_description = "This is the Gram 380g Shoe" ?>
 <?php $page_title = "Gram 380g Shoe" ?>
 <?php include_once($_SERVER["LOCAL_PATH"]."/templates/shell.header.php") ?>
 
-<div class="scene">
-	<div class="product i:productview" itemscope itemtype="http://schema.org/Product">
+<div class="scene productview i:productview">
+
+	<div class="product" itemscope itemtype="http://schema.org/Product">
 		<div class="images">
 			<ul class="thumbnails">
 				<li class="id:gram1">
@@ -18,20 +19,20 @@
 				</li>
 				<li class="id:gram4">
 					<a href="/images/gram4/250x.png">Gram 380g Shoe</a>
-				</li>				
+				</li>
 			</ul>
 		</div>
-		
+
 		<h1 class="title" itemprop="name">Gram 380g Shoe</h1>
-		
 		<div class="details">
 			<div class="offer" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-			<p class="price" itemprop="price">1799</p>
-			<form action="/kurv" class="simple_form buy" method="post">
-				<ul class="actions">
-					<li class="buy"><input class="button primary buy" name="commit" type="submit" value="Add to cart" /></li>
-				</ul>
-			</form>
+				<p class="price" itemprop="price">1799</p>
+				<form action="/kurv" class="simple_form buy" method="post">
+					<ul class="actions">
+						<li class="buy"><input class="button primary buy" name="commit" type="submit" value="Add to cart" /></li>
+					</ul>
+				</form>
+			</div>
 		</div>
 		
 		<div class="description" itemprop="description">

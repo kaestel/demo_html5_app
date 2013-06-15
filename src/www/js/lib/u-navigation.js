@@ -62,10 +62,11 @@ u.navigation = function(page, options) {
 	}
 
 
-	page.navigate = function(node, url) {
+	page.navigate = function(url, node) {
+		u.bug("url:" + url + ", " + u.nodeId(node))
 
-		this.hash_node = node;
-		location.hash = u.h.getCleanHash(url);
+		this.hash_node = node ? node : false;
+		location.hash = u.h.getCleanUrl(url);
 
 	}
 
@@ -75,7 +76,7 @@ u.navigation = function(page, options) {
 	if(location.hash.length < 2) {
 		u.bug("set hash + init content")
 		
-		page.navigate(u.h.getCleanUrl(location.href), page);
+		page.navigate(location.href, page);
 //		location.hash = u.h.getCleanUrl(location.href);
 		u.init(page.cN);
 	}
