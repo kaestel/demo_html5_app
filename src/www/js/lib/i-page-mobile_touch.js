@@ -455,7 +455,7 @@ Util.Objects["page"] = new function() {
 			this.page.ready();
 		}
 		// load and play intro
-		page.intro.sequence_player.loadAndPlay(page.intro._images, {"framerate":24});
+		page.intro.sequence_player.loadAndPlay(page.intro._images, {"framerate":240});
 
 
 	}
