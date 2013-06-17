@@ -1,4 +1,4 @@
-#content .scene.productview h1 {font-size: 30px; line-height: 120px; font-weight: bold; color: #465159; background-color: orange;}
+#content .scene.productview h1 {font-size: 30px; line-height: 120px; font-weight: bold; color: #465159; background-color: #ffffff; border-bottom: solid 4px #e6e7ee;}
 
 #content .scene.productview ul.actions li {position: relative;}
 #content .scene.productview ul.actions li input.buy {background-color: #fc335c; color: #ffffff; display: block; border: none; line-height: 120%; font-weight: bold; text-align: center; padding: 20px 0; font-size: 25px; line-height: 120%; width: 100%;}
@@ -6,7 +6,7 @@
 #content .scene.productview .product .price {background: #fc335c; color: #ffffff; padding: 10px 17px; position: absolute; right: 0; top: 0px; font-family: "proximanova_bold";}
 #content .scene.productview .product .price:after {content:"kr";}
 
-#content .scene.productview .product h1 {font-family: "proximanova_bold"; font-size: 15px; color: #465159; font-weight: bold; line-height: 30px; padding: 0px 15px;}
+#content .scene.productview .product h1 {font-family: "proximanova_bold"; font-size: 15px; color: #465159; font-weight: bold; line-height: 30px; padding: 7px 15px;}
 
 
 
@@ -18,7 +18,7 @@
 #content .scene.productview .product div.images ul li:first-child {display: block; background: transparent url(/images/air_max1/480x.jpg) no-repeat top left; padding-top: 480px;}
 
 
-#content .scene.productview .product div.images ul li a {text-indent: -9999px;}
+#content .scene.productview .product div.images ul li a {display: none;}
 
 
 #content .scene.productview .product .offer {position: relative; margin-bottom: 20px;}
