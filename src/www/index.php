@@ -8,43 +8,75 @@
 	<h1>List</h1>
 	<ul class="productlist">
 		<li class="product id:pointer1" itemscope itemtype="http://schema.org/Product">
-			<div class="shadowbox">
-				<h2 itemprop="name"><a href="/pointer">Pointer Underachiever</a></h2>
-				<div class="description" itemprop="description">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
-				</div>
+			
+			<h2 itemprop="name"><a href="/pointer">Pointer Underachiever</a></h2>
+			
+			<div class="info">
+				<dl>
+					<dt class="published_at"></dt>
+					<dd class="published_at" itemprop="releaseDate">May 26th 2013</dd>
+				</dl>
 			</div>
-			<div class="published_at" itemprop="releaseDate">May 26th 2013</div>
-			<div class="offer" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-				<p class="price" itemprop="price">1299</p>
+			
+			<div class="description" itemprop="description">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
+			</div>
+			
+			<div class="offer" itemscope itemtype="http://schema.org/Offer">
+				<dl>
+					<dt class="price">Price</dt>
+					<dd class="price" itemprop="offers">1299</dd>
+				</dl>
 			</div>
 		</li>
+
 		<li class="product id:air_max1" itemscope itemtype="http://schema.org/Product">
-			<div class="shadowbox">
-				<h2 itemprop="name"><a href="/airmax">Nike Air Max</a></h2>
-				<div class="description" itemprop="description">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
-				</div>
+			
+			<h2 itemprop="name"><a href="/airmax">Nike Air Max</a></h2>
+			
+			<div class="info">
+				<dl>
+					<dt class="published_at"></dt>
+					<dd class="published_at" itemprop="releaseDate">April 3rd 2013</dd>
+				</dl>
 			</div>
-			<div class="published_at" itemprop="releaseDate">April 3rd 2013</div>
-			<div class="offer" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-				<p class="price" itemprop="price">2049</p>
+			
+			<div class="description" itemprop="description">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
 			</div>
-
+			
+			<div class="offer" itemscope itemtype="http://schema.org/Offer">
+				<dl>
+					<dt class="price">Price</dt>
+					<dd class="price" itemprop="offers">2049</dd>
+				</dl>
+			</div>
 		</li>
+
+
 		<li class="product id:gram1" itemscope itemtype="http://schema.org/Product">
-			<div class="shadowbox">
-				<h2 itemprop="name"><a href="/gram">Gram 380g Shoe</a></h2>
-				<div class="description" itemprop="description">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
-				</div>
+			
+			<h2 itemprop="name"><a href="/gram">Gram 380g Shoe</a></h2>
+			
+			<div class="info">
+				<dl>
+					<dt class="published_at"></dt>
+					<dd class="published_at" itemprop="releaseDate">April 22nd 2013</dd>
+				</dl>
 			</div>
-			<div class="published_at" itemprop="releaseDate">April 22nd 2013</div>
-			<div class="offer" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-				<p class="price" itemprop="price">1799</p>
+			
+			<div class="description" itemprop="description">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
 			</div>
-
+			
+			<div class="offer" itemscope itemtype="http://schema.org/Offer">
+				<dl>
+					<dt class="price">Price</dt>
+					<dd class="price" itemprop="offers">1799</dd>
+				</dl>
+			</div>
 		</li>
+
 	</ul>
 </div>
 
