@@ -43,8 +43,18 @@ Util.Objects["productview"] = new function() {
 		}
 
 
-		var product = u.qs(".product", scene);
+		var product = u.qs("div.product", scene);
 		product.scene = scene;
+
+
+		var offer = u.qs(".offer", product);
+		u.ie(product, offer);
+
+		var h1 = u.qs("h1", product);
+		u.ie(product, h1);
+
+		var images = u.qs("div.images", product);
+		u.ie(product, images);
 
 		scene.ready();
 

@@ -51,6 +51,13 @@ Util.Objects["productlist"] = new function() {
 				u.bug("product:" + u.qs("h2", product).innerHTML)
 				product.scene = scene;
 
+				// manipulate dom
+				var h2 = u.qs("h2", product);
+				var desc = u.qs("div.description", product);
+				var box = u.ie(product, "div", {"class":"box"});
+				u.ae(box, h2);
+				u.ae(box, desc);
+
 
 				u.ce(product);
 				product.clicked = function(event) {

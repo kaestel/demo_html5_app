@@ -6,16 +6,16 @@
 <div class="scene productview i:productview">
 
 	<div class="product" itemscope itemtype="http://schema.org/Product">
-		
+
 		<h1 itemprop="name">Gram 380g Shoe</h1>
-		
+
 		<div class="info">
 			<dl>
 				<dt class="published_at"></dt>
 				<dd class="published_at" itemprop="releaseDate">May 26th 2013</dd>
 			</dl>
 		</div>
-		
+
 		<div class="description" itemprop="description">
 			<h2>About</h2>
 			<p>
