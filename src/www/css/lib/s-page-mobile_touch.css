@@ -27,11 +27,15 @@ input, textarea {outline: none;}
 @media all and (min-width: 480px) {
 
 	#page {width: 480px; height: 320px;}
+	#content .scene.productlist .product {padding-top: 480px;}
+	#content .scene.productview .product div.images ul li:first-child {background: transparent url(/images/air_max1/480x.jpg) no-repeat top left; padding-top: 480px;}
 
 }
 
 @media all and (max-width: 480px) {
 
 	#page {width: 320px; height: 480px;}
+	#content .scene.productlist .product {padding-top: 320px;}
+	#content .scene.productview .product div.images ul li:first-child {background: transparent url(/images/air_max1/640x.jpg) no-repeat top left; background-size: 100% auto; padding-top: 320px;}
 
 }
