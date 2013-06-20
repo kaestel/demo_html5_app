@@ -21,6 +21,8 @@ Util.Objects["productview"] = new function() {
 					alert("dropped")
 				}
 
+
+
 				u.ac(this.cN, "ready");
 				this.cN.ready();
 
@@ -55,6 +57,29 @@ Util.Objects["productview"] = new function() {
 
 		var images = u.qs("div.images", product);
 		u.ie(product, images);
+		u.a.setHeight(images, scene.cN.offsetHeight);
+
+		var gallery_index = u.qs("ul.thumbnails", images);
+		if(gallery_index) {
+			var i, node;
+
+			scene.gallery = u.o.gallery.init(gallery_index)
+
+
+			scene.gallery.ready = function() {
+				// show selected node (selectNode calls back to ready)
+				// no value in hash? start at beginning
+				if(u.h.getCleanUrl(location.href, 2) == u.h.getCleanUrl(location.href, 3)) {
+					this.selectNode(0);
+				}
+				// use hash value
+				else {
+					var index = u.h.getCleanUrl(location.href).split("/")[3];
+					this.selectNode(index);
+				}
+			}
+		}
+
 
 		scene.ready();
 

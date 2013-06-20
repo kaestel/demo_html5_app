@@ -12,15 +12,6 @@
 #content .scene.productview .product h1 {font-family: "proximanova_bold"; font-size: 15px; color: #465159; font-weight: bold; line-height: 120%; padding: 7px 15px;}
 
 
-
-/*
-#content {display: none;}
-*/
-
-#content .scene.productview .product div.images ul li {display: none;}
-#content .scene.productview .product div.images ul li:first-child {display: block;}
-
-
 #content .scene.productview .product div.images ul li a {display: none;}
 
 
