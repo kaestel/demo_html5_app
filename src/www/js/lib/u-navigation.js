@@ -32,7 +32,7 @@ u.navigation = function(page, options) {
 
 		var url = u.h.getCleanHash(location.hash);
 
-		u.bug("navigate:" + url + "("+ (this._nav_path) + ")")
+//		u.bug("navigate:" + url + "("+ (this._nav_path) + ")")
 
 		// stats
 		u.stats.pageView(url);
@@ -63,7 +63,7 @@ u.navigation = function(page, options) {
 
 
 	page.navigate = function(url, node) {
-		u.bug("url:" + url + ", " + u.nodeId(node))
+//		u.bug("url:" + url + ", " + u.nodeId(node))
 
 		this.hash_node = node ? node : false;
 		location.hash = u.h.getCleanUrl(url);
@@ -72,9 +72,9 @@ u.navigation = function(page, options) {
 
 
 	// set default hash if no hash value is present
-	// no furter navigation - initialize content
+	// no further navigation - initialize content
 	if(location.hash.length < 2) {
-		u.bug("set hash + init content")
+//		u.bug("set hash + init content")
 		
 		page.navigate(location.href, page);
 //		location.hash = u.h.getCleanUrl(location.href);
@@ -82,18 +82,18 @@ u.navigation = function(page, options) {
 	}
 	// if different hash and url, load content based on hash
 	else if(u.h.getCleanHash(location.hash) != u.h.getCleanUrl(location.href)) {
-		u.bug("init navigate")
+//		u.bug("init navigate:" + u.h.getCleanHash(location.hash) + "!=" + u.h.getCleanUrl(location.href) + "; " + u.h.getCleanHash(location.href))
 		page._navigate();
 	}
 	// hash and url is aligned - init existing content
 	else {
-		u.bug("init content")
+//		u.bug("init content")
 		u.init(page.cN);
 	}
 
 
 	page._initHash = function() {
-		u.bug("enable HASH navigation")
+//		u.bug("enable HASH navigation")
 
 		u.h.catchEvent(page._navigate, page);
 	}

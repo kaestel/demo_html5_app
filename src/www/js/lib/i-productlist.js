@@ -6,26 +6,22 @@ Util.Objects["productlist"] = new function() {
 
 
 		scene.ready = function() {
-			u.bug("scene ready:" + u.qsa("li.product", this).length)
+//			u.bug("scene ready:" + u.qsa("li.product", this).length);
 
 
 			if(u.qsa("li.product", this).length == u.qsa("li.product.ready", this).length) {
+//				u.bug("scene and list is ready");
 
 				// set drag on scene
-				u.e.drag(this.cN, this.cN)
+				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
 
-				this.cN.picked = function(event) {
-					alert("picked")
-				}
-				this.cN.dropped = function(event) {
-					alert("dropped")
-				}
+				this.picked = function(event) {}
+				this.moved = function(event) {}
+				this.dropped = function(event) {}
+
 
 				u.ac(this.cN, "ready");
 				this.cN.ready();
-
-
-				
 			}
 
 		}

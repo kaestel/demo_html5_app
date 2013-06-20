@@ -97,7 +97,7 @@ Util.Objects["page"] = new function() {
 
 
 			page.cN.ready = function() {
-//				u.bug("page.cN ready")
+				u.bug("page.cN ready:" + this.page.intro + ", " + u.hc(this.page, "ready") + ", " + u.hc(this, "ready"));
 
 				if(!this.page.intro && u.hc(this.page, "ready") && u.hc(this, "ready")) {
 					u.bug("page is actually ready:" + this.page);
