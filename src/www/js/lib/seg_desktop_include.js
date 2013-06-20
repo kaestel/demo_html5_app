@@ -8,6 +8,8 @@ document.write('<script type="text/javascript" src="/js/lib/i-productview.js"></
 document.write('<script type="text/javascript" src="/js/lib/i-cart.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/i-additem.js"></script>');
 
+document.write('<script type="text/javascript" src="/js/lib/i-gallery.js"></script>');
+
 document.write('<script type="text/javascript" src="/js/lib/i-scene-generic.js"></script>');
 
 

@@ -71,6 +71,7 @@ Util.Objects["page"] = new function() {
 
 					// enable ajax navigation
 					u.navigation(page);
+
 				}
 			}
 
@@ -138,7 +139,10 @@ Util.Objects["page"] = new function() {
 
 					// insert .scene in #content
 					var new_scene = u.qs(".scene", response);
-					u.as(new_scene, "display", "none");
+//					u.as(new_scene, "display", "none");
+					u.a.translate(new_scene, this.offsetWidth, 0);
+//					u.as(new_scene, "display", "block");
+
 					u.ae(this, new_scene);
 
 					// init content - will callback to ready when done
@@ -184,9 +188,10 @@ Util.Objects["page"] = new function() {
 				
 			}
 			page.cN.transitions.fadeIn = function() {
+				u.bug("fade in transition")
 
+				// cleanup + enter on transition
 				var scene = u.qs(".scene", this.page.cN);
-
 				scene.transitioned = function(event) {
 					u.bug("remove scene:" + u.nodeId(this));
 					this.parentNode.removeChild(this);
@@ -194,7 +199,7 @@ Util.Objects["page"] = new function() {
 
 					this.cN.cleanScenes();
 
-
+					// enter new scene
 					var scene = u.qs(".scene", this.cN);
 					scene.transitioned = function(event) {
 						this.transitioned = null;
@@ -202,6 +207,7 @@ Util.Objects["page"] = new function() {
 					}
 
 					u.a.setOpacity(scene, 0);
+					u.a.translate(scene, 0, 0);
 					u.as(scene, "display", "block");
 
 					u.a.transition(scene, "all 0.3s ease-out");
@@ -219,7 +225,9 @@ Util.Objects["page"] = new function() {
 			}
 
 			page.cN.transitions.hard = function() {
+				u.bug("hard transition")
 
+				// clean up
 				if(u.qsa(".scene", this.page.cN).length > 1) {
 					u.bug("two scenes - remove first")
 					var scene = u.qs(".scene");
@@ -228,12 +236,14 @@ Util.Objects["page"] = new function() {
 
 				this.page.cN.cleanScenes();
 
+				// enter new scene
 				var scene = u.qs(".scene", this.page.cN);
 				scene.transitioned = function(event) {
 					this.transitioned = null;
 					u.a.transition(this, "none");
 				}
 				u.a.setOpacity(scene, 0);
+				u.a.translate(scene, 0, 0);
 				u.as(scene, "display", "block");
 
 				u.a.transition(scene, "all 0.3s ease-out");
