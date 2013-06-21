@@ -71,6 +71,8 @@ Util.Objects["gallery"] = new function() {
 					u.e.swipe(this, this, {"show_bounds":false});
 
 					this.picked = function(event) {
+						u.bug("picked gallery")
+
 						// get prev and next node
 
 						this.prev_node = this.selected_node.i-1 < 0 ? this.nodes[this.nodes.length-1] : this.nodes[this.selected_node.i-1];

@@ -8,12 +8,7 @@
 #header .servicenavigation li {position: absolute; width: 43px; height: 43px; background-color: transparent; background-repeat: no-repeat; background-image: url(/img/bg_icons.svg); background-size: 100px auto;}
 #header .servicenavigation li a {display: block; text-indent: -9999px; height: 100%;}
 
-#header .servicenavigation li.navigation {top: 0; left: 0; background-position: 11px 14px;}
-#header .servicenavigation li.camera {top: 0; right: 0; background-position: 11px -189px;}
+#header .servicenavigation li.navigation {top: 0; left: 0; background-position: 11px 14px; z-index: 10;}
+#header .servicenavigation li.back {top: 0; left: 0; background-color: red; z-index: 5;}
+#header .servicenavigation li.cart {top: 0; right: 0; background-position: 9px -495px;}
 
-
-#header .servicenavigation li.camera .field {height: 43px; width: 43px; overflow: hidden;}
-#header .servicenavigation li.camera .field input {border: none; height: 43px; width: 43px; opacity: 0;}
-
-#header .servicenavigation li.camera label,
-#header .servicenavigation li.camera .actions {display: none;}

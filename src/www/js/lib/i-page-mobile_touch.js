@@ -34,10 +34,10 @@ Util.Objects["page"] = new function() {
 
 			page.ready = function() {
 
-				u.bug("page ready")
+//				u.bug("page ready")
 
 				if(!this.intro) {
-					u.bug("intro is done")
+//					u.bug("intro is done")
 
 
 					this.initHeader();
@@ -163,11 +163,13 @@ Util.Objects["page"] = new function() {
 			page.cN.transitions = new Object();
 			page.cN.transitions.page = page;
 			page.cN.transitions.animateLeft = function() {
-				
+				u.bug("animateLeft transition")
+
 				var scenes = u.qsa(".scene", this.page.cN);
 
 				scenes[0].transitioned = function() {
-					this.parentNode.removeChild(this);
+					// clean up
+					this.cN.cleanScenes();
 				}
 
 				u.a.translate(scenes[scenes.length-1], (this.page.offsetWidth), 0);
@@ -182,11 +184,75 @@ Util.Objects["page"] = new function() {
 
 			}
 			page.cN.transitions.animateRight = function() {
+				u.bug("animateRight transition")
+				
+				var scenes = u.qsa(".scene", this.page.cN);
+
+				scenes[0].transitioned = function() {
+					// clean up
+					this.cN.cleanScenes();
+				}
+
+				u.a.translate(scenes[scenes.length-1], -(this.page.offsetWidth), 0);
+				u.a.setOpacity(scenes[scenes.length-1], 1);
+				u.as(scenes[scenes.length-1], "display", "block");
+
+				u.a.transition(scenes[0], "all 0.3s ease-out");
+				u.a.translate(scenes[0], (this.page.offsetWidth), 0);
+
+				u.a.transition(scenes[scenes.length-1], "all 0.3s ease-out");
+				u.a.translate(scenes[scenes.length-1], 0, 0);
 				
 			}
-			page.cN.transitions.dropIn = function() {
-				
+
+
+			// drop in from top
+			page.cN.transitions.pullUp = function() {
+				u.bug("pullUp transition")
+
+				var scenes = u.qsa(".scene", this.page.cN);
+
+				scenes[0].transitioned = function() {
+					// clean up
+					this.cN.cleanScenes();
+				}
+
+				u.as(scenes[0], "zIndex", 10);
+				u.as(scenes[scenes.length-1], "zIndex", 5);
+
+				u.a.translate(scenes[scenes.length-1], 0, 0);
+				u.a.setOpacity(scenes[scenes.length-1], 1);
+				u.as(scenes[scenes.length-1], "display", "block");
+
+				u.a.transition(scenes[0], "all 0.5s ease-out");
+				u.a.translate(scenes[0], 0, -(this.page.offsetHeight));
+
 			}
+
+
+			// drop in from top
+			page.cN.transitions.dropDown = function() {
+				u.bug("dropDown transition")
+
+				var scenes = u.qsa(".scene", this.page.cN);
+
+				scenes[scenes.length-1].transitioned = function() {
+					// clean up
+					this.cN.cleanScenes();
+				}
+
+				u.as(scenes[0], "zIndex", 5);
+				u.as(scenes[scenes.length-1], "zIndex", 10);
+
+				u.a.translate(scenes[scenes.length-1], 0, -(this.page.offsetHeight));
+				u.a.setOpacity(scenes[scenes.length-1], 1);
+				u.as(scenes[scenes.length-1], "display", "block");
+
+				u.a.transition(scenes[scenes.length-1], "all 0.5s ease-out");
+				u.a.translate(scenes[scenes.length-1], 0, 0);
+			}
+
+			// fade in - static position
 			page.cN.transitions.fadeIn = function() {
 				u.bug("fade in transition")
 
@@ -224,6 +290,7 @@ Util.Objects["page"] = new function() {
 				}
 			}
 
+			// no transition out - just show
 			page.cN.transitions.hard = function() {
 				u.bug("hard transition")
 
@@ -251,37 +318,80 @@ Util.Objects["page"] = new function() {
 			}
 
 
+			// header elements
+			page.hN.bn_nav = u.qs("li.navigation", this.hN);
+			page.hN.bn_nav.page = page;
+
+			page.hN.bn_nav.clicked = function(event) {
+//					u.bug("bn_nav clicked")
+				u.e.kill(event);
+
+				this.page.transitioned = function() {
+					this.transitioned = null;
+					u.a.transition(this, "none");
+				}
+
+				if(!u.hc(this.page.nN, "open")) {
+					u.a.transition(this.page, "all 0.3s ease-in-out");
+					u.a.translate(this.page, this.page.offsetWidth - this.offsetWidth, 0)
+
+					u.ac(this.page.nN, "open");
+				}
+				else {
+					u.a.transition(this.page, "all 0.3s ease-in-out");
+					u.a.translate(this.page, 0, 0)
+
+					u.rc(this.page.nN, "open");
+				}
+			}
+			u.ce(page.hN.bn_nav);
+
+			page.hN.bn_back = u.ae(u.qs(".servicenavigation", this.hN), "li", {"class":"back"});
+			page.hN.bn_back.page = page;
+			u.a.setOpacity(page.hN.bn_back, 0);
+			page.hN.bn_back.clicked = function(event) {
+//					u.bug("bn_nav clicked")
+				this.transition_method = this.page.cN.transitions.animateRight;
+
+//				u.xInObject(this.page._nav_history);
+				if(this.page._nav_history.shift()) {
+					this.page.navigate(this.page._nav_history.shift(), this);
+				}
+				else {
+					this.page.navigate("/", this);
+				}
+				this.page.hN.changeToNav();
+
+			}
+			u.ce(page.hN.bn_back);
+
+			page.hN.changeToBack = function() {
+
+				u.as(this.bn_back, "zIndex", 10);
+				u.as(this.bn_nav, "zIndex", 5);
+
+				u.a.transition(this.bn_back, "all 1s ease-in");
+				u.a.transition(this.bn_nav, "all 1s ease-out");
+
+				u.a.setOpacity(this.bn_back, 1);
+				u.a.setOpacity(this.bn_nav, 0);
+			}
+
+			page.hN.changeToNav = function() {
+
+				u.as(this.bn_back, "zIndex", 5);
+				u.as(this.bn_nav, "zIndex", 10);
+
+				u.a.transition(this.bn_back, "all 1s ease-in");
+				u.a.transition(this.bn_nav, "all 1s ease-out");
+
+				u.a.setOpacity(this.bn_back, 0);
+				u.a.setOpacity(this.bn_nav, 1);
+			}
 
 			// Init header 
 			page.initHeader = function() {
 //				u.bug("init header")
-
-				this.hN.bn_nav = u.qs("li.navigation", this.hN);
-				this.hN.bn_nav.page = this;
-
-				this.hN.bn_nav.clicked = function(event) {
-//					u.bug("bn_nav clicked")
-					u.e.kill(event);
-
-					this.page.transitioned = function() {
-						this.transitioned = null;
-						u.a.transition(this, "none");
-					}
-
-					if(!u.hc(this.page.nN, "open")) {
-						u.a.transition(this.page, "all 0.3s ease-in-out");
-						u.a.translate(this.page, this.page.offsetWidth - this.offsetWidth, 0)
-
-						u.ac(this.page.nN, "open");
-					}
-					else {
-						u.a.transition(this.page, "all 0.3s ease-in-out");
-						u.a.translate(this.page, 0, 0)
-
-						u.rc(this.page.nN, "open");
-					}
-				}
-				u.ce(this.hN.bn_nav);
 
 
 				// show header
@@ -291,7 +401,7 @@ Util.Objects["page"] = new function() {
 
 					u.ac(this, "ready");
 				}
-				u.a.transition(this.hN, "all 0.2s ease-out");
+				u.a.transition(this.hN, "all 1.2s ease-out");
 				u.a.setOpacity(this.hN, 1);
 			}
 
@@ -299,8 +409,50 @@ Util.Objects["page"] = new function() {
 
 			page.initNavigation = function() {
 
+
+				// add cart to header
+				this.hN.bn_cart = u.ae(u.qs(".servicenavigation", this.hN), u.qs(".cart", this.nN).cloneNode(true));
+
+				var items = u.getCookie("cart");
+				if(items) {
+					this.hN.bn_cart.span = u.ae(this.hN.bn_cart, "span", {"html":items});
+				}
+
+
+				this.hN.bn_cart.page = this;
+				this.hN.bn_cart.clicked = function(event) {
+
+					if(u.h.getCleanHash(location.hash) != u.h.getCleanUrl(this.url)) {
+						this.transition_method = this.page.cN.transitions.dropDown;
+						this.page.navigate(this.url, this);
+					}
+					else {
+
+						this.transition_method = this.page.cN.transitions.pullUp;
+						if(this.page._nav_history.shift()) {
+							this.page.navigate(this.page._nav_history.shift(), this);
+					
+						}
+						else {
+							this.page.navigate("/", this);
+						}
+//						alert("caught")
+					}
+
+				}
+				u.ce(this.hN.bn_cart);
+
+				this.hN.addToCart = function() {
+					var items = u.getCookie("cart");
+					if(!this.bn_cart.span) {
+						u.ae(this.hN.bn_cart, "span", {"html":items ? items++ : 1})
+					}
+					u.saveCookie("cart", this.bn_cart.span.innerHTML);
+				}
+
+
 				var i, node;
-				var nodes = u.qsa("ul.store li", this.nN);
+				var nodes = u.qsa("ul.store li,ul.partners li", this.nN);
 				for(i = 0; node = nodes[i]; i++) {
 					node.page = page;
 					node.clicked = function() {
@@ -311,21 +463,6 @@ Util.Objects["page"] = new function() {
 					}
 					u.ce(node);
 				}
-
-
-
-				// this.hN.bn_cam = u.qs("li.camera", this.hN);
-				// this.hN.bn_cam.page = this;
-				// this.hN.bn_cam.clicked = function(event) {
-				// 	
-				// }
-				// u.ce(this.hN.bn_cam);
-				// 
-				// this.hN.bn_cam.response = function(response) {
-				// 	this.innerHTML = u.qs(".scene", response).innerHTML;
-				// }
-				// u.request(this.hN.bn_cam, this.hN.bn_cam.url);
-				// 
 
 			}
 

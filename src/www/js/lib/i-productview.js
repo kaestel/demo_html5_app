@@ -11,23 +11,21 @@ Util.Objects["productview"] = new function() {
 
 			if(u.qsa("li.product", this).length == u.qsa("li.product.ready", this).length) {
 
+
 				// set drag on scene
-				u.e.drag(this.cN, this.cN)
+				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
 
-				this.cN.picked = function(event) {
-					alert("picked")
+				this.picked = function(event) {
+					u.bug("view picked")
 				}
-				this.cN.dropped = function(event) {
-					alert("dropped")
-				}
-
+				this.moved = function(event) {}
+				this.dropped = function(event) {}
 
 
 				u.ac(this.cN, "ready");
 				this.cN.ready();
 
 
-				
 			}
 
 		}
@@ -80,6 +78,8 @@ Util.Objects["productview"] = new function() {
 			}
 		}
 
+
+		scene.cN.page.hN.changeToBack();
 
 		scene.ready();
 

@@ -83,6 +83,8 @@ Util.Objects["productlist"] = new function() {
 		}
 
 
+		scene.cN.page.hN.changeToNav();
+
 
 		var scene_images = new Array();
 		scene_images.push("/img/gx_loader.gif");
