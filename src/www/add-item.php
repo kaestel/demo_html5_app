@@ -6,7 +6,92 @@
 
 <div class="scene i:additem">
 	
-	<ul>
+	<ul class="additem">
+		<li>
+			<form action="#" method="post">
+				<fieldset>
+
+					<div class="field string required">
+						<label for="data_file_id">File</label>
+						<input type="file" id="data_file_id" name="data_file" />
+					</div>
+
+					<ul class="actions">
+						<li class="submit"><input class="button submit" type="submit" value="Upload"></li>
+					</ul>
+
+				</fieldset>
+			</form>
+			
+		</li>
+		<li>
+			<form action="#" method="post">
+				<fieldset>
+
+					<div class="field string required">
+						<label for="data_file_id">File</label>
+						<input type="file" id="data_file_id" name="data_file" />
+					</div>
+
+					<ul class="actions">
+						<li class="submit"><input class="button submit" type="submit" value="Upload"></li>
+					</ul>
+
+				</fieldset>
+			</form>
+			
+		</li>
+		<li>
+			<form action="#" method="post">
+				<fieldset>
+
+					<div class="field string required">
+						<label for="data_file_id">File</label>
+						<input type="file" id="data_file_id" name="data_file" />
+					</div>
+
+					<ul class="actions">
+						<li class="submit"><input class="button submit" type="submit" value="Upload"></li>
+					</ul>
+
+				</fieldset>
+			</form>
+			
+		</li>
+		<li>
+			<form action="#" method="post">
+				<fieldset>
+
+					<div class="field string required">
+						<label for="data_file_id">File</label>
+						<input type="file" id="data_file_id" name="data_file" />
+					</div>
+
+					<ul class="actions">
+						<li class="submit"><input class="button submit" type="submit" value="Upload"></li>
+					</ul>
+
+				</fieldset>
+			</form>
+			
+		</li>
+		<li>
+			<form action="#" method="post">
+				<fieldset>
+
+					<div class="field string required">
+						<label for="data_file_id">File</label>
+						<input type="file" id="data_file_id" name="data_file" />
+					</div>
+
+					<ul class="actions">
+						<li class="submit"><input class="button submit" type="submit" value="Upload"></li>
+					</ul>
+
+				</fieldset>
+			</form>
+			
+		</li>
 		<li>
 			<form action="#" method="post">
 				<fieldset>
