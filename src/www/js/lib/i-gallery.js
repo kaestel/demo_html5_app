@@ -68,7 +68,7 @@ Util.Objects["gallery"] = new function() {
 
 				// add touch event
 //				if(u.e.event_pref == "touch") {
-					u.e.swipe(this, this, {"show_bounds":false});
+					u.e.swipe(this, this, {"show_bounds":false, "horizontal_lock":true});
 
 					this.picked = function(event) {
 						u.bug("picked gallery")
