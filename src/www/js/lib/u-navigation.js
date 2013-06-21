@@ -27,11 +27,14 @@ u.navigation = function(page, options) {
 
 	// default starting path
 	page._nav_path = "/";
+	page._nav_history = [];
+
 
 	page._navigate = function() {
 
 		var url = u.h.getCleanHash(location.hash);
 
+		page._nav_history.unshift(url);
 //		u.bug("navigate:" + url + "("+ (this._nav_path) + ")")
 
 		// stats

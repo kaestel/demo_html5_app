@@ -3,6 +3,7 @@
 <?php $page_title = "Add item" ?>
 <?php include_once($_SERVER["LOCAL_PATH"]."/templates/shell.header.php") ?>
 
+
 <div class="scene i:additem">
 	
 	<ul>

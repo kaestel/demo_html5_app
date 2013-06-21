@@ -3,9 +3,10 @@
 <?php $page_title = "Your cart" ?>
 <?php include_once($_SERVER["LOCAL_PATH"]."/templates/shell.header.php") ?>
 
-<div class="scene i:cart">
+<div class="scene cart i:cart">
 
 	<h1>Cart</h1>
+
 	<ul class="items" id="cart">
 		<li>
 			<span class="title">Gram 380g Shoe</span>
@@ -40,7 +41,7 @@
 		<li class="shop">Back to shop</li>
 		<li class="checkout">Go to Checkout</li>
 	</ul>
-	
+
 </div>
 
 <?php include_once($_SERVER["LOCAL_PATH"]."/templates/shell.footer.php") ?>
