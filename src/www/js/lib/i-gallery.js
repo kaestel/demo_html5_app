@@ -71,7 +71,7 @@ Util.Objects["gallery"] = new function() {
 					u.e.swipe(this, this, {"show_bounds":false, "horizontal_lock":true});
 
 					this.picked = function(event) {
-						u.bug("picked gallery")
+//						u.bug("picked gallery")
 
 						// get prev and next node
 
@@ -89,7 +89,7 @@ Util.Objects["gallery"] = new function() {
 					}
 
 					this.moved = function(event) {
-//						u.bug("moved:" + this.current_x);
+//						u.bug("moved gallery:" + this.current_x);
 
 						// only drag the required nodes to maintain full visual effect with least resources
 						// prev node in view
@@ -115,7 +115,8 @@ Util.Objects["gallery"] = new function() {
 					}
 
 					this.dropped = function(event) {
-//						u.bug("dropped");
+//						u.bug("dropped gallery");
+
 						// no direction on exit (but movement - to be sure it is not just a click) - go back
 						// the rest will be handled by the swipeHandlers and selectNode
 						if(!this.swiped && this.selected_node._x != 0) {
