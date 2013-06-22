@@ -1,1 +1,25 @@
 #content .scene.cart {background: #cbebd5; min-height: 100%;}
+
+#content .scene.cart h1 {text-align: center; font-size: 30px; line-height: 120%; font-weight: bold;}
+
+#content .scene.cart .box {background: #ffffff; border-radius: 0 0 5px 5px; margin: 0 12px 30px; padding: 0 12px;
+	box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.12);
+}
+
+#content .scene.cart ul.items {border-bottom: 1px solid #465159;}
+
+#content .scene.cart ul.items li {position: relative;}
+#content .scene.cart ul.items span.title {display: block; padding-right: 100px;}
+#content .scene.cart ul.items span.price {position: absolute; right: 0; top: 0; text-align: right;}
+
+
+#content .scene.cart ul.costs {padding-bottom: 20px;}
+#content .scene.cart ul.costs li {position: relative;}
+#content .scene.cart ul.costs li span.title {display: block; padding-right: 100px; text-align: right;}
+#content .scene.cart ul.costs span.price {position: absolute; right: 0; top: 0; text-align: right;}
+#content .scene.cart ul.costs li.total {border-top: 2px solid #465159;}
+
+#content .scene.cart ul.actions {position: relative; padding-bottom: 20px;}
+#content .scene.cart ul.actions li {width: 50px; height: 50px; background-color: red; text-indent: -9999px; display: inline-block;}
+#content .scene.cart ul.actions li.checkout {position: absolute; right: 0; top: 0;}
+#content .scene.cart ul.actions li {display: block;}

@@ -3,22 +3,115 @@
 <?php $page_title = "Add item" ?>
 <?php include_once($_SERVER["LOCAL_PATH"]."/templates/shell.header.php") ?>
 
-<div class="scene additem i:additem">
 
-	<form action="#" method="post">
-		<fieldset>
+<div class="scene i:additem">
+	
+	<ul class="additem">
+		<li>
+			<form action="#" method="post">
+				<fieldset>
 
-			<div class="field string required">
-				<label for="data_file_id">File</label>
-				<input type="file" id="data_file_id" name="data_file" />
-			</div>
+					<div class="field string required">
+						<label for="data_file_id">File</label>
+						<input type="file" id="data_file_id" name="data_file" />
+					</div>
 
-			<ul class="actions">
-				<li class="submit"><input class="button submit" type="submit" value="Upload"></li>
-			</ul>
+					<ul class="actions">
+						<li class="submit"><input class="button submit" type="submit" value="Upload"></li>
+					</ul>
 
-		</fieldset>
-	</form>
+				</fieldset>
+			</form>
+			
+		</li>
+		<li>
+			<form action="#" method="post">
+				<fieldset>
+
+					<div class="field string required">
+						<label for="data_file_id">File</label>
+						<input type="file" id="data_file_id" name="data_file" />
+					</div>
+
+					<ul class="actions">
+						<li class="submit"><input class="button submit" type="submit" value="Upload"></li>
+					</ul>
+
+				</fieldset>
+			</form>
+			
+		</li>
+		<li>
+			<form action="#" method="post">
+				<fieldset>
+
+					<div class="field string required">
+						<label for="data_file_id">File</label>
+						<input type="file" id="data_file_id" name="data_file" />
+					</div>
+
+					<ul class="actions">
+						<li class="submit"><input class="button submit" type="submit" value="Upload"></li>
+					</ul>
+
+				</fieldset>
+			</form>
+			
+		</li>
+		<li>
+			<form action="#" method="post">
+				<fieldset>
+
+					<div class="field string required">
+						<label for="data_file_id">File</label>
+						<input type="file" id="data_file_id" name="data_file" />
+					</div>
+
+					<ul class="actions">
+						<li class="submit"><input class="button submit" type="submit" value="Upload"></li>
+					</ul>
+
+				</fieldset>
+			</form>
+			
+		</li>
+		<li>
+			<form action="#" method="post">
+				<fieldset>
+
+					<div class="field string required">
+						<label for="data_file_id">File</label>
+						<input type="file" id="data_file_id" name="data_file" />
+					</div>
+
+					<ul class="actions">
+						<li class="submit"><input class="button submit" type="submit" value="Upload"></li>
+					</ul>
+
+				</fieldset>
+			</form>
+			
+		</li>
+		<li>
+			<form action="#" method="post">
+				<fieldset>
+
+					<div class="field string required">
+						<label for="data_file_id">File</label>
+						<input type="file" id="data_file_id" name="data_file" />
+					</div>
+
+					<ul class="actions">
+						<li class="submit"><input class="button submit" type="submit" value="Upload"></li>
+					</ul>
+
+				</fieldset>
+			</form>
+			
+		</li>
+	</ul>
+
+
 
 </div>
 
