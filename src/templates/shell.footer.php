@@ -1,7 +1,7 @@
 	</div>
 	
 	<div id="navigation">
-		<h2>Store-a-Store</h2>
+		<h2>HTML5 Store</h2>
 		<ul class="store">
 			<li class="allitems"><a href="/">All items</a></li>
 			<li class="cart"><a href="/cart">Cart</a></li>

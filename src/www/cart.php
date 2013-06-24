@@ -35,8 +35,8 @@
 		</ul>
 	
 		<ul class="actions">
-			<li class="shop"><a href="">Back to shop</a></li>
-			<li class="checkout"><a href="">Go to Checkout</a></li>
+			<li class="shop"><a href="/">Back to shop</a></li>
+			<li class="checkout"><a href="/checkout">Go to Checkout</a></li>
 		</ul>
 
 	</div>
