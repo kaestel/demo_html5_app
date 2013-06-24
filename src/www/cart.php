@@ -6,7 +6,7 @@
 <div class="scene cart i:cart">
 
 	<div class="box">
-		<h1>Cart</h1>
+		<h1>Your Cart</h1>
 
 		<ul class="items" id="cart">
 			<li>
