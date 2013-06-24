@@ -23,13 +23,3 @@
 #content .scene.productview .product .gallery .prev {display: none;}
 
 
-
-
-#header .servicenavigation li.camera .field {height: 43px; width: 43px; overflow: hidden;}
-#header .servicenavigation li.camera .field input {border: none; height: 43px; width: 43px; opacity: 0;}
-
-#header .servicenavigation li.camera label,
-#header .servicenavigation li.camera .actions {display: none;}
-
-
-#header .cart path {fill: red;}
