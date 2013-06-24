@@ -105,5 +105,15 @@ u.navigation = function(page, options) {
 	u.t.setTimer(page, page._initHash, 100);
 
 
+
+	page.historyBack = function() {
+		if(this._nav_history.length > 1) {
+			this._nav_history.shift();
+			return this._nav_history.shift();
+		}
+		else {
+			return "/";
+		}
+	}
 }
 

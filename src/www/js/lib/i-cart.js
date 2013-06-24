@@ -37,13 +37,22 @@ Util.Objects["cart"] = new function() {
 		scene.cN.page.hN.changeToNav();
 
 
-		scene.bn_continue = u.qs(".continue", scene);
-		scene.bn_continue.page = scene.cN.page;
-		scene.bn_continue.transition_method = scene.cN.transitions.pullUp;
-		scene.bn_continue.clicked = function() {
-			this.page.navigate(this.url, this);
+		scene.bn_shop = u.qs(".shop", scene);
+		scene.bn_shop.page = scene.cN.page;
+		scene.bn_shop.transition_method = scene.cN.transitions.pullUp;
+		scene.bn_shop.clicked = function() {
+
+			this.transition_method = this.page.cN.transitions.pullUp;
+			this.page.navigate(this.page.historyBack(), this);
+
 		}
-		u.ce(scene.bn_continue);
+		
+//		scene.cN.page.hN.bn_cart.clicked;
+
+		// scene.bn_shop.clicked = function() {
+		// 	this.page.navigate(this.url, this);
+		// }
+		u.ce(scene.bn_shop);
 
 		scene.bn_checkout = u.qs(".checkout", scene);
 		scene.bn_checkout.clicked = function() {
