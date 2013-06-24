@@ -4,9 +4,9 @@
 <?php include_once($_SERVER["LOCAL_PATH"]."/templates/shell.header.php") ?>
 
 
-<div class="scene i:additem">
+<div class="scene additem i:additem">
 	
-	<ul class="additem">
+	<ul class="uploads">
 		<li>
 			<form action="#" method="post">
 				<fieldset>
