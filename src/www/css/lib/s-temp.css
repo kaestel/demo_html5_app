@@ -30,3 +30,6 @@
 
 #header .servicenavigation li.camera label,
 #header .servicenavigation li.camera .actions {display: none;}
+
+
+#header .cart path {fill: red;}
