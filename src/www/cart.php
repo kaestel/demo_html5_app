@@ -32,10 +32,6 @@
 				<span class="title">Total</span>
 				<span class="price">4048kr</span>
 			</li>
-			<!--li class="vat">
-				<span class="title">Vat</span>
-				<span class="price">1799kr</span>
-			</li-->
 		</ul>
 	
 		<ul class="actions">
