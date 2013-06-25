@@ -41,6 +41,7 @@ Util.Objects["page"] = new function() {
 
 
 					this.initHeader();
+
 					this.initNavigation();
 
 
@@ -64,8 +65,7 @@ Util.Objects["page"] = new function() {
 					u.a.transition(this, "none");
 					u.a.setOpacity(this, 1);
 
-					//
-					u.as(this.nN, "display", "block");
+
 					// recalculate content height
 					this.resized();
 
@@ -91,7 +91,10 @@ Util.Objects["page"] = new function() {
 				}
 				else {
 					var h = window.innerHeight;
+
+					// set page and navigation height
 					u.a.setHeight(this, h);
+					u.a.setHeight(this.nN, h);
 				}
 			}
 
@@ -153,6 +156,8 @@ Util.Objects["page"] = new function() {
 				u.request(this, u.h.getCleanHash(url));
 			}
 
+			// clean up scenes after transitions
+			// removes all scenes, execpt for the last one
 			page.cN.cleanScenes = function() {
 				while(u.qsa(".scene", this).length > 1) {
 					var scene = u.qs(".scene", this);
@@ -162,6 +167,8 @@ Util.Objects["page"] = new function() {
 
 			page.cN.transitions = new Object();
 			page.cN.transitions.page = page;
+
+			// transition scenes to the left
 			page.cN.transitions.animateLeft = function() {
 				u.bug("animateLeft transition")
 
@@ -177,12 +184,14 @@ Util.Objects["page"] = new function() {
 				u.as(scenes[scenes.length-1], "display", "block");
 
 				u.a.transition(scenes[0], "all 0.3s ease-out");
-				u.a.translate(scenes[0], -(this.page.offsetWidth), 0);
+				u.a.translate(scenes[0], -(this.page.offsetWidth), scenes[0]._y);
 
 				u.a.transition(scenes[scenes.length-1], "all 0.3s ease-out");
 				u.a.translate(scenes[scenes.length-1], 0, 0);
 
 			}
+
+			// transition scenes to the right
 			page.cN.transitions.animateRight = function() {
 				u.bug("animateRight transition")
 				
@@ -198,13 +207,12 @@ Util.Objects["page"] = new function() {
 				u.as(scenes[scenes.length-1], "display", "block");
 
 				u.a.transition(scenes[0], "all 0.3s ease-out");
-				u.a.translate(scenes[0], (this.page.offsetWidth), 0);
+				u.a.translate(scenes[0], (this.page.offsetWidth), scenes[0]._y);
 
 				u.a.transition(scenes[scenes.length-1], "all 0.3s ease-out");
 				u.a.translate(scenes[scenes.length-1], 0, 0);
 				
 			}
-
 
 			// drop in from top
 			page.cN.transitions.pullUp = function() {
@@ -228,7 +236,6 @@ Util.Objects["page"] = new function() {
 				u.a.translate(scenes[0], 0, -(this.page.offsetHeight));
 
 			}
-
 
 			// drop in from top
 			page.cN.transitions.dropDown = function() {
@@ -348,7 +355,7 @@ Util.Objects["page"] = new function() {
 
 			page.hN.bn_back = u.ae(u.qs(".servicenavigation", this.hN), "li", {"class":"back"});
 			page.hN.bn_back.page = page;
-			u.a.setOpacity(page.hN.bn_back, 0);
+//			u.a.setOpacity(page.hN.bn_back, 0);
 			page.hN.bn_back.clicked = function(event) {
 //					u.bug("bn_nav clicked")
 				this.transition_method = this.page.cN.transitions.animateRight;
@@ -359,6 +366,78 @@ Util.Objects["page"] = new function() {
 
 			}
 			u.ce(page.hN.bn_back);
+
+
+			// add cart to header
+			page.hN.bn_cart = u.ae(u.qs(".servicenavigation", page.hN), u.qs(".cart", page.nN).cloneNode(true));
+			page.hN.bn_cart.page = page;
+			page.hN.bn_cart.clicked = function(event) {
+
+				u.bug("cart click:" + u.nodeId(this) + ", " + this.url)
+
+				if(u.h.getCleanHash(location.hash) != u.h.getCleanUrl(this.url)) {
+					this.transition_method = this.page.cN.transitions.dropDown;
+					this.page.navigate(this.url, this);
+				}
+				else {
+
+					this.transition_method = this.page.cN.transitions.pullUp;
+					this.page.navigate(this.page.historyBack(), this);
+				}
+
+			}
+			u.ce(page.hN.bn_cart);
+
+
+			// Init header 
+			page.initHeader = function() {
+//				u.bug("init header")
+
+				// show header
+				this.hN.transitioned = function() {
+					this.transitioned = null;
+					u.a.transition(this, "none");
+
+					u.ac(this, "ready");
+				}
+				u.a.transition(this.hN, "all 1.2s ease-out");
+				u.a.setOpacity(this.hN, 1);
+			}
+
+			page.initNavigation = function() {
+				u.bug("init navigation");
+
+				// show navigation
+				u.as(this.nN, "display", "block");
+
+				var items = u.getCookie("cart");
+				if(items) {
+					this.hN.bn_cart.span = u.ae(this.hN.bn_cart, "span", {"html":items});
+				}
+
+				var i, node;
+				var nodes = u.qsa("ul.store li,ul.partners li", this.nN);
+				for(i = 0; node = nodes[i]; i++) {
+					node.page = page;
+					node.clicked = function() {
+
+						this.page.navigate(this.url, this.page.nN);
+
+						this.page.hN.bn_nav.clicked();
+					}
+					u.ce(node);
+				}
+
+			}
+
+
+			page.hN.addToCart = function() {
+				var items = u.getCookie("cart");
+				if(!this.bn_cart.span) {
+					u.ae(this.hN.bn_cart, "span", {"html":items ? items++ : 1})
+				}
+				u.saveCookie("cart", this.bn_cart.span.innerHTML);
+			}
 
 			page.hN.changeToBack = function() {
 
@@ -384,74 +463,7 @@ Util.Objects["page"] = new function() {
 				u.a.setOpacity(this.bn_nav, 1);
 			}
 
-			// Init header 
-			page.initHeader = function() {
-//				u.bug("init header")
 
-
-				// show header
-				this.hN.transitioned = function() {
-					this.transitioned = null;
-					u.a.transition(this, "none");
-
-					u.ac(this, "ready");
-				}
-				u.a.transition(this.hN, "all 1.2s ease-out");
-				u.a.setOpacity(this.hN, 1);
-			}
-
-
-
-			// add cart to header
-			page.hN.bn_cart = u.ae(u.qs(".servicenavigation", page.hN), u.qs(".cart", page.nN).cloneNode(true));
-			page.hN.bn_cart.page = page;
-			page.hN.bn_cart.clicked = function(event) {
-
-				u.bug("cart click:" + u.nodeId(this) + ", " + this.url)
-
-				if(u.h.getCleanHash(location.hash) != u.h.getCleanUrl(this.url)) {
-					this.transition_method = this.page.cN.transitions.dropDown;
-					this.page.navigate(this.url, this);
-				}
-				else {
-
-					this.transition_method = this.page.cN.transitions.pullUp;
-					this.page.navigate(this.page.historyBack(), this);
-				}
-
-			}
-			u.ce(page.hN.bn_cart);
-
-			page.hN.addToCart = function() {
-				var items = u.getCookie("cart");
-				if(!this.bn_cart.span) {
-					u.ae(this.hN.bn_cart, "span", {"html":items ? items++ : 1})
-				}
-				u.saveCookie("cart", this.bn_cart.span.innerHTML);
-			}
-
-
-			page.initNavigation = function() {
-
-				var items = u.getCookie("cart");
-				if(items) {
-					this.hN.bn_cart.span = u.ae(this.hN.bn_cart, "span", {"html":items});
-				}
-
-				var i, node;
-				var nodes = u.qsa("ul.store li,ul.partners li", this.nN);
-				for(i = 0; node = nodes[i]; i++) {
-					node.page = page;
-					node.clicked = function() {
-
-						this.page.navigate(this.url, this.page.nN);
-
-						this.page.hN.bn_nav.clicked();
-					}
-					u.ce(node);
-				}
-
-			}
 
 
 			// global resize handler 

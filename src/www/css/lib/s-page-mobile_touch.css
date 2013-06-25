@@ -21,7 +21,7 @@ input, select, textarea {font-size: 14px;}
 input, textarea {outline: none;}
 
 
-#page {position: relative; text-align: left; height: 100%; font-size: 0; overflow: hidden; background: #ffffff; z-index: 2; opacity: 0; display: block;
+#page {position: relative; text-align: left; height: 100%; font-size: 0; overflow: hidden; background: #ffffff; z-index: 2; opacity: 0;
 	-webkit-transform: translate3d(0,0,0);
 }
 
