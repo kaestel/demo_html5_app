@@ -111,6 +111,9 @@
 		</li>
 	</ul>
 
+	<ul class="actions">
+		<li class="upload"><a href="/">Upload</a></li>
+	</ul>
 
 
 </div>

@@ -10,4 +10,7 @@
 #content .scene.additem ul.uploads .field {overflow: hidden; display: block;}
 #content .scene.additem ul.uploads .field input {border: none; opacity: 0; height: 160px; width: 160px; line-height: 160px;}
 
-#content .scene.additem ul.actions {display: none;}
+#content .scene.additem ul.uploads ul.actions {display: none;}
+
+#content .scene.additem ul.actions li {background: #fc335d;}
+#content .scene.additem ul.actions li a {display: block; text-align: center; padding: 40px 0; font-size: 30px; color: #ffffff;}
