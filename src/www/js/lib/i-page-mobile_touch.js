@@ -188,7 +188,6 @@ Util.Objects["page"] = new function() {
 
 				u.a.transition(scenes[scenes.length-1], "all 0.3s ease-out");
 				u.a.translate(scenes[scenes.length-1], 0, 0);
-
 			}
 
 			// transition scenes to the right
@@ -211,7 +210,6 @@ Util.Objects["page"] = new function() {
 
 				u.a.transition(scenes[scenes.length-1], "all 0.3s ease-out");
 				u.a.translate(scenes[scenes.length-1], 0, 0);
-				
 			}
 
 			// drop in from top
@@ -233,8 +231,7 @@ Util.Objects["page"] = new function() {
 				u.as(scenes[scenes.length-1], "display", "block");
 
 				u.a.transition(scenes[0], "all 0.5s ease-out");
-				u.a.translate(scenes[0], 0, -(this.page.offsetHeight));
-
+				u.a.translate(scenes[0], 0, -(scenes[scenes.length-1].offsetHeight));
 			}
 
 			// drop in from top
@@ -249,11 +246,15 @@ Util.Objects["page"] = new function() {
 				}
 
 				u.as(scenes[0], "zIndex", 5);
-				u.as(scenes[scenes.length-1], "zIndex", 10);
+				u.as(scenes[scenes.length-1], "zIndex", 1);
 
-				u.a.translate(scenes[scenes.length-1], 0, -(this.page.offsetHeight));
 				u.a.setOpacity(scenes[scenes.length-1], 1);
 				u.as(scenes[scenes.length-1], "display", "block");
+				u.a.translate(scenes[scenes.length-1], 0, -(scenes[scenes.length-1].offsetHeight));
+
+
+				u.as(scenes[scenes.length-1], "zIndex", 10);
+
 
 				u.a.transition(scenes[scenes.length-1], "all 0.5s ease-out");
 				u.a.translate(scenes[scenes.length-1], 0, 0);
