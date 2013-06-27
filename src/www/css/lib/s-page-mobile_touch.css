@@ -32,6 +32,10 @@ input, textarea {outline: none;}
 	#content .scene.productlist .product {padding-top: 300px;}
 	#content .scene.productview .product div.images ul li:first-child {background: transparent url(/images/air_max1/480x.jpg) no-repeat top left; padding-top: 300px;}
 
+	#content .scene.additem ul.uploads li {margin-left: -1px;}
+	#content .scene.additem ul.uploads li:nth-child(3n+1) {border-left: none; margin-left: 0;}
+	#content .scene.additem ul.uploads li:nth-child(-n+3) {border-top: none;}
+
 }
 
 @media all and (max-width: 480px) {
@@ -39,5 +43,9 @@ input, textarea {outline: none;}
 	#page {width: 320px; height: 480px;}
 	#content .scene.productlist .product {padding-top: 200px;}
 	#content .scene.productview .product div.images ul li:first-child {background: transparent url(/images/air_max1/320x.jpg) no-repeat top left; padding-top: 200px;}
+
+	#content .scene.additem ul.uploads li:nth-child(2n+1) {border-left: none;}
+	#content .scene.additem ul.uploads li:nth-child(2n) {margin-left: -1px;}
+	#content .scene.additem ul.uploads li:nth-child(-n+2) {border-top: none;}
 
 }
