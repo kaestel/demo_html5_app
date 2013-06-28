@@ -3084,6 +3084,9 @@ Util.Objects["page"] = new function() {
 					var h = window.innerHeight;
 					u.a.setHeight(this, h);
 					u.a.setHeight(this.nN, h);
+					if(u.qs(".bookmark")) {
+						u.a.setHeight(u.qs(".bookmark"), h);
+					}
 				}
 			}
 			page.cN.ready = function() {
@@ -3375,7 +3378,34 @@ Util.Objects["page"] = new function() {
 			u.as(this.page.intro, "display", "block");
 			this.page.ready();
 		}
-		page.intro.sequence_player.loadAndPlay(page.intro._images, {"framerate":240});
+		if(u.qs(".warning")) {
+			page.intro.sequence_player.load(page.intro._images, {"framerate":240});
+		}
+		else if(u.qs(".desktop_wrapper")) {
+			page.intro.sequence_player.loadAndPlay(page.intro._images, {"framerate":240});
+		}
+		else if(!navigator.standalone) {
+			var repeat = u.getCookie("bookmark");
+			if(repeat && Number(repeat)%1 == 0) {
+				page.intro.sequence_player.load(page.intro._images, {"framerate":24});
+				var bookmark = u.ae(document.body, "div", {"class":"bookmark"});
+				bookmark.clicked = function() {
+					this.parentNode.removeChild(this);
+					u.qs("#page").intro.sequence_player.play();
+				}
+				u.e.click(bookmark);
+				u.ae(bookmark, "h1", {"html":"Install this App"});
+				u.ae(bookmark, "h2", {"html":"Or tap to continue"});
+				u.ae(bookmark, "P", {"html":"Tap &quot;Add to homesceen&quot; to install this app on your phone."});
+			}
+			else {
+				page.intro.sequence_player.loadAndPlay(page.intro._images, {"framerate":24});
+			}
+			u.saveCookie("bookmark", repeat ? ++repeat : 1)
+		}
+		else {
+			page.intro.sequence_player.loadAndPlay(page.intro._images, {"framerate":24});
+		}
 	}
 }
 function static_init() {
@@ -3978,6 +4008,7 @@ Util.Objects["validdevice"] = new function() {
 			warning.clicked = function(event) {
 				this.parentNode.removeChild(this);
 				u.saveCookie("warning", "true");
+				u.qs("#page").intro.sequence_player.play();
 			}
 		}
 	}

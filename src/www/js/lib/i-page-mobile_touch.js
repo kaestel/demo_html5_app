@@ -26,12 +26,12 @@ Util.Objects["page"] = new function() {
 			page.nN.page = page;
 			page.nN = u.ae(page.parentNode, page.nN);
 
-
 			// footer reference
 			page.fN = u.qs("#footer");
 			page.fN.page = page;
 
 
+			// Page is ready - called from several places, evaluates when page is ready to be shown
 			page.ready = function() {
 
 //				u.bug("page ready")
@@ -95,10 +95,15 @@ Util.Objects["page"] = new function() {
 					// set page and navigation height
 					u.a.setHeight(this, h);
 					u.a.setHeight(this.nN, h);
+
+					if(u.qs(".bookmark")) {
+						u.a.setHeight(u.qs(".bookmark"), h);
+					}
 				}
 			}
 
-
+			// Content is ready - called from page.ready and scenes
+			// performs scene transition
 			page.cN.ready = function() {
 				u.bug("page.cN ready:" + this.page.intro + ", " + u.hc(this.page, "ready") + ", " + u.hc(this, "ready"));
 
@@ -109,7 +114,7 @@ Util.Objects["page"] = new function() {
 					u.a.transition(this, "none");
 					u.a.setOpacity(this, 1);
 
-
+					// more than one scene - perform scene transtition
 					if(u.qsa(".scene", this).length > 1) {
 //						u.bug("replace scenes")
 						u.bug("transition:" + u.nodeId(this.page) + "," + this.page.hash_node);
@@ -119,6 +124,7 @@ Util.Objects["page"] = new function() {
 //						u.bug("transition_method:" + transition_method);
 						transition_method();
 					}
+					// only one scene
 					else {
 						u.bug("show scene")
 						this.transitions.hard()
@@ -127,6 +133,7 @@ Util.Objects["page"] = new function() {
 				}
 			}
 
+			// Content loader
 			page.cN.navigate = function(url) {
 
 				u.bug("navigation on content level")
@@ -329,7 +336,6 @@ Util.Objects["page"] = new function() {
 			// header elements
 			page.hN.bn_nav = u.qs("li.navigation", this.hN);
 			page.hN.bn_nav.page = page;
-
 			page.hN.bn_nav.clicked = function(event) {
 //					u.bug("bn_nav clicked")
 				u.e.kill(event);
@@ -356,7 +362,6 @@ Util.Objects["page"] = new function() {
 
 			page.hN.bn_back = u.ae(u.qs(".servicenavigation", this.hN), "li", {"class":"back"});
 			page.hN.bn_back.page = page;
-//			u.a.setOpacity(page.hN.bn_back, 0);
 			page.hN.bn_back.clicked = function(event) {
 //					u.bug("bn_nav clicked")
 				this.transition_method = this.page.cN.transitions.animateRight;
@@ -367,7 +372,6 @@ Util.Objects["page"] = new function() {
 
 			}
 			u.ce(page.hN.bn_back);
-
 
 			// add cart to header
 			page.hN.bn_cart = u.ae(u.qs(".servicenavigation", page.hN), u.qs(".cart", page.nN).cloneNode(true));
@@ -405,6 +409,7 @@ Util.Objects["page"] = new function() {
 				u.a.setOpacity(this.hN, 1);
 			}
 
+			// Init navigation
 			page.initNavigation = function() {
 				u.bug("init navigation");
 
@@ -432,6 +437,7 @@ Util.Objects["page"] = new function() {
 			}
 
 
+			// add item to cart
 			page.hN.addToCart = function() {
 				var items = u.getCookie("cart");
 				if(!this.bn_cart.span) {
@@ -440,6 +446,7 @@ Util.Objects["page"] = new function() {
 				u.saveCookie("cart", this.bn_cart.span.innerHTML);
 			}
 
+			// Change left top corner to back link
 			page.hN.changeToBack = function() {
 
 				u.as(this.bn_back, "zIndex", 10);
@@ -452,6 +459,7 @@ Util.Objects["page"] = new function() {
 				u.a.setOpacity(this.bn_nav, 0);
 			}
 
+			// change left top corner to nav link
 			page.hN.changeToNav = function() {
 
 				u.as(this.bn_back, "zIndex", 5);
@@ -601,9 +609,47 @@ Util.Objects["page"] = new function() {
 			// show page
 			this.page.ready();
 		}
-		// load and play intro
-		page.intro.sequence_player.loadAndPlay(page.intro._images, {"framerate":240});
 
+		if(u.qs(".warning")) {
+			// load intro - but wait for warning to clear
+			page.intro.sequence_player.load(page.intro._images, {"framerate":240});
+		}
+		else if(u.qs(".desktop_wrapper")) {
+			// load and play intro
+			page.intro.sequence_player.loadAndPlay(page.intro._images, {"framerate":240});
+		}
+		// mobile browser mode
+		else if(!navigator.standalone) {
+
+			// show bookmark screen
+			var repeat = u.getCookie("bookmark");
+			if(repeat && Number(repeat)%1 == 0) {
+				// load intro - but wait for bookmark sceen to clear
+				page.intro.sequence_player.load(page.intro._images, {"framerate":24});
+
+
+				var bookmark = u.ae(document.body, "div", {"class":"bookmark"});
+				bookmark.clicked = function() {
+					this.parentNode.removeChild(this);
+					u.qs("#page").intro.sequence_player.play();
+				}
+				u.e.click(bookmark);
+				u.ae(bookmark, "h1", {"html":"Install this App"});
+				u.ae(bookmark, "h2", {"html":"Or tap to continue"});
+				u.ae(bookmark, "P", {"html":"Tap &quot;Add to homesceen&quot; to install this app on your phone."});
+			}
+			else {
+				// load and play intro
+				page.intro.sequence_player.loadAndPlay(page.intro._images, {"framerate":24});
+			}
+
+			u.saveCookie("bookmark", repeat ? ++repeat : 1)
+		}
+		// app mode
+		else {
+			// load and play intro
+			page.intro.sequence_player.loadAndPlay(page.intro._images, {"framerate":24});
+		}
 
 	}
 }
