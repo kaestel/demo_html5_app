@@ -27,15 +27,15 @@ Util.Objects["productlist"] = new function() {
 		}
 
 		scene.resized = function() {
-//			u.bug("scene resized");
+//			u.bug("scene resized:" + u.nodeId(this));
 		}
 
-		scene._cleanup = function() {
-			u.bug("scene cleanup");
+		scene.cleanup = function() {
+			u.bug("scene cleanup:" + u.nodeId(this));
 		}
 
 		scene.navigate = function() {
-			u.bug("scene navigate");
+			u.bug("scene navigate:" + u.nodeId(this));
 		}
 
 
@@ -44,7 +44,7 @@ Util.Objects["productlist"] = new function() {
 		if(products.length) {
 
 			for(i = 0; product = products[i]; i++) {
-				u.bug("product:" + u.qs("h2", product).innerHTML)
+//				u.bug("product:" + u.qs("h2", product).innerHTML)
 				product.scene = scene;
 
 				// manipulate dom
@@ -70,6 +70,7 @@ Util.Objects["productlist"] = new function() {
 				product.loaded = function(queue) {
 					u.as(this, "backgroundImage", "url("+queue[0]._image.src+")");
 					u.ac(this, "ready");
+					u.as(this, "paddingTop", queue[0]._image.height+"px");
 				
 					this.scene.ready();
 				}

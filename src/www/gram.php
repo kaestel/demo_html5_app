@@ -29,7 +29,7 @@
 				<dd class="price" itemprop="price">1799</dd>
 			</dl>
 
-			<form action="/kurv" class="buy" method="post">
+			<form action="/cart" class="buy" method="post">
 				<ul class="actions">
 					<li class="buy"><input class="button primary" name="commit" type="submit" value="Add to cart" /></li>
 				</ul>
@@ -38,8 +38,8 @@
 
 		<div class="images">
 			<ul class="thumbnails">
-				<li class="id:gram1"><a href="/images/gram1/250x.png">Gram 380g Shoe Front</a></li>
 				<li class="id:gram2"><a href="/images/gram2/250x.png">Gram 380g Shoe Left</a></li>
+				<li class="id:gram1"><a href="/images/gram1/250x.png">Gram 380g Shoe Front</a></li>
 				<li class="id:gram3"><a href="/images/gram3/250x.png">Gram 380g Shoe Right</a></li>
 				<li class="id:gram4"><a href="/images/gram4/250x.png">Gram 380g Shoe Back</a></li>
 			</ul>

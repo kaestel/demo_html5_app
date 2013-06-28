@@ -27,7 +27,7 @@
 #content .scene.cart ul.costs li.total .price {font-size: 30px; line-height: 30px; position: absolute; bottom: 0; right: 0;}
 
 #content .scene.cart ul.actions {font-size: 0; display: block; position: relative; bottom: 0;}
-#content .scene.cart ul.actions li {width: 50%; background-color: #cbebd5; display: inline-block; text-align: center; padding: 20px 0;}
+#content .scene.cart ul.actions li {width: 50%; background-color: #cbebd5; display: inline-block; text-align: center; padding: 20px 0; cursor: pointer;}
 #content .scene.cart ul.actions li.checkout {background: #535d67;}
 #content .scene.cart ul.actions li a {display: block;}
 #content .scene.cart ul.actions li.checkout a {color: #cbebd5;}

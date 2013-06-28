@@ -4,14 +4,14 @@
 
 #navigation ul {font-size: 0; position: relative; position: static; padding: 0 0 0 20px;}
 #navigation ul li {height: 100%; display: block; height: 40px;}
-#navigation ul li a {font-size: 18px; line-height: 40px; font-weight: 600; color: #cbebd3; display: block;}
+#navigation ul li a {font-size: 18px; line-height: 40px; font-weight: 600; color: #cbebd3;}
 
 
-#navigation ul.store li {padding-left: 34px; background: transparent url(/img/bg_icons.svg) no-repeat 0px -291px; background-size: 100px auto;}
+#navigation ul.store li {padding-left: 34px; background: transparent url(/img/bg_icons.png) no-repeat 0px -291px; background-size: 100px auto;}
 #navigation ul.store li.cart {background-position: 0px -393px;}
 
 
 #navigation h2.partners {line-height: 20px; padding: 13px 0 3px 20px;}
-#navigation ul.partners li {padding-left: 34px; background: transparent url(/img/bg_icons.svg) no-repeat 0px -291px; background-size: 100px auto;}
+#navigation ul.partners li {padding-left: 34px; background: transparent url(/img/bg_icons.png) no-repeat 0px -291px; background-size: 100px auto;}
 #navigation ul.partners li.youritems {background-position: 0px -291px;}
 #navigation ul.partners li.additem {background-position: 0px -193px;}

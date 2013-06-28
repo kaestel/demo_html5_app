@@ -6,18 +6,14 @@ Util.Objects["productview"] = new function() {
 
 
 		scene.ready = function() {
-			u.bug("scene ready:" + u.qsa("li.product", this).length)
-
+//			u.bug("scene ready:" + u.qsa("li.product", this).length)
 
 			if(u.qsa("li.product", this).length == u.qsa("li.product.ready", this).length) {
-
 
 				// set drag on scene
 				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
 
-				this.picked = function(event) {
-					u.bug("view picked")
-				}
+				this.picked = function(event) {}
 				this.moved = function(event) {}
 				this.dropped = function(event) {}
 
@@ -31,22 +27,22 @@ Util.Objects["productview"] = new function() {
 		}
 
 		scene.resized = function() {
-//			u.bug("scene resized");
+//			u.bug("scene resized:" + u.nodeId(this));
 		}
 
-		scene._cleanup = function() {
-			u.bug("scene cleanup");
+		scene.cleanup = function() {
+			u.bug("scene cleanup:" + u.nodeId(this));
 		}
 
 		scene.navigate = function() {
-			u.bug("scene navigate");
+			u.bug("scene navigate:" + u.nodeId(this));
 		}
 
 
 		var product = u.qs("div.product", scene);
 		product.scene = scene;
 
-
+		// correction order of elements
 		var offer = u.qs(".offer", product);
 		u.ie(product, offer);
 
@@ -57,13 +53,12 @@ Util.Objects["productview"] = new function() {
 		u.ie(product, images);
 		u.a.setHeight(images, scene.cN.offsetHeight);
 
+		// adding gallery
 		var gallery_index = u.qs("ul.thumbnails", images);
 		if(gallery_index) {
 			var i, node;
 
 			scene.gallery = u.o.gallery.init(gallery_index)
-
-
 			scene.gallery.ready = function() {
 				// show selected node (selectNode calls back to ready)
 				// no value in hash? start at beginning
@@ -78,16 +73,25 @@ Util.Objects["productview"] = new function() {
 			}
 		}
 
-
+		// set navigation to back link
 		scene.cN.page.hN.changeToBack();
 
+		var form = u.qs("form", product);
+		form.onsubmit = function() {return false;};
+
+		product.bn_buy = u.qs(".actions li.buy", product);
+		product.bn_buy.page = scene.cN.page;
+		product.bn_buy.clicked = function(event) {
+			u.e.kill(event);
+			this.page.hN.addToCart();
+		}
+		u.ce(product.bn_buy);
+
+		// ready
 		scene.ready();
 
-		// product.loaded = function(queue) {
-		// 	u.as(this, "backgroundImage", "url("+queue[0]._image.src+")");
-		// 	u.ac(this, "ready");
-		// 	
-		// 	this.scene.ready();
+		// scene.loaded = function(queue) {
+		// 	this.ready();
 		// }
 		// u.preloader(product, ["/images/"+u.cv(product, "id")+"/300x.jpg"]);
 

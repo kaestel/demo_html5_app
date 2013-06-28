@@ -2708,10 +2708,8 @@ u.e.drag = function(node, boundaries, settings) {
 	u.e.addStartEvent(node, this._inputStart);
 }
 u.e._pick = function(event) {
-	u.bug("_pick:" + u.nodeId(this) + ":" + this._x + " x " + this._y);
 	var init_speed_x = Math.abs(this.start_event_x - u.eventX(event));
 	var init_speed_y = Math.abs(this.start_event_y - u.eventY(event));
-	u.bug("initial speed:" + init_speed_x + "/" + init_speed_y + ", vert:" + this.only_vertical + ", hori:" + this.only_horizontal);
 	if((init_speed_x > init_speed_y && this.only_horizontal) || 
 	   (init_speed_x < init_speed_y && this.only_vertical) ||
 	   (!this.only_vertical && !this.only_horizontal)) {
@@ -3041,7 +3039,6 @@ Util.init = function(scope) {
 
 /*i-page-mobile_touch.js*/
 u.bug_force = true;
-u.bug_console_only = true;
 Util.Objects["page"] = new function() {
 	this.init = function(page) {
 		if(u.hc(page, "i:page")) {
@@ -3074,11 +3071,12 @@ Util.Objects["page"] = new function() {
 				}
 			}
 			page.resetHeight = function() {
+				u.bug("reset height:" + u.gcs(this, "height"));
 				window.scrollTo(0, 0);
 				if(u.gcs(this, "height") != "4000px") {
 					u.a.setHeight(this, 4000);
 					window.scrollTo(0, 0);
-					this.t_reset_height = u.t.setTimer(this, this.resetHeight, 200);
+					this, this.resetHeight();
 				}
 				else {
 					var h = window.innerHeight;
@@ -3090,27 +3088,18 @@ Util.Objects["page"] = new function() {
 				}
 			}
 			page.cN.ready = function() {
-				u.bug("page.cN ready:" + this.page.intro + ", " + u.hc(this.page, "ready") + ", " + u.hc(this, "ready"));
 				if(!this.page.intro && u.hc(this.page, "ready") && u.hc(this, "ready")) {
-					u.bug("page is actually ready:" + this.page);
-					u.as(this, "display", "block");
-					u.a.transition(this, "none");
-					u.a.setOpacity(this, 1);
 					if(u.qsa(".scene", this).length > 1) {
-						u.bug("transition:" + u.nodeId(this.page) + "," + this.page.hash_node);
 						var transition_method = this.page.hash_node && this.page.hash_node.transition_method ? this.page.hash_node.transition_method : this.transitions.fadeIn;
 						transition_method();
 					}
 					else {
-						u.bug("show scene")
 						this.transitions.hard()
 					}
 				}
 			}
 			page.cN.navigate = function(url) {
-				u.bug("navigation on content level")
 				this.response = function(response) {
-					u.bug("navigate response:" + this.request_url + ", " + response.body_class)
 					u.setClass(document.body, response.body_class.replace("i:validdevice", "").trim());
 					document.title = response.head_title;
 					var new_scene = u.qs(".scene", response);
@@ -3168,7 +3157,7 @@ Util.Objects["page"] = new function() {
 				u.a.setOpacity(scenes[scenes.length-1], 1);
 				u.as(scenes[scenes.length-1], "display", "block");
 				u.a.transition(scenes[0], "all 0.5s ease-out");
-				u.a.translate(scenes[0], 0, -(scenes[scenes.length-1].offsetHeight));
+				u.a.translate(scenes[0], 0, -(scenes[0].offsetHeight));
 			}
 			page.cN.transitions.dropDown = function() {
 				u.bug("dropDown transition")
@@ -3189,8 +3178,6 @@ Util.Objects["page"] = new function() {
 				u.bug("fade in transition")
 				var scene = u.qs(".scene", this.page.cN);
 				scene.transitioned = function(event) {
-					u.bug("remove scene:" + u.nodeId(this));
-					this.parentNode.removeChild(this);
 					this.cN.cleanScenes();
 					var scene = u.qs(".scene", this.cN);
 					scene.transitioned = function(event) {
@@ -3259,6 +3246,7 @@ Util.Objects["page"] = new function() {
 			}
 			u.ce(page.hN.bn_back);
 			page.hN.bn_cart = u.ae(u.qs(".servicenavigation", page.hN), u.qs(".cart", page.nN).cloneNode(true));
+			page.hN.bn_cart.span = u.ae(page.hN.bn_cart, "span", {"class":"empty"});
 			page.hN.bn_cart.page = page;
 			page.hN.bn_cart.clicked = function(event) {
 				u.bug("cart click:" + u.nodeId(this) + ", " + this.url)
@@ -3273,58 +3261,109 @@ Util.Objects["page"] = new function() {
 			}
 			u.ce(page.hN.bn_cart);
 			page.initHeader = function() {
-				this.hN.transitioned = function() {
-					this.transitioned = null;
-					u.a.transition(this, "none");
-					u.ac(this, "ready");
-				}
-				u.a.transition(this.hN, "all 1.2s ease-out");
-				u.a.setOpacity(this.hN, 1);
 			}
 			page.initNavigation = function() {
-				u.bug("init navigation");
 				u.as(this.nN, "display", "block");
-				var items = u.getCookie("cart");
-				if(items) {
-					this.hN.bn_cart.span = u.ae(this.hN.bn_cart, "span", {"html":items});
-				}
+				this.hN.updateCart();
 				var i, node;
 				var nodes = u.qsa("ul.store li,ul.partners li", this.nN);
 				for(i = 0; node = nodes[i]; i++) {
 					node.page = page;
-					node.clicked = function() {
+					node.moved = function(event) {
+						u.e.resetEvents(this);
+					}
+					node.clicked = function(event) {
+						u.e.kill(event);
 						this.page.navigate(this.url, this.page.nN);
 						this.page.hN.bn_nav.clicked();
 					}
 					u.ce(node);
 				}
+				u.e.swipe(this.nN, this.nN);
+				this.nN.swipedLeft = function() {
+					this.page.hN.bn_nav.clicked();
+				}
 			}
 			page.hN.addToCart = function() {
 				var items = u.getCookie("cart");
-				if(!this.bn_cart.span) {
-					u.ae(this.hN.bn_cart, "span", {"html":items ? items++ : 1})
+				if(!isNaN(parseInt(items))) {
+					items = parseInt(items) + 1;
 				}
+				else {
+					items = 1;
+				}
+				this.bn_cart.span.innerHTML = items;
+				u.bug("update cart:" + items + "=>" + this.bn_cart.span.innerHTML);
 				u.saveCookie("cart", this.bn_cart.span.innerHTML);
+				u.rc(this.bn_cart.span, "empty");
+			}
+			page.hN.updateCart = function() {
+				var items = u.getCookie("cart");
+				u.bug("update cart:" + items);
+				if(items && !isNaN(parseInt(items))) {
+					this.bn_cart.span.innerHTML = parseInt(items);
+					u.rc(this.bn_cart.span, "empty");
+				}
+				else {
+					this.bn_cart.span.innerHTML = "";
+					u.ac(this.bn_cart.span, "empty");
+				}
 			}
 			page.hN.changeToBack = function() {
-				u.as(this.bn_back, "zIndex", 10);
-				u.as(this.bn_nav, "zIndex", 5);
-				u.a.transition(this.bn_back, "all 1s ease-in");
-				u.a.transition(this.bn_nav, "all 1s ease-out");
-				u.a.setOpacity(this.bn_back, 1);
-				u.a.setOpacity(this.bn_nav, 0);
+				if(u.gcs(this.bn_back, "opacity") != 1) {
+					this.bn_nav.transitioned = function() {
+						this.transitioned = null;
+						u.a.transition(this, "none");
+						u.as(this, "display", "none");
+						u.a.transition(this.page.hN.bn_back, "none");
+						u.a.setOpacity(this.page.hN.bn_back, 0);
+						u.as(this.page.hN.bn_back, "display", "block");
+						u.a.transition(this.page.hN.bn_back, "all 0.3s ease-in");
+						u.a.setOpacity(this.page.hN.bn_back, 1);
+					}
+					if(u.gcs(this.bn_nav, "opacity") == 1) {
+						u.a.transition(this.bn_nav, "all 0.1s ease-out");
+						u.a.setOpacity(this.bn_nav, 0);
+					}
+					else {
+						this.bn_nav.transitioned();
+					}
+				}
 			}
 			page.hN.changeToNav = function() {
-				u.as(this.bn_back, "zIndex", 5);
-				u.as(this.bn_nav, "zIndex", 10);
-				u.a.transition(this.bn_back, "all 1s ease-in");
-				u.a.transition(this.bn_nav, "all 1s ease-out");
-				u.a.setOpacity(this.bn_back, 0);
-				u.a.setOpacity(this.bn_nav, 1);
+				if(u.gcs(this.bn_nav, "opacity") != 1) {
+					this.bn_back.transitioned = function() {
+						this.transitioned = null;
+						u.a.transition(this, "none");
+						u.as(this, "display", "none");
+						u.a.transition(this.page.hN.bn_nav, "none");
+						u.a.setOpacity(this.page.hN.bn_nav, 0);
+						u.as(this.page.hN.bn_nav, "display", "block");
+						u.a.transition(this.page.hN.bn_nav, "all 0.3s ease-in");
+						u.a.setOpacity(this.page.hN.bn_nav, 1);
+					}
+					if(u.gcs(this.bn_back, "opacity") == 1) {
+						u.a.transition(this.bn_back, "all 0.1s ease-out");
+						u.a.setOpacity(this.bn_back, 0);
+					}
+					else {
+						this.bn_back.transitioned();
+					}
+				}
 			}
 			page.resized = function() {
-				u.bug("page resized")
 				var page = u.qs("#page");
+				if(u.qs(".desktop_wrapper")) {
+					page._page_state = page._page_state ? page._page_state : (page.offsetWidth > 480 ? 480 : 0);
+					if(u.browserW() < 480 && page._page_state != 0) {
+						page._orientationchanged();
+						page._page_state = 0;
+					}
+					else if(u.browserW() >= 480 && page._page_state != 480) {
+						page._orientationchanged();
+						page._page_state = 480;
+					}
+				}
 				if(page.intro && typeof(page.intro.resized) == "function" && page.intro.parentNode) {
 					page.intro.resized();
 				}
@@ -3346,11 +3385,16 @@ Util.Objects["page"] = new function() {
 				u.a.setHeight(this, this.page.offsetHeight - this.page.hN.offsetHeight);
 			}
 			page._orientationchanged = function(event) {
-				u.bug("orientation change")
+				u.bug("orientation changed:");
 				u.rc(document.body, "landscape|portrait");
 				u.ac(document.body, (this.orientation == 90 || this.orientation == 270) ? "landscape" : "portrait");
+				var page = u.qs("#page");
+				if(!u.qs(".desktop_wrapper")) {
+					page.resetHeight();
+				}
+				page.cN.navigate(u.h.getCleanHash(location.hash));
 			}
-			u.e.addEvent(page, "orientationchange", page._orientationchanged);
+			u.e.addEvent(window, "orientationchange", page._orientationchanged);
 		}
 		page.intro = u.ae(page, "div", {"class":"intro"});
 		page.intro.page = page;
@@ -3387,16 +3431,20 @@ Util.Objects["page"] = new function() {
 		else if(!navigator.standalone) {
 			var repeat = u.getCookie("bookmark");
 			if(repeat && Number(repeat)%1 == 0) {
-				page.intro.sequence_player.load(page.intro._images, {"framerate":24});
-				var bookmark = u.ae(document.body, "div", {"class":"bookmark"});
-				bookmark.clicked = function() {
+				page.bookmark = u.ae(document.body, "div", {"class":"bookmark"});
+				page.bookmark.moved = function(event) {
+					u.e.resetEvents(this);
+				}
+				page.bookmark.clicked = function() {
+					this.bookmark = false;
 					this.parentNode.removeChild(this);
 					u.qs("#page").intro.sequence_player.play();
 				}
-				u.e.click(bookmark);
-				u.ae(bookmark, "h1", {"html":"Install this App"});
-				u.ae(bookmark, "h2", {"html":"Or tap to continue"});
-				u.ae(bookmark, "P", {"html":"Tap &quot;Add to homesceen&quot; to install this app on your phone."});
+				u.e.click(page.bookmark);
+				u.ae(page.bookmark, "h1", {"html":"Install this App"});
+				u.ae(page.bookmark, "h2", {"html":"Or tap to continue"});
+				u.ae(page.bookmark, "P", {"html":"Tap &quot;Add to homesceen&quot; to install this app on your phone."});
+				page.intro.sequence_player.load(page.intro._images, {"framerate":24});
 			}
 			else {
 				page.intro.sequence_player.loadAndPlay(page.intro._images, {"framerate":24});
@@ -3433,17 +3481,16 @@ Util.Objects["productlist"] = new function() {
 		}
 		scene.resized = function() {
 		}
-		scene._cleanup = function() {
-			u.bug("scene cleanup");
+		scene.cleanup = function() {
+			u.bug("scene cleanup:" + u.nodeId(this));
 		}
 		scene.navigate = function() {
-			u.bug("scene navigate");
+			u.bug("scene navigate:" + u.nodeId(this));
 		}
 		var i, product;
 		var products = u.qsa("li.product", scene);
 		if(products.length) {
 			for(i = 0; product = products[i]; i++) {
-				u.bug("product:" + u.qs("h2", product).innerHTML)
 				product.scene = scene;
 				var h2 = u.qs("h2", product);
 				var desc = u.qs("div.description", product);
@@ -3461,6 +3508,7 @@ Util.Objects["productlist"] = new function() {
 				product.loaded = function(queue) {
 					u.as(this, "backgroundImage", "url("+queue[0]._image.src+")");
 					u.ac(this, "ready");
+					u.as(this, "paddingTop", queue[0]._image.height+"px");
 					this.scene.ready();
 				}
 				u.preloader(product, ["/images/"+u.cv(product, "id")+"/"+product.scene.cN.page.offsetWidth+"x.jpg"]);
@@ -3481,12 +3529,9 @@ Util.Objects["productview"] = new function() {
 		scene.cN = u.qs("#content");
 		scene.cN.scene = scene;
 		scene.ready = function() {
-			u.bug("scene ready:" + u.qsa("li.product", this).length)
 			if(u.qsa("li.product", this).length == u.qsa("li.product.ready", this).length) {
 				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
-				this.picked = function(event) {
-					u.bug("view picked")
-				}
+				this.picked = function(event) {}
 				this.moved = function(event) {}
 				this.dropped = function(event) {}
 				u.ac(this.cN, "ready");
@@ -3495,11 +3540,11 @@ Util.Objects["productview"] = new function() {
 		}
 		scene.resized = function() {
 		}
-		scene._cleanup = function() {
-			u.bug("scene cleanup");
+		scene.cleanup = function() {
+			u.bug("scene cleanup:" + u.nodeId(this));
 		}
 		scene.navigate = function() {
-			u.bug("scene navigate");
+			u.bug("scene navigate:" + u.nodeId(this));
 		}
 		var product = u.qs("div.product", scene);
 		product.scene = scene;
@@ -3525,6 +3570,15 @@ Util.Objects["productview"] = new function() {
 			}
 		}
 		scene.cN.page.hN.changeToBack();
+		var form = u.qs("form", product);
+		form.onsubmit = function() {return false;};
+		product.bn_buy = u.qs(".actions li.buy", product);
+		product.bn_buy.page = scene.cN.page;
+		product.bn_buy.clicked = function(event) {
+			u.e.kill(event);
+			this.page.hN.addToCart();
+		}
+		u.ce(product.bn_buy);
 		scene.ready();
 	}
 }
@@ -3534,7 +3588,7 @@ Util.Objects["cart"] = new function() {
 		scene.cN = u.qs("#content");
 		scene.cN.scene = scene;
 		scene.ready = function() {
-			u.bug("scene ready")
+			u.bug("scene ready:" + u.nodeId(this))
 			u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
 			this.picked = function(event) {}
 			this.moved = function(event) {}
@@ -3544,24 +3598,46 @@ Util.Objects["cart"] = new function() {
 		}
 		scene.resized = function() {
 		}
-		scene._cleanup = function() {
-			u.bug("scene cleanup");
+		scene.cleanup = function() {
+			u.bug("scene cleanup:" + u.nodeId(this));
 		}
 		scene.navigate = function() {
-			u.bug("scene navigate");
+			u.bug("scene navigate:" + u.nodeId(this));
 		}
 		scene.cN.page.hN.changeToNav();
 		scene.bn_shop = u.qs(".shop", scene);
 		scene.bn_shop.page = scene.cN.page;
 		scene.bn_shop.transition_method = scene.cN.transitions.pullUp;
+		scene.bn_shop.moved = function(event) {
+			u.e.resetEvents(this);
+		}
 		scene.bn_shop.clicked = function() {
-			this.transition_method = this.page.cN.transitions.pullUp;
 			this.page.navigate(this.page.historyBack(), this);
 		}
 		u.ce(scene.bn_shop);
 		scene.bn_checkout = u.qs(".checkout", scene);
+		scene.bn_checkout.page = scene.cN.page;
+		scene.bn_checkout.transition_method = scene.cN.transitions.pullUp;
+		scene.bn_checkout.moved = function(event) {
+			u.e.resetEvents(this);
+		}
 		scene.bn_checkout.clicked = function() {
-			alert("This is just a demo")
+			alert("Thank you for viewing our demo.")
+			u.deleteCookie("cart");
+			this.page.hN.updateCart();
+		}
+		u.ce(scene.bn_checkout);
+		scene.cart_items = u.qsa(".items li", scene);
+		var in_cart = u.getCookie("cart");
+		in_cart = !isNaN(parseInt(in_cart)) ? parseInt(in_cart) : 0;
+		var item, i;
+		for(i = 0; item = scene.cart_items[i]; i++) {
+			if(i < in_cart) {
+				u.as(item, "display", "block");
+			}
+			else {
+				u.as(item, "display", "none");
+			}
 		}
 		scene.ready();
 	}
@@ -3573,7 +3649,7 @@ Util.Objects["additem"] = new function() {
 		scene.cN = u.qs("#content");
 		scene.cN.scene = scene;
 		scene.ready = function() {
-			u.bug("scene ready")
+			u.bug("scene ready:" + u.nodeId(this))
 			u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
 			this.picked = function(event) {}
 			this.moved = function(event) {}
@@ -3584,10 +3660,10 @@ Util.Objects["additem"] = new function() {
 		scene.resized = function() {
 		}
 		scene.cleanup = function() {
-			u.bug("scene cleanup");
+			u.bug("scene cleanup:" + u.nodeId(this));
 		}
 		scene.navigate = function() {
-			u.bug("scene navigate");
+			u.bug("scene navigate:" + u.nodeId(this));
 		}
 		scene.cN.page.hN.changeToNav();
 		scene.ready();
@@ -3603,7 +3679,6 @@ Util.Objects["gallery"] = new function() {
 		gallery.t_loading = false;
 		gallery.transition_type = "ease-out";
 		gallery.transition_time = 0.6; // in seconds
-		u.bug("gallery.offsetWidth:" + gallery.offsetWidth);
 		gallery.gallery_width = gallery.offsetWidth;
 		gallery.image_width = gallery.list.offsetWidth;
 		gallery.bn_next = u.ae(gallery, "div", {"class":"next"});
@@ -3658,7 +3733,6 @@ Util.Objects["gallery"] = new function() {
 					}
 					this.dropped = function(event) {
 						if(!this.swiped && this.selected_node._x != 0) {
-							u.bug("dropped without swipe:" + this.swiped + "," + this.selected_node._x);
 							var duration = this.transition_time / (this.image_width / this.current_x);
 							u.a.transition(this.prev_node, "all " + duration + "s " + this.transition_type);
 							u.a.transition(this.selected_node, "all " + duration + "s " + this.transition_type);
@@ -3695,22 +3769,21 @@ Util.Objects["gallery"] = new function() {
 		gallery.nodeLoad = function(node) {
 			if(!node.initialized) {
 				node.initialized = true;
-				node.loaded = function(event) {
-					u.as(this, "backgroundImage", "url("+event.target.src+")");
+				node.loaded = function(queue) {
+					u.as(this, "backgroundImage", "url("+queue[0]._image.src+")");
 					u.a.transition(this, "none");
 					u.a.translate(this, this.gallery.image_width, 0);
 					u.as(this, "display", "block");
 					u.ac(this, "ready");
 					this.gallery._ready();
 				}
-				u.i.load(node, "/images/"+u.cv(node, "id")+"/"+this.image_width+"x.jpg");
+				u.preloader(node, ["/images/"+u.cv(node, "id")+"/"+this.image_width+"x.jpg"]);
 			}
 			else {
 				this.gallery._ready();
 			}
 		}
 		gallery.selectNode = function(index, static_update) {
-			u.bug("gallery.selectNode:" + u.nodeId(this,1) + ":" + index + ":" + static_update)
 			if(!this.selected_node) {
 				this.selected_node = this.nodes[index];
 				u.a.transition(this.selected_node, "none");
@@ -3743,7 +3816,6 @@ Util.Objects["gallery"] = new function() {
 						duration = this.transition_time / (1 - Math.abs(this.current_x / this.image_width));
 					}
 					duration = (duration > 1.5) ? 1.5 : ((duration < 0.2) ? 0.2 : duration);
-					u.bug("duration:" + duration)
 					u.a.transition(org_node, "all " + duration + "s " + this.transition_type);
 					u.a.transition(this.selected_node, "all " + duration + "s " + this.transition_type);
 				}
@@ -3776,7 +3848,7 @@ Util.Objects["scene"] = new function() {
 		scene.cN = u.qs("#content");
 		scene.cN.scene = scene;
 		scene.ready = function() {
-			u.bug("scene ready")
+			u.bug("scene ready:" + u.nodeId(this))
 			u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
 			this.picked = function(event) {}
 			this.moved = function(event) {}
@@ -3786,11 +3858,11 @@ Util.Objects["scene"] = new function() {
 		}
 		scene.resized = function() {
 		}
-		scene._cleanup = function() {
-			u.bug("scene cleanup");
+		scene.cleanup = function() {
+			u.bug("scene cleanup:" + u.nodeId(this));
 		}
 		scene.navigate = function() {
-			u.bug("scene navigate");
+			u.bug("scene navigate:" + u.nodeId(this));
 		}
 		scene.cN.page.hN.changeToNav();
 		scene.ready();
@@ -3799,8 +3871,8 @@ Util.Objects["scene"] = new function() {
 
 /*u-navigation.js*/
 u.navigation = function(page, options) {
-	page._nav_path = "/";
-	page._nav_history = [];
+	page._nav_path = page._nav_path ? page._nav_path : "/";
+	page._nav_history = page._nav_history ? page._nav_history : [];
 	page._navigate = function() {
 		var url = u.h.getCleanHash(location.hash);
 		page._nav_history.unshift(url);
@@ -3823,9 +3895,11 @@ u.navigation = function(page, options) {
 	}
 	if(location.hash.length < 2) {
 		page.navigate(location.href, page);
+		page._nav_path = u.h.getCleanUrl(location.href);
 		u.init(page.cN);
 	}
 	else if(u.h.getCleanHash(location.hash) != u.h.getCleanUrl(location.href)) {
+		page._nav_path = u.h.getCleanUrl(location.href);
 		page._navigate();
 	}
 	else {

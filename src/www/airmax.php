@@ -30,7 +30,7 @@
 				<dd class="price" itemprop="price">2049</dd>
 			</dl>
 
-			<form action="/kurv" class="buy" method="post">
+			<form action="/cart" class="buy" method="post">
 				<ul class="actions">
 					<li class="buy"><input class="button primary" name="commit" type="submit" value="Add to cart" /></li>
 				</ul>
@@ -39,8 +39,8 @@
 
 		<div class="images">
 			<ul class="thumbnails">
-				<li class="id:air_max1"><a href="/images/air_max1/250x.png">Nike Air Max Front</a></li>
 				<li class="id:air_max2"><a href="/images/air_max2/250x.png">Nike Air Max Left</a></li>
+				<li class="id:air_max1"><a href="/images/air_max1/250x.png">Nike Air Max Front</a></li>
 				<li class="id:air_max3"><a href="/images/air_max3/250x.png">Nike Air Max Right</a></li>
 				<li class="id:air_max4"><a href="/images/air_max4/250x.png">Nike Air Max Back</a></li>
 			</ul>

@@ -6,7 +6,7 @@ Util.Objects["scene"] = new function() {
 
 
 		scene.ready = function() {
-			u.bug("scene ready")
+			u.bug("scene ready:" + u.nodeId(this))
 
 
 			// set drag on scene
@@ -23,15 +23,15 @@ Util.Objects["scene"] = new function() {
 		}
 
 		scene.resized = function() {
-//			u.bug("scene resized");
+//			u.bug("scene resized:" + u.nodeId(this));
 		}
 
-		scene._cleanup = function() {
-			u.bug("scene cleanup");
+		scene.cleanup = function() {
+			u.bug("scene cleanup:" + u.nodeId(this));
 		}
 
 		scene.navigate = function() {
-			u.bug("scene navigate");
+			u.bug("scene navigate:" + u.nodeId(this));
 		}
 
 		scene.cN.page.hN.changeToNav();

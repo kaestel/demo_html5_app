@@ -29,7 +29,7 @@
 				<dd class="price" itemprop="price">1299</dd>
 			</dl>
 
-			<form action="/kurv" class="buy" method="post">
+			<form action="/cart" class="buy" method="post">
 				<ul class="actions">
 					<li class="buy"><input class="button primary" name="commit" type="submit" value="Add to cart" /></li>
 				</ul>
@@ -38,11 +38,10 @@
 
 		<div class="images">
 			<ul class="thumbnails">
-				<li class="id:pointer1"><a href="/images/pointer1/250x.png">Pointer Underachiever Front</a></li>
 				<li class="id:pointer2"><a href="/images/pointer2/250x.png">Pointer Underachiever Left</a></li>
+				<li class="id:pointer1"><a href="/images/pointer1/250x.png">Pointer Underachiever Front</a></li>
 				<li class="id:pointer3"><a href="/images/pointer3/250x.png">Pointer Underachiever Right</a></li>
 				<li class="id:pointer4"><a href="/images/pointer4/250x.png">Pointer Underachiever Back</a></li>
-				<li class="id:pointer5"><a href="/images/pointer5/250x.png">Pointer Underachiever Top</a></li>
 			</ul>
 		</div>
 

@@ -19,12 +19,17 @@
 				<span class="title">Nike Air Max<span class="size">Size 10"</span></span>
 				<span class="price">2049 kr.</span>
 			</li>
+			<li id="pointer">
+				<span class="image"></span>
+				<span class="title">Pointer<span class="size">Size 10"</span></span>
+				<span class="price">1295 kr.</span>
+			</li>
 		</ul>
 	
 		<ul id="costs" class="costs">
 			<li class="subtotal">
 				<span class="title">Subtotal</span>
-				<span class="price">3848 kr.</span>
+				<span class="price">9748 kr.</span>
 			</li>
 			<li class="delivery">
 				<span class="title">Express</span>
@@ -32,13 +37,13 @@
 			</li>
 			<li class="total">
 				<span class="title">Total</span>
-				<span class="price">4048 kr.</span>
+				<span class="price">9948 kr.</span>
 			</li>
 		</ul>
 	
 		<ul class="actions">
 			<li class="shop"><a href="/">Close</a></li>
-			<li class="checkout"><a href="/checkout">Checkout</a></li>
+			<li class="checkout"><a href="http://hvadhedderde.com/contact">Checkout</a></li>
 		</ul>
 
 	</div>

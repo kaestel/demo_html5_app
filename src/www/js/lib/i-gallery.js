@@ -15,7 +15,7 @@ Util.Objects["gallery"] = new function() {
 		gallery.transition_type = "ease-out";
 		gallery.transition_time = 0.6; // in seconds
 
-		u.bug("gallery.offsetWidth:" + gallery.offsetWidth);
+//		u.bug("gallery.offsetWidth:" + gallery.offsetWidth);
 		gallery.gallery_width = gallery.offsetWidth;
 		gallery.image_width = gallery.list.offsetWidth;
 
@@ -120,7 +120,7 @@ Util.Objects["gallery"] = new function() {
 						// no direction on exit (but movement - to be sure it is not just a click) - go back
 						// the rest will be handled by the swipeHandlers and selectNode
 						if(!this.swiped && this.selected_node._x != 0) {
-							u.bug("dropped without swipe:" + this.swiped + "," + this.selected_node._x);
+//							u.bug("dropped without swipe:" + this.swiped + "," + this.selected_node._x);
 
 							var duration = this.transition_time / (this.image_width / this.current_x);
 
@@ -177,8 +177,8 @@ Util.Objects["gallery"] = new function() {
 				node.initialized = true;
 
 				// load bg
-				node.loaded = function(event) {
-					u.as(this, "backgroundImage", "url("+event.target.src+")");
+				node.loaded = function(queue) {
+					u.as(this, "backgroundImage", "url("+queue[0]._image.src+")");
 
 					// default hide all stories, by placing them out of sight
 					// make sure they are displayed block, so calculations 
@@ -192,7 +192,7 @@ Util.Objects["gallery"] = new function() {
 					// callback to _ready controller (will monitor if all nodes are ready)
 					this.gallery._ready();
 				}
-				u.i.load(node, "/images/"+u.cv(node, "id")+"/"+this.image_width+"x.jpg");
+				u.preloader(node, ["/images/"+u.cv(node, "id")+"/"+this.image_width+"x.jpg"]);
 			}
 			else {
 				this.gallery._ready();
@@ -202,7 +202,7 @@ Util.Objects["gallery"] = new function() {
 
 		// set selected image
 		gallery.selectNode = function(index, static_update) {
-			u.bug("gallery.selectNode:" + u.nodeId(this,1) + ":" + index + ":" + static_update)
+//			u.bug("gallery.selectNode:" + u.nodeId(this,1) + ":" + index + ":" + static_update)
 
 			// if no selected_node - fresh start, prepare page for initial viewing
 			if(!this.selected_node) {
@@ -276,7 +276,7 @@ Util.Objects["gallery"] = new function() {
 
 
 					duration = (duration > 1.5) ? 1.5 : ((duration < 0.2) ? 0.2 : duration);
-					u.bug("duration:" + duration)
+//					u.bug("duration:" + duration)
 
 
 					u.a.transition(org_node, "all " + duration + "s " + this.transition_type);

@@ -26,10 +26,10 @@ u.navigation = function(page, options) {
 	// }
 
 	// default starting path
-	page._nav_path = "/";
-	page._nav_history = [];
+	page._nav_path = page._nav_path ? page._nav_path : "/";
+	page._nav_history = page._nav_history ? page._nav_history : [];
 
-
+	// internal haash change distribution - content or scene level
 	page._navigate = function() {
 
 		var url = u.h.getCleanHash(location.hash);
@@ -64,7 +64,7 @@ u.navigation = function(page, options) {
 		this._nav_path = u.h.getCleanHash(location.hash, 1);
 	}
 
-
+	// update hash and set hash back node if any
 	page.navigate = function(url, node) {
 //		u.bug("url:" + url + ", " + u.nodeId(node))
 
@@ -78,19 +78,28 @@ u.navigation = function(page, options) {
 	// no further navigation - initialize content
 	if(location.hash.length < 2) {
 //		u.bug("set hash + init content")
-		
+
+		// update hash
 		page.navigate(location.href, page);
-//		location.hash = u.h.getCleanUrl(location.href);
+		// update internal value, so navigation doesn't mess up
+		page._nav_path = u.h.getCleanUrl(location.href);
+		// init content
 		u.init(page.cN);
 	}
 	// if different hash and url, load content based on hash
 	else if(u.h.getCleanHash(location.hash) != u.h.getCleanUrl(location.href)) {
-//		u.bug("init navigate:" + u.h.getCleanHash(location.hash) + "!=" + u.h.getCleanUrl(location.href) + "; " + u.h.getCleanHash(location.href))
+//		u.bug("init navigate:" + u.h.getCleanHash(location.hash) + "!=" + u.h.getCleanUrl(location.href) + "; ")
+
+		// update internal value, so navigation doesn't mess up
+		page._nav_path = u.h.getCleanUrl(location.href);
+		// manually invoke navigation to load correct page
 		page._navigate();
 	}
 	// hash and url is aligned - init existing content
 	else {
 //		u.bug("init content")
+
+		// just go for it
 		u.init(page.cN);
 	}
 
