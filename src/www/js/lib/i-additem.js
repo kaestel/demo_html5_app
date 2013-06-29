@@ -28,14 +28,12 @@ Util.Objects["additem"] = new function() {
 //			u.bug("scene resized:" + u.nodeId(this));
 		}
 
-
 		scene.cleanup = function() {
-			u.bug("scene cleanup:" + u.nodeId(this));
+//			u.bug("scene cleanup:" + u.nodeId(this));
 		}
 
-
 		scene.navigate = function() {
-			u.bug("scene navigate:" + u.nodeId(this));
+//			u.bug("scene navigate:" + u.nodeId(this));
 		}
 
 		scene.cN.page.hN.changeToNav();

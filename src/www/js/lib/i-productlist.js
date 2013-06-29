@@ -31,11 +31,11 @@ Util.Objects["productlist"] = new function() {
 		}
 
 		scene.cleanup = function() {
-			u.bug("scene cleanup:" + u.nodeId(this));
+//			u.bug("scene cleanup:" + u.nodeId(this));
 		}
 
 		scene.navigate = function() {
-			u.bug("scene navigate:" + u.nodeId(this));
+//			u.bug("scene navigate:" + u.nodeId(this));
 		}
 
 
@@ -92,57 +92,4 @@ Util.Objects["productlist"] = new function() {
 
 	}
 }
-
-
-
-
-			// disable drag on page level
-//			u.e.drag(page, page);
-
-			// set timer with escape route, if user accidentially reached wrong segment
-	//		page.t_escape = u.t.setTimer(this, this.escape, 10000);
-
-
-			// enable
-	// 		u.e.swipe(page, page);
-	// 
-	// 		page.current_page = 0;
-	// 
-	// 
-	//		page.picked = function() {}
-	// 
-	// 		page.moved = function() {
-	// 			u.a.translate(this.cN, this.current_x -(768*this.current_page), 0);
-	// 		}
-	// 		page.dropped = function() {
-	// 
-	// 			// show/hide navigation
-	// 			if(this.current_page) {
-	// 				u.a.transition(this.nN, "all 0.3s ease-in");
-	// 				u.a.translate(this.nN, 0, 0);
-	// 			}
-	// 			else {
-	// 				u.a.transition(this.nN, "all 0.3s ease-in");
-	// 				u.a.translate(this.nN, 0, -40);
-	// 			}
-	// 		
-	// 		}
-	// 		page.swipedLeft = function() {
-	// 			if(this.current_page < 3) {
-	// 				this.current_page++;
-	// 			}
-	// 			u.a.transition(this.cN, "all 0.3s ease-out");
-	// 			u.a.translate(this.cN, -(768*this.current_page), 0);
-	// 		}
-	// 		page.swipedRight = function() {
-	// 			if(this.current_page > 0) {
-	// 				this.current_page--;
-	// 			}
-	// 
-	// 			u.a.transition(this.cN, "all 0.3s ease-out");
-	// 			u.a.translate(this.cN, -(768*this.current_page), 0);
-	// 
-	// //				u.a.translate(this, this.current_x, 0);
-	// 		}
-
 

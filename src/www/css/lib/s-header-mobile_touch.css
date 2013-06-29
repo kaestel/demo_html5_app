@@ -5,7 +5,7 @@
 
 #header .servicenavigation {}
 
-#header .servicenavigation li {position: absolute; width: 43px; height: 43px; background-color: transparent; background-repeat: no-repeat; background-image: url(/img/bg_icons.png); background-size: 100px auto;
+#header .servicenavigation li {position: absolute; width: 43px; height: 43px; background-color: transparent; background-repeat: no-repeat; background-image: url(/img/bg_icons.svg); background-size: 100px auto;
 	-webkit-transform: translate3d(0,0,0);
 }
 #header .servicenavigation li a {display: block; text-indent: -9999px; height: 100%;}

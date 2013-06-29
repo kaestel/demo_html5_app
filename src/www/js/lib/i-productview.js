@@ -31,11 +31,11 @@ Util.Objects["productview"] = new function() {
 		}
 
 		scene.cleanup = function() {
-			u.bug("scene cleanup:" + u.nodeId(this));
+//			u.bug("scene cleanup:" + u.nodeId(this));
 		}
 
 		scene.navigate = function() {
-			u.bug("scene navigate:" + u.nodeId(this));
+//			u.bug("scene navigate:" + u.nodeId(this));
 		}
 
 

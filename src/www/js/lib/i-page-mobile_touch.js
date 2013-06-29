@@ -1,5 +1,5 @@
 u.bug_force = true;
-u.bug_console_only = true;
+//u.bug_console_only = true;
 
 Util.Objects["page"] = new function() {
 	this.init = function(page) {
@@ -78,7 +78,7 @@ Util.Objects["page"] = new function() {
 
 			// reset height to make adressbar disappear
 			page.resetHeight = function() {
-				u.bug("reset height:" + u.gcs(this, "height"));
+//				u.bug("reset height:" + u.gcs(this, "height"));
 
 				window.scrollTo(0, 0);
 
@@ -178,7 +178,7 @@ Util.Objects["page"] = new function() {
 
 			// transition scenes to the left
 			page.cN.transitions.animateLeft = function() {
-				u.bug("animateLeft transition")
+//				u.bug("animateLeft transition")
 
 				var scenes = u.qsa(".scene", this.page.cN);
 
@@ -200,7 +200,7 @@ Util.Objects["page"] = new function() {
 
 			// transition scenes to the right
 			page.cN.transitions.animateRight = function() {
-				u.bug("animateRight transition")
+//				u.bug("animateRight transition")
 				
 				var scenes = u.qsa(".scene", this.page.cN);
 
@@ -222,7 +222,7 @@ Util.Objects["page"] = new function() {
 
 			// drop in from top
 			page.cN.transitions.pullUp = function() {
-				u.bug("pullUp transition")
+//				u.bug("pullUp transition")
 
 				var scenes = u.qsa(".scene", this.page.cN);
 
@@ -244,7 +244,7 @@ Util.Objects["page"] = new function() {
 
 			// drop in from top
 			page.cN.transitions.dropDown = function() {
-				u.bug("dropDown transition")
+//				u.bug("dropDown transition")
 
 				var scenes = u.qsa(".scene", this.page.cN);
 
@@ -270,7 +270,7 @@ Util.Objects["page"] = new function() {
 
 			// fade in - static position
 			page.cN.transitions.fadeIn = function() {
-				u.bug("fade in transition")
+//				u.bug("fade in transition")
 
 				// cleanup + enter on transition
 				var scene = u.qs(".scene", this.page.cN);
@@ -304,7 +304,7 @@ Util.Objects["page"] = new function() {
 
 			// no transition out - just show
 			page.cN.transitions.hard = function() {
-				u.bug("hard transition")
+//				u.bug("hard transition")
 
 				// clean up
 				if(u.qsa(".scene", this.page.cN).length > 1) {
@@ -365,7 +365,7 @@ Util.Objects["page"] = new function() {
 
 //				u.xInObject(this.page._nav_history);
 				this.page.navigate(this.page.historyBack(), this);
-				this.page.hN.changeToNav();
+//				this.page.hN.changeToNav();
 
 			}
 			u.ce(page.hN.bn_back);
@@ -375,8 +375,8 @@ Util.Objects["page"] = new function() {
 			page.hN.bn_cart.span = u.ae(page.hN.bn_cart, "span", {"class":"empty"});
 			page.hN.bn_cart.page = page;
 			page.hN.bn_cart.clicked = function(event) {
-
-				u.bug("cart click:" + u.nodeId(this) + ", " + this.url)
+				u.e.kill(event);
+//				u.bug("cart click:" + u.nodeId(this) + ", " + this.url)
 
 				if(u.h.getCleanHash(location.hash) != u.h.getCleanUrl(this.url)) {
 					this.transition_method = this.page.cN.transitions.dropDown;
@@ -450,7 +450,7 @@ Util.Objects["page"] = new function() {
 					items = 1;
 				}
 				this.bn_cart.span.innerHTML = items;
-				u.bug("update cart:" + items + "=>" + this.bn_cart.span.innerHTML);
+//				u.bug("update cart:" + items + "=>" + this.bn_cart.span.innerHTML);
 				u.saveCookie("cart", this.bn_cart.span.innerHTML);
 
 				u.rc(this.bn_cart.span, "empty");
@@ -459,7 +459,7 @@ Util.Objects["page"] = new function() {
 			// update cart with cookie value
 			page.hN.updateCart = function() {
 				var items = u.getCookie("cart");
-				u.bug("update cart:" + items);
+//				u.bug("update cart:" + items);
 				if(items && !isNaN(parseInt(items))) {
 					this.bn_cart.span.innerHTML = parseInt(items);
 					u.rc(this.bn_cart.span, "empty");
@@ -594,10 +594,9 @@ Util.Objects["page"] = new function() {
 			}
 
 
-
+			// handle orientation change
 			page._orientationchanged = function(event) {
-
-				u.bug("orientation changed:");
+//				u.bug("orientation changed:");
 
 				u.rc(document.body, "landscape|portrait");
 				u.ac(document.body, (this.orientation == 90 || this.orientation == 270) ? "landscape" : "portrait");
@@ -607,51 +606,6 @@ Util.Objects["page"] = new function() {
 					page.resetHeight();
 				}
 				page.cN.navigate(u.h.getCleanHash(location.hash));
-	//			u.xInObject(event);
-
-	//			u.bug("this:" + this.orientation);
-	//			alert((this.orientation == 90 || this.orientation == 270) ? "landscape" : "portrait");
-
-	//			page.transitioned = function() {
-	//				this.transitioned = null;
-	// 				u.a.transition(this, "none");
-	// 
-	// 				u.a.setHeight(this, 2000);
-	// 				window.scrollTo(0, 0);
-	// 				var h = (this.orientation == 90 || this.orientation == 270) ? window.innerWidth : window.innerHeight;
-	// 				if(u.hc(document.body, "front")) {
-	// 					h = h < this.cN.offsetHeight ? this.cN.offsetHeight : h;
-	// 				}
-	// //				u.bug("set height:" + h)
-	// 				u.a.setHeight(this, h);
-	//			}
-
-				// hide content to minimize flickering
-				// u.a.transition(page.cN, "none");
-				// u.a.setOpacity(page.cN, 0);
-				// 
-				// 
-				// page.scrollToTop();
-				// 
-				// if(typeof(page.scene.resetScene) == "function") {
-				// 	page.scene.resetScene();
-				// }
-				// 
-				// page.cN.navigate();
-				// if(u.hc(document.body, "front")) {
-				// 	page.cN.navigate();
-				// }
-
-	//			page.transitioned();
-
-				// // show content
-				// if(u.gcs(this, "opacity") == 0) {
-				// 	this.transitioned();
-				// }
-				// else {
-				// 	u.a.transition(this, this.page._gentrans_);
-				// 	u.a.setOpacity(this, 0);
-				// }
 			}
 			// redraw page if orientation changes
 			u.e.addEvent(window, "orientationchange", page._orientationchanged);
