@@ -3121,7 +3121,10 @@ Util.Objects["productview"] = new function() {
 		u.ie(product, h1);
 		var images = u.qs("div.images", product);
 		u.ie(product, images);
-		u.a.setHeight(images, scene.cN.offsetHeight);
+		images.loaded = function(queue) {
+			u.a.setHeight(this, queue[0]._image.height);
+		}
+		u.preloader(images, ["/images/"+u.cv(u.qs("li", images), "id")+"/"+images.offsetWidth+"x.jpg"]);
 		var gallery_index = u.qs("ul.thumbnails", images);
 		if(gallery_index) {
 			var i, node;

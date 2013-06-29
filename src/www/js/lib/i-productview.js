@@ -51,7 +51,13 @@ Util.Objects["productview"] = new function() {
 
 		var images = u.qs("div.images", product);
 		u.ie(product, images);
-		u.a.setHeight(images, scene.cN.offsetHeight);
+		
+		// load first image to set height
+		images.loaded = function(queue) {
+			u.a.setHeight(this, queue[0]._image.height);
+		}
+		u.preloader(images, ["/images/"+u.cv(u.qs("li", images), "id")+"/"+images.offsetWidth+"x.jpg"]);
+
 
 		// adding gallery
 		var gallery_index = u.qs("ul.thumbnails", images);
