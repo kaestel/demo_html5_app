@@ -3039,7 +3039,6 @@ Util.init = function(scope) {
 
 /*i-page-mobile_touch.js*/
 u.bug_force = true;
-u.bug_console_only = true;
 Util.Objects["page"] = new function() {
 	this.init = function(page) {
 		if(u.hc(page, "i:page")) {
@@ -3072,7 +3071,6 @@ Util.Objects["page"] = new function() {
 				}
 			}
 			page.resetHeight = function() {
-				u.bug("reset height:" + u.gcs(this, "height"));
 				window.scrollTo(0, 0);
 				if(u.gcs(this, "height") != "4000px") {
 					u.a.setHeight(this, 4000);
@@ -3119,7 +3117,6 @@ Util.Objects["page"] = new function() {
 			page.cN.transitions = new Object();
 			page.cN.transitions.page = page;
 			page.cN.transitions.animateLeft = function() {
-				u.bug("animateLeft transition")
 				var scenes = u.qsa(".scene", this.page.cN);
 				scenes[0].transitioned = function() {
 					this.cN.cleanScenes();
@@ -3133,7 +3130,6 @@ Util.Objects["page"] = new function() {
 				u.a.translate(scenes[scenes.length-1], 0, 0);
 			}
 			page.cN.transitions.animateRight = function() {
-				u.bug("animateRight transition")
 				var scenes = u.qsa(".scene", this.page.cN);
 				scenes[0].transitioned = function() {
 					this.cN.cleanScenes();
@@ -3147,7 +3143,6 @@ Util.Objects["page"] = new function() {
 				u.a.translate(scenes[scenes.length-1], 0, 0);
 			}
 			page.cN.transitions.pullUp = function() {
-				u.bug("pullUp transition")
 				var scenes = u.qsa(".scene", this.page.cN);
 				scenes[0].transitioned = function() {
 					this.cN.cleanScenes();
@@ -3161,7 +3156,6 @@ Util.Objects["page"] = new function() {
 				u.a.translate(scenes[0], 0, -(scenes[0].offsetHeight));
 			}
 			page.cN.transitions.dropDown = function() {
-				u.bug("dropDown transition")
 				var scenes = u.qsa(".scene", this.page.cN);
 				scenes[scenes.length-1].transitioned = function() {
 					this.cN.cleanScenes();
@@ -3176,7 +3170,6 @@ Util.Objects["page"] = new function() {
 				u.a.translate(scenes[scenes.length-1], 0, 0);
 			}
 			page.cN.transitions.fadeIn = function() {
-				u.bug("fade in transition")
 				var scene = u.qs(".scene", this.page.cN);
 				scene.transitioned = function(event) {
 					this.cN.cleanScenes();
@@ -3200,7 +3193,6 @@ Util.Objects["page"] = new function() {
 				}
 			}
 			page.cN.transitions.hard = function() {
-				u.bug("hard transition")
 				if(u.qsa(".scene", this.page.cN).length > 1) {
 					u.bug("two scenes - remove first")
 					var scene = u.qs(".scene");
@@ -3243,14 +3235,13 @@ Util.Objects["page"] = new function() {
 			page.hN.bn_back.clicked = function(event) {
 				this.transition_method = this.page.cN.transitions.animateRight;
 				this.page.navigate(this.page.historyBack(), this);
-				this.page.hN.changeToNav();
 			}
 			u.ce(page.hN.bn_back);
 			page.hN.bn_cart = u.ae(u.qs(".servicenavigation", page.hN), u.qs(".cart", page.nN).cloneNode(true));
 			page.hN.bn_cart.span = u.ae(page.hN.bn_cart, "span", {"class":"empty"});
 			page.hN.bn_cart.page = page;
 			page.hN.bn_cart.clicked = function(event) {
-				u.bug("cart click:" + u.nodeId(this) + ", " + this.url)
+				u.e.kill(event);
 				if(u.h.getCleanHash(location.hash) != u.h.getCleanUrl(this.url)) {
 					this.transition_method = this.page.cN.transitions.dropDown;
 					this.page.navigate(this.url, this);
@@ -3294,13 +3285,11 @@ Util.Objects["page"] = new function() {
 					items = 1;
 				}
 				this.bn_cart.span.innerHTML = items;
-				u.bug("update cart:" + items + "=>" + this.bn_cart.span.innerHTML);
 				u.saveCookie("cart", this.bn_cart.span.innerHTML);
 				u.rc(this.bn_cart.span, "empty");
 			}
 			page.hN.updateCart = function() {
 				var items = u.getCookie("cart");
-				u.bug("update cart:" + items);
 				if(items && !isNaN(parseInt(items))) {
 					this.bn_cart.span.innerHTML = parseInt(items);
 					u.rc(this.bn_cart.span, "empty");
@@ -3386,7 +3375,6 @@ Util.Objects["page"] = new function() {
 				u.a.setHeight(this, this.page.offsetHeight - this.page.hN.offsetHeight);
 			}
 			page._orientationchanged = function(event) {
-				u.bug("orientation changed:");
 				u.rc(document.body, "landscape|portrait");
 				u.ac(document.body, (this.orientation == 90 || this.orientation == 270) ? "landscape" : "portrait");
 				var page = u.qs("#page");
@@ -3483,10 +3471,8 @@ Util.Objects["productlist"] = new function() {
 		scene.resized = function() {
 		}
 		scene.cleanup = function() {
-			u.bug("scene cleanup:" + u.nodeId(this));
 		}
 		scene.navigate = function() {
-			u.bug("scene navigate:" + u.nodeId(this));
 		}
 		var i, product;
 		var products = u.qsa("li.product", scene);
@@ -3542,10 +3528,8 @@ Util.Objects["productview"] = new function() {
 		scene.resized = function() {
 		}
 		scene.cleanup = function() {
-			u.bug("scene cleanup:" + u.nodeId(this));
 		}
 		scene.navigate = function() {
-			u.bug("scene navigate:" + u.nodeId(this));
 		}
 		var product = u.qs("div.product", scene);
 		product.scene = scene;
@@ -3589,7 +3573,6 @@ Util.Objects["cart"] = new function() {
 		scene.cN = u.qs("#content");
 		scene.cN.scene = scene;
 		scene.ready = function() {
-			u.bug("scene ready:" + u.nodeId(this))
 			u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
 			this.picked = function(event) {}
 			this.moved = function(event) {}
@@ -3600,10 +3583,8 @@ Util.Objects["cart"] = new function() {
 		scene.resized = function() {
 		}
 		scene.cleanup = function() {
-			u.bug("scene cleanup:" + u.nodeId(this));
 		}
 		scene.navigate = function() {
-			u.bug("scene navigate:" + u.nodeId(this));
 		}
 		scene.cN.page.hN.changeToNav();
 		scene.bn_shop = u.qs(".shop", scene);
@@ -3661,10 +3642,8 @@ Util.Objects["additem"] = new function() {
 		scene.resized = function() {
 		}
 		scene.cleanup = function() {
-			u.bug("scene cleanup:" + u.nodeId(this));
 		}
 		scene.navigate = function() {
-			u.bug("scene navigate:" + u.nodeId(this));
 		}
 		scene.cN.page.hN.changeToNav();
 		scene.ready();
@@ -3849,7 +3828,6 @@ Util.Objects["scene"] = new function() {
 		scene.cN = u.qs("#content");
 		scene.cN.scene = scene;
 		scene.ready = function() {
-			u.bug("scene ready:" + u.nodeId(this))
 			u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
 			this.picked = function(event) {}
 			this.moved = function(event) {}
@@ -3860,10 +3838,8 @@ Util.Objects["scene"] = new function() {
 		scene.resized = function() {
 		}
 		scene.cleanup = function() {
-			u.bug("scene cleanup:" + u.nodeId(this));
 		}
 		scene.navigate = function() {
-			u.bug("scene navigate:" + u.nodeId(this));
 		}
 		scene.cN.page.hN.changeToNav();
 		scene.ready();
