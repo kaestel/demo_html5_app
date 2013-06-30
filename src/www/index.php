@@ -7,30 +7,7 @@
 
 	<h1>All items</h1>
 	<ul class="productlist">
-		<li class="product id:pointy1" itemscope itemtype="http://schema.org/Product">
 
-			<h2 itemprop="name"><a href="/pointy">Pointy 2D</a></h2>
-			<div class="info">
-				<dl>
-					<dt class="published_at"></dt>
-					<dd class="published_at" itemprop="releaseDate">May 26th 2013</dd>
-				</dl>
-			</div>
-
-			<div class="description" itemprop="description">
-				<p>
-					Shoey and pointy at the same time. It hardly gets any better.
-				</p>
-			</div>
-
-			<div class="offer" itemscope itemtype="http://schema.org/Offer">
-				<dl>
-					<dt class="price">Price</dt>
-					<dd class="price" itemprop="offers">1299</dd>
-				</dl>
-			</div>
-
-		</li>
 		<li class="product id:mikehair1" itemscope itemtype="http://schema.org/Product">
 
 			<h2 itemprop="name"><a href="/mikehair">Mike Hair Relax</a></h2>
@@ -51,6 +28,30 @@
 				<dl>
 					<dt class="price">Price</dt>
 					<dd class="price" itemprop="offers">2049</dd>
+				</dl>
+			</div>
+
+		</li>
+		<li class="product id:pointy1" itemscope itemtype="http://schema.org/Product">
+
+			<h2 itemprop="name"><a href="/pointy">Pointy 2D</a></h2>
+			<div class="info">
+				<dl>
+					<dt class="published_at"></dt>
+					<dd class="published_at" itemprop="releaseDate">May 26th 2013</dd>
+				</dl>
+			</div>
+
+			<div class="description" itemprop="description">
+				<p>
+					Shoey and pointy at the same time. It hardly gets any better.
+				</p>
+			</div>
+
+			<div class="offer" itemscope itemtype="http://schema.org/Offer">
+				<dl>
+					<dt class="price">Price</dt>
+					<dd class="price" itemprop="offers">299</dd>
 				</dl>
 			</div>
 

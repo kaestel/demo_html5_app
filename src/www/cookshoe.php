@@ -27,7 +27,7 @@
 		<div class="offer" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 			<dl>
 				<dt class="price">Price</dt>
-				<dd class="price" itemprop="price">1799</dd>
+				<dd class="price" itemprop="price">299</dd>
 			</dl>
 
 			<form action="/cart" class="buy" method="post">

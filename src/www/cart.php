@@ -9,19 +9,19 @@
 		<h1>Your Cart</h1>
 
 		<ul class="items" id="cart">
-			<li class="gram">
+			<li class="cookshoe">
 				<span class="image"></span>
-				<span class="title">380g<span class="size">Size 10"</span></span>
-				<span class="price">1799 kr.</span>
+				<span class="title">The Cooking shoe<span class="size">Size 10"</span></span>
+				<span class="price">299 kr.</span>
 			</li>
 			<li class="mikehair">
 				<span class="image"></span>
 				<span class="title">Mike Hair Relax<span class="size">Size 10"</span></span>
 				<span class="price">2049 kr.</span>
 			</li>
-			<li class="pointer">
+			<li class="pointy">
 				<span class="image"></span>
-				<span class="title">Pointy<span class="size">Size 10"</span></span>
+				<span class="title">Pointy 2D<span class="size">Size 10"</span></span>
 				<span class="price">1295 kr.</span>
 			</li>
 		</ul>
