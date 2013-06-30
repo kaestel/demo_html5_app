@@ -47,13 +47,15 @@ Util.Objects["cart"] = new function() {
 		}
 		u.ce(scene.bn_shop);
 
-		scene.bn_checkout = u.qs(".checkout", scene);
+		scene.bn_checkout = u.qs(".actions li.checkout", scene);
 		scene.bn_checkout.page = scene.cN.page;
 		scene.bn_checkout.transition_method = scene.cN.transitions.pullUp;
 		scene.bn_checkout.moved = function(event) {
 			u.e.resetEvents(this);
 		}
-		scene.bn_checkout.clicked = function() {
+		scene.bn_checkout.clicked = function(event) {
+			u.e.kill(event);
+
 			alert("Thank you for viewing our demo.")
 			u.deleteCookie("cart");
 			this.page.hN.updateCart();

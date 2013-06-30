@@ -6,7 +6,7 @@
 #content .scene.productview .product {position: relative;}
 
 #content .scene.productview .product dt.price {display: none;}
-#content .scene.productview .product dd.price {background: #fc335c; color: #ffffff; padding: 10px 17px; position: absolute; right: 0; top: 0px; font-family: "proximanova_bold"; font-weight: 600; font-size: 12px;}
+#content .scene.productview .product dd.price {background: #fc335c; color: #ffffff; padding: 5px 9px; position: absolute; right: 0; top: 0px; font-family: "proximanova_bold"; font-weight: 600; font-size: 12px;}
 #content .scene.productview .product dd.price:after {content:"kr";}
 
 #content .scene.productview .product h1 {font-family: "proximanova_bold"; font-size: 15px; color: #465159; font-weight: bold; line-height: 120%; padding: 7px 15px;}
@@ -14,11 +14,11 @@
 
 #content .scene.productview .product .offer {margin-bottom: 20px;}
 
-#content .scene.productview .product .description {background: #ffffff; border-radius: 5px; margin: 0 12px 20px; padding: 0 16px 20px;
+#content .scene.productview .product .description {background: #ffffff; border-radius: 5px; margin: 0 12px 20px; padding: 0 15px;
 	box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.12);
 }
 #content .scene.productview .product .description h2 {font-weight: bold; padding: 6px 0; font-size: 15px; line-height: 120%;}
-#content .scene.productview .product .description p {line-height: 120%; font-size: 12px;}
+#content .scene.productview .product .description p {line-height: 120%; font-size: 12px; padding-bottom: 12px;}
 
 #content .scene.productview .product .map {background: #ffffff url(/img/bg_google_maps.png) no-repeat center center; border-radius: 5px; margin: 0 12px 20px; padding: 0px;
 	box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.12);

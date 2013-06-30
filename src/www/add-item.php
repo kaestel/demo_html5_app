@@ -5,7 +5,8 @@
 
 
 <div class="scene additem i:additem">
-	
+
+	<h1>Add item</h1>
 	<ul class="uploads">
 		<li>
 			<form action="#" method="post">
@@ -114,7 +115,6 @@
 	<ul class="actions">
 		<li class="upload"><a href="/">Upload</a></li>
 	</ul>
-
 
 </div>
 

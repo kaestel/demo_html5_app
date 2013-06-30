@@ -147,6 +147,7 @@ Util.Objects["page"] = new function() {
 					u.setClass(document.body, response.body_class.replace("i:validdevice", "").trim());
 					// set title
 					document.title = response.head_title;
+					this.page.hN.h1.update(u.qs(".scene h1", response) ? u.qs(".scene h1", response).innerHTML : "");
 
 					// insert .scene in #content
 					var new_scene = u.qs(".scene", response);
@@ -329,6 +330,29 @@ Util.Objects["page"] = new function() {
 				u.a.setOpacity(scene, 1);
 			}
 
+
+			// create headline
+			page.hN.h1 = u.ae(page.hN, "h1");
+			page.hN.h1.update = function(new_text) {
+
+				page.hN.h1._new_text = new_text;
+				this.transitioned = function() {
+					this.transitioned = null;
+					u.a.transition(this, "none");
+
+					this.innerHTML = this._new_text;
+
+					this.transitioned = function() {
+						this.transitioned = null;
+						u.a.transition(this, "none");
+					}
+					u.a.transition(this, "all 0.2s ease-out");
+					u.a.setOpacity(this, 1);
+
+				}
+				u.a.transition(this, "all 0.2s ease-out");
+				u.a.setOpacity(this, 0);
+			}
 
 			// header elements
 			page.hN.bn_nav = u.qs("li.navigation", this.hN);
@@ -548,9 +572,9 @@ Util.Objects["page"] = new function() {
 
 			// global resize handler 
 			page.resized = function() {
-//				u.bug("page resized")
-
 				var page = u.qs("#page");
+//				u.bug("page resized: cN.oH:" + page.cN.offsetHeight + "," + (page.cN.scene ? ("sce.oH:" + page.cN.scene.offsetHeight + ":gcs-sce:" + u.gcs(page.cN.scene, "height") + ":pro-oH:" + u.qs(".product", page.cN.scene).offsetHeight) : "no scene"));
+
 				if(u.qs(".desktop_wrapper")) {
 					page._page_state = page._page_state ? page._page_state : (page.offsetWidth > 480 ? 480 : 0);
 //					u.bug(u.browserW() + ";" + page._page_state)

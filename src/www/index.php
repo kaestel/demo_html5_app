@@ -5,78 +5,79 @@
 
 <div class="scene productlist i:productlist">
 
-	<h1>List</h1>
+	<h1>All items</h1>
 	<ul class="productlist">
-		<li class="product id:pointer1" itemscope itemtype="http://schema.org/Product">
-			
-			<h2 itemprop="name"><a href="/pointer">Pointer Underachiever</a></h2>
-			
+		<li class="product id:pointy1" itemscope itemtype="http://schema.org/Product">
+
+			<h2 itemprop="name"><a href="/pointy">Pointy 2D</a></h2>
 			<div class="info">
 				<dl>
 					<dt class="published_at"></dt>
 					<dd class="published_at" itemprop="releaseDate">May 26th 2013</dd>
 				</dl>
 			</div>
-			
+
 			<div class="description" itemprop="description">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
+				<p>
+					Shoey and pointy at the same time. It hardly gets any better.
+				</p>
 			</div>
-			
+
 			<div class="offer" itemscope itemtype="http://schema.org/Offer">
 				<dl>
 					<dt class="price">Price</dt>
 					<dd class="price" itemprop="offers">1299</dd>
 				</dl>
 			</div>
-		</li>
 
-		<li class="product id:air_max1" itemscope itemtype="http://schema.org/Product">
-			
-			<h2 itemprop="name"><a href="/airmax">Nike Air Max</a></h2>
-			
+		</li>
+		<li class="product id:mikehair1" itemscope itemtype="http://schema.org/Product">
+
+			<h2 itemprop="name"><a href="/mikehair">Mike Hair Relax</a></h2>
 			<div class="info">
 				<dl>
 					<dt class="published_at"></dt>
 					<dd class="published_at" itemprop="releaseDate">April 3rd 2013</dd>
 				</dl>
 			</div>
-			
+
 			<div class="description" itemprop="description">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
+				<p>
+					The shampoo-deposit-heel-shoe of the future. This shoe brings meaning to exercise. Finally.
+				 </p>
 			</div>
-			
+
 			<div class="offer" itemscope itemtype="http://schema.org/Offer">
 				<dl>
 					<dt class="price">Price</dt>
 					<dd class="price" itemprop="offers">2049</dd>
 				</dl>
 			</div>
+
 		</li>
+		<li class="product id:cookshoe1" itemscope itemtype="http://schema.org/Product">
 
-
-		<li class="product id:gram1" itemscope itemtype="http://schema.org/Product">
-			
-			<h2 itemprop="name"><a href="/gram">Gram 380g Shoe</a></h2>
-			
+			<h2 itemprop="name"><a href="/cookshoe">The Cooking Shoe</a></h2>
 			<div class="info">
 				<dl>
 					<dt class="published_at"></dt>
 					<dd class="published_at" itemprop="releaseDate">April 22nd 2013</dd>
 				</dl>
 			</div>
-			
+
 			<div class="description" itemprop="description">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat</p>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat
+				</p>
 			</div>
-			
 			<div class="offer" itemscope itemtype="http://schema.org/Offer">
 				<dl>
 					<dt class="price">Price</dt>
 					<dd class="price" itemprop="offers">1799</dd>
 				</dl>
 			</div>
-		</li>
 
+		</li>
 	</ul>
 </div>
 

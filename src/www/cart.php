@@ -9,19 +9,19 @@
 		<h1>Your Cart</h1>
 
 		<ul class="items" id="cart">
-			<li id="gram">
+			<li class="gram">
 				<span class="image"></span>
-				<span class="title">Gram 380g Shoe<span class="size">Size 10"</span></span>
+				<span class="title">380g<span class="size">Size 10"</span></span>
 				<span class="price">1799 kr.</span>
 			</li>
-			<li id="nike">
+			<li class="mikehair">
 				<span class="image"></span>
-				<span class="title">Nike Air Max<span class="size">Size 10"</span></span>
+				<span class="title">Mike Hair Relax<span class="size">Size 10"</span></span>
 				<span class="price">2049 kr.</span>
 			</li>
-			<li id="pointer">
+			<li class="pointer">
 				<span class="image"></span>
-				<span class="title">Pointer<span class="size">Size 10"</span></span>
+				<span class="title">Pointy<span class="size">Size 10"</span></span>
 				<span class="price">1295 kr.</span>
 			</li>
 		</ul>

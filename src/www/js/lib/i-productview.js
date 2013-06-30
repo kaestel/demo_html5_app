@@ -6,10 +6,12 @@ Util.Objects["productview"] = new function() {
 
 
 		scene.ready = function() {
-//			u.bug("scene ready:" + u.qsa("li.product", this).length)
+//			u.bug("scene ready:" + u.nodeId(this));
 
-			if(u.qsa("li.product", this).length == u.qsa("li.product.ready", this).length) {
+//			if(u.qsa("li.product", this).length == u.qsa("li.product.ready", this).length) {
 
+//				u.bug((this.cN.offsetHeight - this.offsetHeight) + ", " + this.offsetHeight + ":" + u.gcs(this, "height"));
+//				u.a.setHeight(this, this.offsetHeight);
 				// set drag on scene
 				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
 
@@ -22,7 +24,7 @@ Util.Objects["productview"] = new function() {
 				this.cN.ready();
 
 
-			}
+//			}
 
 		}
 
@@ -51,12 +53,6 @@ Util.Objects["productview"] = new function() {
 
 		var images = u.qs("div.images", product);
 		u.ie(product, images);
-		
-		// load first image to set height
-		images.loaded = function(queue) {
-			u.a.setHeight(this, queue[0]._image.height);
-		}
-		u.preloader(images, ["/images/"+u.cv(u.qs("li", images), "id")+"/"+images.offsetWidth+"x.jpg"]);
 
 
 		// adding gallery
@@ -93,13 +89,27 @@ Util.Objects["productview"] = new function() {
 		}
 		u.ce(product.bn_buy);
 
-		// ready
-		scene.ready();
 
-		// scene.loaded = function(queue) {
-		// 	this.ready();
-		// }
-		// u.preloader(product, ["/images/"+u.cv(product, "id")+"/300x.jpg"]);
+		// click map button
+		product.bn_map = u.qs(".map", product);
+		product.bn_map.page = scene.cN.page;
+		product.bn_map.clicked = function(event) {
+			u.e.kill(event);
+
+			alert("Thank you for viewing our demo.")
+		}
+		u.ce(product.bn_map);
+
+
+		// load first image to set height
+		images.scene = scene;
+		images.loaded = function(queue) {
+			u.a.setHeight(this, queue[0]._image.height);
+
+			// ready
+			this.scene.ready();
+		}
+		u.preloader(images, ["/images/"+u.cv(u.qs("li", images), "id")+"/"+images.offsetWidth+"x.jpg"]);
 
 	}
 }
