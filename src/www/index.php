@@ -68,9 +68,10 @@
 
 			<div class="description" itemprop="description">
 				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tellus mauris, faucibus ut fringilla at, bibendum at metus. Morbi volutpat
+					Shoe during day, cookingpot during night. Or the other way around. Migthy flexible.
 				</p>
 			</div>
+
 			<div class="offer" itemscope itemtype="http://schema.org/Offer">
 				<dl>
 					<dt class="price">Price</dt>

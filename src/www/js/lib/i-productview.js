@@ -4,10 +4,12 @@ Util.Objects["productview"] = new function() {
 		scene.cN = u.qs("#content");
 		scene.cN.scene = scene;
 
-
 		scene.ready = function() {
-//			u.bug("scene ready:" + u.nodeId(this));
+			u.bug("scene ready:" + u.nodeId(this));
 
+
+
+			if(this.cN.offsetHeight < this.offsetHeight) {
 //			if(u.qsa("li.product", this).length == u.qsa("li.product.ready", this).length) {
 
 //				u.bug((this.cN.offsetHeight - this.offsetHeight) + ", " + this.offsetHeight + ":" + u.gcs(this, "height"));
@@ -24,9 +26,16 @@ Util.Objects["productview"] = new function() {
 				this.cN.ready();
 
 
-//			}
+			}
 
 		}
+		scene.entered = function() {
+			u.bug("entered")
+			if(this.sequencePlayer) {
+				this.sequencePlayer.loadAndPlay(this.load_list);
+			}
+		}
+		
 
 		scene.resized = function() {
 //			u.bug("scene resized:" + u.nodeId(this));
@@ -55,26 +64,6 @@ Util.Objects["productview"] = new function() {
 		u.ie(product, images);
 
 
-		// adding gallery
-		var gallery_index = u.qs("ul.thumbnails", images);
-		if(gallery_index) {
-			var i, node;
-
-			scene.gallery = u.o.gallery.init(gallery_index)
-			scene.gallery.ready = function() {
-				// show selected node (selectNode calls back to ready)
-				// no value in hash? start at beginning
-				if(u.h.getCleanUrl(location.href, 2) == u.h.getCleanUrl(location.href, 3)) {
-					this.selectNode(0);
-				}
-				// use hash value
-				else {
-					var index = u.h.getCleanUrl(location.href).split("/")[3];
-					this.selectNode(index);
-				}
-			}
-		}
-
 		// set navigation to back link
 		scene.cN.page.hN.changeToBack();
 
@@ -101,15 +90,59 @@ Util.Objects["productview"] = new function() {
 		u.ce(product.bn_map);
 
 
-		// load first image to set height
+		// callback for loding first image to set height
 		images.scene = scene;
 		images.loaded = function(queue) {
+			u.bug("load image:" + queue[0]._image.src)
 			u.a.setHeight(this, queue[0]._image.height);
 
 			// ready
 			this.scene.ready();
 		}
-		u.preloader(images, ["/images/"+u.cv(u.qs("li", images), "id")+"/"+images.offsetWidth+"x.jpg"]);
+
+		// adding gallery if thumbs are available
+		var gallery_index = u.qs("ul.thumbnails", images);
+		if(gallery_index) {
+			var i, node;
+
+			scene.gallery = u.o.gallery.init(gallery_index)
+			scene.gallery.ready = function() {
+				// show selected node (selectNode calls back to ready)
+				// no value in hash? start at beginning
+				if(u.h.getCleanUrl(location.href, 2) == u.h.getCleanUrl(location.href, 3)) {
+					this.selectNode(0);
+				}
+				// use hash value
+				else {
+					var index = u.h.getCleanUrl(location.href).split("/")[3];
+					this.selectNode(index);
+				}
+			}
+
+
+			u.preloader(images, ["/images/"+u.cv(u.qs("li", images), "id")+"/"+images.offsetWidth+"x.jpg"]);
+		}
+
+		// or adding 3D view, if sequence is available
+		var sequence_index = u.qs("ul.sequence", images);
+		if(sequence_index) {
+			u.bug("add sequence")
+			scene.sequencePlayer = u.sequencePlayer(images);
+
+			scene.load_list = [];
+			var sqs = u.qsa("li", sequence_index);
+			var sq, i;
+			for(i = 0; sq = sqs[i]; i++) {
+				scene.load_list.push("/images/" + u.cv(sq, "id") + "/" + images.offsetWidth + "x.png");
+			}
+
+//			u.xInObject(load_list);
+
+			u.preloader(images, ["/images/"+u.cv(u.qs("li", images), "id")+"/"+images.offsetWidth+"x.png"]);
+
+		}
+
+
 
 	}
 }

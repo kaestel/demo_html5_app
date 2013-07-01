@@ -17,7 +17,8 @@ document.write('<script type="text/javascript" src="/js/lib/i-scene-generic.js">
 
 
 document.write('<script type="text/javascript" src="/js/lib/u-navigation.js"></script>');
-document.write('<script type="text/javascript" src="/js/lib/u-sequence.js"></script>');
+//document.write('<script type="text/javascript" src="/js/lib/u-sequence.js"></script>');
+document.write('<script type="text/javascript" src="/js/jes/src/beta-u-sequence.js"></script>');
 
 
 document.write('<script type="text/javascript" src="/js/lib/i-desktop.js"></script>');

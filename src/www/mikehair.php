@@ -48,7 +48,6 @@
 			</ul>
 		</div>
 
-		
 		<div class="map">
 			<h2><a href="#">Buy it here</a></h2>
 		</div>

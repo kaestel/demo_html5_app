@@ -186,6 +186,10 @@ Util.Objects["page"] = new function() {
 				scenes[0].transitioned = function() {
 					// clean up
 					this.cN.cleanScenes();
+
+					if(typeof(this.entered) == "function") {
+						this.entered();
+					}
 				}
 
 				u.a.translate(scenes[scenes.length-1], (this.page.offsetWidth), 0);
@@ -208,6 +212,10 @@ Util.Objects["page"] = new function() {
 				scenes[0].transitioned = function() {
 					// clean up
 					this.cN.cleanScenes();
+
+					if(typeof(this.entered) == "function") {
+						this.entered();
+					}
 				}
 
 				u.a.translate(scenes[scenes.length-1], -(this.page.offsetWidth), 0);
@@ -230,6 +238,10 @@ Util.Objects["page"] = new function() {
 				scenes[0].transitioned = function() {
 					// clean up
 					this.cN.cleanScenes();
+
+					if(typeof(this.entered) == "function") {
+						this.entered();
+					}
 				}
 
 				u.as(scenes[0], "zIndex", 10);
@@ -252,6 +264,10 @@ Util.Objects["page"] = new function() {
 				scenes[scenes.length-1].transitioned = function() {
 					// clean up
 					this.cN.cleanScenes();
+
+					if(typeof(this.entered) == "function") {
+						this.entered();
+					}
 				}
 
 				u.as(scenes[0], "zIndex", 5);
@@ -283,6 +299,10 @@ Util.Objects["page"] = new function() {
 					scene.transitioned = function(event) {
 						this.transitioned = null;
 						u.a.transition(this, "none");
+
+						if(typeof(this.entered) == "function") {
+							this.entered();
+						}
 					}
 
 					u.a.setOpacity(scene, 0);
@@ -305,22 +325,20 @@ Util.Objects["page"] = new function() {
 
 			// no transition out - just show
 			page.cN.transitions.hard = function() {
-//				u.bug("hard transition")
+				u.bug("hard transition")
 
 				// clean up
-				if(u.qsa(".scene", this.page.cN).length > 1) {
-					u.bug("two scenes - remove first")
-					var scene = u.qs(".scene");
-					scene.parentNode.removeChild(scene);
-				}
-
-				this.page.cN.cleanScenes();
+				this.cleanScenes();
 
 				// enter new scene
 				var scene = u.qs(".scene", this.page.cN);
 				scene.transitioned = function(event) {
 					this.transitioned = null;
 					u.a.transition(this, "none");
+
+					if(typeof(this.entered) == "function") {
+						this.entered();
+					}
 				}
 				u.a.setOpacity(scene, 0);
 				u.a.translate(scene, 0, 0);

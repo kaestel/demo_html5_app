@@ -18,9 +18,9 @@
 		<div class="description" itemprop="description">
 			<h2>About</h2>
 			<p>
-
-				A weightless heavyweight.
-
+				A weightless heavyweight on the cooking/shoeing scene. Gives you that soft compfy feeling of a warm embrace and
+				eliminates smelly feet completely. Dual effect from leftover sauces. Bring you crow and you cookingshoe next time 
+				you visit the princess.
 			</p>
 		</div>
 
@@ -39,10 +39,10 @@
 
 		<div class="images">
 			<ul class="thumbnails">
-				<li class="id:cookshoe2"><a href="/images/cookshoe2/250x.png">The Cooking Shoe Left</a></li>
-				<li class="id:cookshoe1"><a href="/images/cookshoe1/250x.png">The Cooking Shoe Front</a></li>
-				<li class="id:cookshoe3"><a href="/images/cookshoe3/250x.png">The Cooking Shoe Right</a></li>
-				<li class="id:cookshoe4"><a href="/images/cookshoe4/250x.png">The Cooking Shoe Back</a></li>
+				<li class="id:cookshoe2"><a href="/images/cookshoe2/250x.png">The Cooking Shoe, Left</a></li>
+				<li class="id:cookshoe1"><a href="/images/cookshoe1/250x.png">The Cooking Shoe, Front</a></li>
+				<li class="id:cookshoe3"><a href="/images/cookshoe3/250x.png">The Cooking Shoe, Right</a></li>
+				<li class="id:cookshoe4"><a href="/images/cookshoe4/250x.png">The Cooking Shoe, Back</a></li>
 			</ul>
 		</div>
 
