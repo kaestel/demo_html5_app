@@ -3038,7 +3038,7 @@ Util.init = function(scope) {
 }
 
 /*i-page-mobile_touch.js*/
-u.bug_force = true;
+u.bug_console_only = true;
 Util.Objects["page"] = new function() {
 	this.init = function(page) {
 		if(u.hc(page, "i:page")) {
@@ -3604,11 +3604,9 @@ Util.Objects["productview"] = new function() {
 				this._is_dragging = false;
 			}
 			carousel.swipedRight = function(event) {
-				this.sP.resume();
 				u.bug("swipedRight:" + this.current_x + ", " + this.current_xps);
 			}
 			carousel.swipedLeft = function(event) {
-				this.sP.resume();
 				u.bug("swipedLeft:" + this.current_x + ", " + this.current_xps);
 			}
 			u.e.swipe(carousel, carousel);
