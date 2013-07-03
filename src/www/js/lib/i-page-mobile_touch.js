@@ -328,7 +328,7 @@ Util.Objects["page"] = new function() {
 				u.bug("hard transition")
 
 				// clean up
-				this.cleanScenes();
+				this.page.cN.cleanScenes();
 
 				// enter new scene
 				var scene = u.qs(".scene", this.page.cN);

@@ -3101,6 +3101,7 @@ Util.Objects["page"] = new function() {
 				this.response = function(response) {
 					u.setClass(document.body, response.body_class.replace("i:validdevice", "").trim());
 					document.title = response.head_title;
+					this.page.hN.h1.update(u.qs(".scene h1", response) ? u.qs(".scene h1", response).innerHTML : "");
 					var new_scene = u.qs(".scene", response);
 					u.a.translate(new_scene, this.offsetWidth, 0);
 					u.ae(this, new_scene);
@@ -3120,6 +3121,9 @@ Util.Objects["page"] = new function() {
 				var scenes = u.qsa(".scene", this.page.cN);
 				scenes[0].transitioned = function() {
 					this.cN.cleanScenes();
+					if(typeof(this.entered) == "function") {
+						this.entered();
+					}
 				}
 				u.a.translate(scenes[scenes.length-1], (this.page.offsetWidth), 0);
 				u.a.setOpacity(scenes[scenes.length-1], 1);
@@ -3133,6 +3137,9 @@ Util.Objects["page"] = new function() {
 				var scenes = u.qsa(".scene", this.page.cN);
 				scenes[0].transitioned = function() {
 					this.cN.cleanScenes();
+					if(typeof(this.entered) == "function") {
+						this.entered();
+					}
 				}
 				u.a.translate(scenes[scenes.length-1], -(this.page.offsetWidth), 0);
 				u.a.setOpacity(scenes[scenes.length-1], 1);
@@ -3146,6 +3153,9 @@ Util.Objects["page"] = new function() {
 				var scenes = u.qsa(".scene", this.page.cN);
 				scenes[0].transitioned = function() {
 					this.cN.cleanScenes();
+					if(typeof(this.entered) == "function") {
+						this.entered();
+					}
 				}
 				u.as(scenes[0], "zIndex", 10);
 				u.as(scenes[scenes.length-1], "zIndex", 5);
@@ -3159,6 +3169,9 @@ Util.Objects["page"] = new function() {
 				var scenes = u.qsa(".scene", this.page.cN);
 				scenes[scenes.length-1].transitioned = function() {
 					this.cN.cleanScenes();
+					if(typeof(this.entered) == "function") {
+						this.entered();
+					}
 				}
 				u.as(scenes[0], "zIndex", 5);
 				u.as(scenes[scenes.length-1], "zIndex", 1);
@@ -3177,6 +3190,9 @@ Util.Objects["page"] = new function() {
 					scene.transitioned = function(event) {
 						this.transitioned = null;
 						u.a.transition(this, "none");
+						if(typeof(this.entered) == "function") {
+							this.entered();
+						}
 					}
 					u.a.setOpacity(scene, 0);
 					u.a.translate(scene, 0, 0);
@@ -3193,22 +3209,38 @@ Util.Objects["page"] = new function() {
 				}
 			}
 			page.cN.transitions.hard = function() {
-				if(u.qsa(".scene", this.page.cN).length > 1) {
-					u.bug("two scenes - remove first")
-					var scene = u.qs(".scene");
-					scene.parentNode.removeChild(scene);
-				}
+				u.bug("hard transition")
 				this.page.cN.cleanScenes();
 				var scene = u.qs(".scene", this.page.cN);
 				scene.transitioned = function(event) {
 					this.transitioned = null;
 					u.a.transition(this, "none");
+					if(typeof(this.entered) == "function") {
+						this.entered();
+					}
 				}
 				u.a.setOpacity(scene, 0);
 				u.a.translate(scene, 0, 0);
 				u.as(scene, "display", "block");
 				u.a.transition(scene, "all 0.3s ease-out");
 				u.a.setOpacity(scene, 1);
+			}
+			page.hN.h1 = u.ae(page.hN, "h1");
+			page.hN.h1.update = function(new_text) {
+				page.hN.h1._new_text = new_text;
+				this.transitioned = function() {
+					this.transitioned = null;
+					u.a.transition(this, "none");
+					this.innerHTML = this._new_text;
+					this.transitioned = function() {
+						this.transitioned = null;
+						u.a.transition(this, "none");
+					}
+					u.a.transition(this, "all 0.2s ease-out");
+					u.a.setOpacity(this, 1);
+				}
+				u.a.transition(this, "all 0.2s ease-out");
+				u.a.setOpacity(this, 0);
 			}
 			page.hN.bn_nav = u.qs("li.navigation", this.hN);
 			page.hN.bn_nav.page = page;
@@ -3460,10 +3492,12 @@ Util.Objects["productlist"] = new function() {
 		scene.cN.scene = scene;
 		scene.ready = function() {
 			if(u.qsa("li.product", this).length == u.qsa("li.product.ready", this).length) {
-				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
-				this.picked = function(event) {}
-				this.moved = function(event) {}
-				this.dropped = function(event) {}
+				if(this.cN.offsetHeight < this.offsetHeight) {
+					u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
+					this.picked = function(event) {}
+					this.moved = function(event) {}
+					this.dropped = function(event) {}
+				}
 				u.ac(this.cN, "ready");
 				this.cN.ready();
 			}
@@ -3490,7 +3524,7 @@ Util.Objects["productlist"] = new function() {
 					this.scene.cN.page.navigate(this.url, this.scene)
 				}
 				product.moved = function(event) {
-					this.resetEvents(this);
+					u.e.resetEvents(this);
 				}
 				product.loaded = function(queue) {
 					u.as(this, "backgroundImage", "url("+queue[0]._image.src+")");
@@ -3516,7 +3550,8 @@ Util.Objects["productview"] = new function() {
 		scene.cN = u.qs("#content");
 		scene.cN.scene = scene;
 		scene.ready = function() {
-			if(u.qsa("li.product", this).length == u.qsa("li.product.ready", this).length) {
+			u.bug("scene ready:" + u.nodeId(this));
+			if(this.cN.offsetHeight < this.offsetHeight) {
 				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
 				this.picked = function(event) {}
 				this.moved = function(event) {}
@@ -3524,6 +3559,59 @@ Util.Objects["productview"] = new function() {
 				u.ac(this.cN, "ready");
 				this.cN.ready();
 			}
+		}
+		scene.entered = function() {
+			if(this.sequencePlayer) {
+				this.sequencePlayer.loaded = function() {
+					u.rc(this, "loading");
+				}
+				this.sequencePlayer.ended = function() {
+					this.play({"framerate":12});
+				}
+				u.ac(this.sequencePlayer, "loading");
+				this.sequencePlayer.loadAndPlay(this.load_list, {"framerate":12});
+			}
+			var carousel = u.ae(this.sequencePlayer, "div", {"class":"carousel"});
+			carousel.sP = this.sequencePlayer;
+			u.e.click(carousel);
+			carousel.inputStarted = function(event) {
+				this.sP.pause();
+			}
+			carousel.clicked = function(event) {
+				u.bug("clicked")
+				this.sP.resume();
+			}
+			carousel.picked = function(event) {
+				u.bug("picked:" + this.sP._current_frame)
+				this._is_dragging = 1;
+				this.sP.ended = function() {
+				}
+			}
+			carousel.moved = function(event) {
+				if(this._is_dragging) {
+					if(this.current_x - this._is_dragging > 15) {
+						this.sP.prev(true);
+						this._is_dragging = this.current_x;
+					}
+					if(this.current_x - this._is_dragging < -15) {
+						this.sP.next(true);
+						this._is_dragging = this.current_x;
+					}
+				}
+				u.bug("moved:" + this.sP._current_frame);
+			}
+			carousel.dropped = function(event) {
+				this._is_dragging = false;
+			}
+			carousel.swipedRight = function(event) {
+				this.sP.resume();
+				u.bug("swipedRight:" + this.current_x + ", " + this.current_xps);
+			}
+			carousel.swipedLeft = function(event) {
+				this.sP.resume();
+				u.bug("swipedLeft:" + this.current_x + ", " + this.current_xps);
+			}
+			u.e.swipe(carousel, carousel);
 		}
 		scene.resized = function() {
 		}
@@ -3539,10 +3627,28 @@ Util.Objects["productview"] = new function() {
 		u.ie(product, h1);
 		var images = u.qs("div.images", product);
 		u.ie(product, images);
+		scene.cN.page.hN.changeToBack();
+		var form = u.qs("form", product);
+		form.onsubmit = function() {return false;};
+		product.bn_buy = u.qs(".actions li.buy", product);
+		product.bn_buy.page = scene.cN.page;
+		product.bn_buy.clicked = function(event) {
+			u.e.kill(event);
+			this.page.hN.addToCart();
+		}
+		u.ce(product.bn_buy);
+		product.bn_map = u.qs(".map", product);
+		product.bn_map.page = scene.cN.page;
+		product.bn_map.clicked = function(event) {
+			u.e.kill(event);
+			alert("Thank you for viewing our demo.")
+		}
+		u.ce(product.bn_map);
+		images.scene = scene;
 		images.loaded = function(queue) {
 			u.a.setHeight(this, queue[0]._image.height);
+			this.scene.ready();
 		}
-		u.preloader(images, ["/images/"+u.cv(u.qs("li", images), "id")+"/"+images.offsetWidth+"x.jpg"]);
 		var gallery_index = u.qs("ul.thumbnails", images);
 		if(gallery_index) {
 			var i, node;
@@ -3556,18 +3662,19 @@ Util.Objects["productview"] = new function() {
 					this.selectNode(index);
 				}
 			}
+			u.preloader(images, ["/images/"+u.cv(u.qs("li", images), "id")+"/"+images.offsetWidth+"x.jpg"]);
 		}
-		scene.cN.page.hN.changeToBack();
-		var form = u.qs("form", product);
-		form.onsubmit = function() {return false;};
-		product.bn_buy = u.qs(".actions li.buy", product);
-		product.bn_buy.page = scene.cN.page;
-		product.bn_buy.clicked = function(event) {
-			u.e.kill(event);
-			this.page.hN.addToCart();
+		var sequence_index = u.qs("ul.sequence", images);
+		if(sequence_index) {
+			scene.sequencePlayer = u.sequencePlayer(images, {"framerate":2});
+			scene.load_list = [];
+			var sqs = u.qsa("li", sequence_index);
+			var sq, i;
+			for(i = 0; sq = sqs[i]; i++) {
+				scene.load_list.push("/images/" + u.cv(sq, "id") + "/" + images.offsetWidth + "x.png");
+			}
+			u.preloader(images, ["/images/"+u.cv(u.qs("li", images), "id")+"/"+images.offsetWidth+"x.png"]);
 		}
-		u.ce(product.bn_buy);
-		scene.ready();
 	}
 }
 /*i-cart.js*/
@@ -3576,10 +3683,12 @@ Util.Objects["cart"] = new function() {
 		scene.cN = u.qs("#content");
 		scene.cN.scene = scene;
 		scene.ready = function() {
-			u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
-			this.picked = function(event) {}
-			this.moved = function(event) {}
-			this.dropped = function(event) {}
+			if(this.cN.offsetHeight < this.offsetHeight) {
+				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
+				this.picked = function(event) {}
+				this.moved = function(event) {}
+				this.dropped = function(event) {}
+			}
 			u.ac(this.cN, "ready");
 			this.cN.ready();
 		}
@@ -3600,13 +3709,14 @@ Util.Objects["cart"] = new function() {
 			this.page.navigate(this.page.historyBack(), this);
 		}
 		u.ce(scene.bn_shop);
-		scene.bn_checkout = u.qs(".checkout", scene);
+		scene.bn_checkout = u.qs(".actions li.checkout", scene);
 		scene.bn_checkout.page = scene.cN.page;
 		scene.bn_checkout.transition_method = scene.cN.transitions.pullUp;
 		scene.bn_checkout.moved = function(event) {
 			u.e.resetEvents(this);
 		}
-		scene.bn_checkout.clicked = function() {
+		scene.bn_checkout.clicked = function(event) {
+			u.e.kill(event);
 			alert("Thank you for viewing our demo.")
 			u.deleteCookie("cart");
 			this.page.hN.updateCart();
@@ -3635,10 +3745,12 @@ Util.Objects["additem"] = new function() {
 		scene.cN.scene = scene;
 		scene.ready = function() {
 			u.bug("scene ready:" + u.nodeId(this))
-			u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
-			this.picked = function(event) {}
-			this.moved = function(event) {}
-			this.dropped = function(event) {}
+			if(this.cN.offsetHeight < this.offsetHeight) {
+				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
+				this.picked = function(event) {}
+				this.moved = function(event) {}
+				this.dropped = function(event) {}
+			}
 			u.ac(this.cN, "ready");
 			this.cN.ready();
 		}
@@ -3831,10 +3943,12 @@ Util.Objects["scene"] = new function() {
 		scene.cN = u.qs("#content");
 		scene.cN.scene = scene;
 		scene.ready = function() {
-			u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
-			this.picked = function(event) {}
-			this.moved = function(event) {}
-			this.dropped = function(event) {}
+			if(this.cN.offsetHeight < this.offsetHeight) {
+				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
+				this.picked = function(event) {}
+				this.moved = function(event) {}
+				this.dropped = function(event) {}
+			}
 			u.ac(this.cN, "ready");
 			this.cN.ready();
 		}
@@ -3900,7 +4014,7 @@ u.navigation = function(page, options) {
 	}
 }
 
-/*u-sequence.js*/
+/*beta-u-sequence.js*/
 u.sequencePlayer = function(node, options) {
 	var player;
 	if(node) {
@@ -3912,6 +4026,17 @@ u.sequencePlayer = function(node, options) {
 	}
 	player.t_playback = false;
 	player._framerate = 12;
+	if(typeof(options) == "object") {
+		var argument;
+		for(argument in options) {
+			switch(argument) {
+				case "framerate"		: this._framerate			= options[argument]; break;
+			}
+		}
+	}
+	else {
+		options = {};
+	}
 	player.load = function(images, options) {
 		this._load_callback;
 		this._autoplay = false;
@@ -3927,6 +4052,9 @@ u.sequencePlayer = function(node, options) {
 		this.setup(images);
 	}
 	player.loadAndPlay = function(images, options) {
+		if(!options) {
+			options = {};
+		}
 		options.autoplay = true;
 		this._options = options;
 		this.load(images, options);
@@ -3940,7 +4068,7 @@ u.sequencePlayer = function(node, options) {
 			for(argument in options) {
 				switch(argument) {
 					case "ended_callback"	: this._ended_callback			= options[argument]; break;
-					case "framerate"		: this._framerate				= (1000/options[argument]); break;
+					case "framerate"		: this._framerate				= options[argument]; break;
 					case "to"				: this._to						= options[argument]; break;
 					case "from"				: this._from					= options[argument]; break;
 				}
@@ -3952,21 +4080,33 @@ u.sequencePlayer = function(node, options) {
 		else {
 			this._direction = -1;
 		}
-		if(this._from != this.sequence._start || this._to != this.sequence._end) {
-			for(i = 0; i <= this.sequence._end; i++) {
-				if(i == this._from) {
-					u.as(this._nodes[i], "display", "block", 1);
-				}
-				else {
-					u.as(this._nodes[i], "display", "none", 1);
+		u.bug("play sequence:" + this._from + " -> " + this._to + "@" + this._framerate + "fps" + " (direction:"+this._direction+")")
+			if(this._direction > 0) {
+				var start_z_index = 4000;
+				for(i = this.sequence._start; i <= this.sequence._end; i++) {
+					if(i == this._from || i == this._from+1) {
+						u.as(this._nodes[i], "display", "block", 1);
+					}
+					else {
+						u.as(this._nodes[i], "display", "none", 1);
+					}
+					u.as(this._nodes[i], "zIndex", start_z_index-i, 1);
 				}
 			}
-			var start_z_index = 4000;
-			for(i = this._from, j = 0; this._direction > 0 ? i <= this._to : i >= this._to; i += this._direction, j++) {
-				u.as(this._nodes[i], "zIndex", start_z_index-j, 1);
+			else {
+				var start_z_index = 4000 - this._nodes.length;
+				for(i = this.sequence._end; i <= this.sequence._start; i--) {
+					if(i == this._from || i == this._from-1) {
+						u.as(this._nodes[i], "display", "block", 1);
+					}
+					else {
+						u.as(this._nodes[i], "display", "none", 1);
+					}
+					u.as(this._nodes[i], "zIndex", start_z_index+i, 1);
+				}
 			}
+			this.offsetHeight;
 			this._current_frame = this._from;
-		}
 		this.playback(true);
 	}
 	player.playback = function(start) {
@@ -3983,11 +4123,11 @@ u.sequencePlayer = function(node, options) {
 			}
 		}
 		else {
-			this.t_playback = u.t.setTimer(this, this.playback, this._framerate);
+			this.t_playback = u.t.setTimer(this, this.playback, (1000/this._framerate));
 		}
 	}
 	player.nextFrame = function(frame) {
-		var after_next = (this._current_frame + (this._direction*2))
+		var after_next = (frame + (this._direction*2));
 		if(this._nodes[after_next] && (this._direction > 0 ? after_next <= this._to : after_next >= this._to)) {
 			u.as(this._nodes[after_next], "display", "block");
 		}
@@ -3995,8 +4135,53 @@ u.sequencePlayer = function(node, options) {
 			u.as(this._nodes[frame], "display", "none");
 		}
 	}
-	player.next = function(nodes, options) {}
-	player.prev = function(nodes, options) {}
+	player.prevFrame = function(frame) {
+		var after_next = (frame + this._direction);
+		var prev = (frame - this._direction);
+		u.bug("prev:" + prev);
+		u.bug("after_next:" + after_next);
+		if(this._nodes[prev]) {
+			u.bug("show prev:" + prev);
+			u.as(this._nodes[prev], "display", "block");
+			if(this._nodes[after_next] && (this._direction > 0 ? after_next <= this._to : after_next >= this._to)) {
+				u.as(this._nodes[after_next], "display", "none");
+			}
+		}
+		else {
+			for(i = this._from; i < this._to; i += this._direction) {
+				if(i == this._to || i == this._to-this._direction) {
+					u.as(this._nodes[i], "display", "block");
+				}
+				else {
+					u.as(this._nodes[i], "display", "none");
+				}
+			}
+		}
+	}
+	player.next = function(loop) {
+		if(!loop || this._current_frame + this._direction <= this._to) {
+			this.nextFrame(this._current_frame);
+			this._current_frame = this._current_frame + this._direction;
+		}
+		else if(loop){
+			this.play();
+			this.pause();
+			this._current_frame = this._current_frame + this._direction;
+		}
+	}
+	player.prev = function(loop) {
+		if(!loop || this._current_frame - this._direction >= this._from) {
+			this.prevFrame(this._current_frame);
+			this._current_frame = this._current_frame - this._direction;
+		}
+		else if(loop){
+			this.prevFrame(this._current_frame);
+			this._current_frame = this._to;
+		}
+	}
+	player.resume = function() {
+		this.t_playback = u.t.setTimer(this, this.playback, (1000/this._framerate));
+	}
 	player.pause = function() {
 		u.t.resetTimer(this.t_playback);
 	}
@@ -4015,15 +4200,9 @@ u.sequencePlayer = function(node, options) {
 		this.sequence._end = this._images.length-1;
 		this._current_frame = 0;
 		this._setup = function() {
-			var start_z_index = 4000;
 			for(i = 0; i <= this.sequence._end; i++) {
-				this._nodes[i] = u.ae(this.sequence, "li", {"style":"background-image: url(" + this._images[i] + "); z-index:" + (start_z_index-i) + ";"});
-				if(i > 1) {
-					u.as(this._nodes[i], "display", "none", 1);
-				}
-				else {
-					u.as(this._nodes[i], "display", "block", 1);
-				}
+				this._nodes[i] = u.ae(this.sequence, "li", {"style":"background-image: url(" + this._images[i] + ");"});
+				u.as(this._nodes[i], "display", "none", 1);
 			}
 			this.offsetHeight;
 			if(typeof(this._load_callback) == "function") {

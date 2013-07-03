@@ -5,7 +5,7 @@
 
 <div class="scene productlist i:productlist">
 
-	<h1>All items</h1>
+	<h1>Gallery</h1>
 	<ul class="productlist">
 
 		<li class="product id:mikehair1" itemscope itemtype="http://schema.org/Product">

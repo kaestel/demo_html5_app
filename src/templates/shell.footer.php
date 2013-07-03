@@ -1,16 +1,16 @@
 	</div>
 	
 	<div id="navigation">
-		<h2>HTML5 Store</h2>
+		<h2>Ed Bundy - Shoes are heaven</h2>
 		<ul class="store">
-			<li class="allitems"><a href="/">All items</a></li>
+			<li class="allitems"><a href="/">Gallery</a></li>
 			<li class="cart"><a href="/cart">Cart</a></li>
 		</ul>
 
-		<h2 class="partners">Your Store</h2>
+		<h2 class="partners">Your Daily Options</h2>
 		<ul class="partners">
-			<li class="youritems"><a href="/your-items">Your items</a></li>
-			<li class="additem"><a href="/add-item">Add new item</a></li>
+			<li class="youritems"><a href="/newis">3D Extra Value</a></li>
+			<li class="additem"><a href="/add-item">Upload Photos</a></li>
 		</ul>
 	</div>
 	

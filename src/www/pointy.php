@@ -20,7 +20,7 @@
 			<h2>About</h2>
 			<p>
 				This shoe has everything - shoe-look, shoe-shape, shoe-weight and shoe-smell. Only downside to this perfectly beautiful 
-				shoe is that it only exist in a 2D universe. It has been known to cause minimal annoyance in cold wheather.
+				shoe is that it only exist in a 2D universe. This has been known to cause a minimal annoyance in cold weather.
 			</p>
 		</div>
 

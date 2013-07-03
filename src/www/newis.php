@@ -58,7 +58,7 @@
 				<li class="id:newis17"><a href="/images/newis17/250x.png">New is overrated (17/20)</a></li>
 				<li class="id:newis18"><a href="/images/newis18/250x.png">New is overrated (18/20)</a></li>
 				<li class="id:newis19"><a href="/images/newis19/250x.png">New is overrated (19/20)</a></li>
-				<li class="id:newis20"><a href="/images/newis20/250x.png">New is overrated (20/20)</a></li>
+				<!--li class="id:newis20"><a href="/images/newis20/250x.png">New is overrated (20/20)</a></li-->
 			</ul>
 		</div>
 

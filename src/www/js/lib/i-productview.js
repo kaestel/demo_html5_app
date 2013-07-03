@@ -30,10 +30,76 @@ Util.Objects["productview"] = new function() {
 
 		}
 		scene.entered = function() {
-			u.bug("entered")
+//			u.bug("entered")
+
 			if(this.sequencePlayer) {
-				this.sequencePlayer.loadAndPlay(this.load_list);
+				this.sequencePlayer.loaded = function() {
+					u.rc(this, "loading");
+				}
+
+				this.sequencePlayer.ended = function() {
+//					u.bug("ended")
+					this.play({"framerate":12});
+//					this.play({"from":0,"to":18});
+				}
+				u.ac(this.sequencePlayer, "loading");
+				this.sequencePlayer.loadAndPlay(this.load_list, {"framerate":12});
 			}
+
+			// 
+			var carousel = u.ae(this.sequencePlayer, "div", {"class":"carousel"});
+			carousel.sP = this.sequencePlayer;
+			u.e.click(carousel);
+			carousel.inputStarted = function(event) {
+
+				this.sP.pause();
+			}
+			carousel.clicked = function(event) {
+				u.bug("clicked")
+				this.sP.resume();
+			}
+			carousel.picked = function(event) {
+				u.bug("picked:" + this.sP._current_frame)
+				this._is_dragging = 1;
+				this.sP.ended = function() {
+					
+				}
+			}
+			carousel.moved = function(event) {
+//				u.bug("this._is_dragging:" + this._is_dragging);
+				if(this._is_dragging) {
+//					u.bug(this.current_x +"-"+ this._is_dragging)
+
+					if(this.current_x - this._is_dragging > 15) {
+
+						this.sP.prev(true);
+						this._is_dragging = this.current_x;
+					}
+					if(this.current_x - this._is_dragging < -15) {
+
+						this.sP.next(true);
+						this._is_dragging = this.current_x;
+					}
+				}
+
+				u.bug("moved:" + this.sP._current_frame);
+			}
+			carousel.dropped = function(event) {
+				this._is_dragging = false;
+			}
+			carousel.swipedRight = function(event) {
+				this.sP.resume();
+//				this.sP.play({"from":this.sP._current_frame, "to":this.sP._to, "framerate":24})
+				u.bug("swipedRight:" + this.current_x + ", " + this.current_xps);
+			}
+			carousel.swipedLeft = function(event) {
+				this.sP.resume();
+//				this.sP.play({"from":this.sP._current_frame, "to":this.sP._from, "framerate":24})
+				u.bug("swipedLeft:" + this.current_x + ", " + this.current_xps);
+			}
+
+			u.e.swipe(carousel, carousel);
+
 		}
 		
 
@@ -93,7 +159,7 @@ Util.Objects["productview"] = new function() {
 		// callback for loding first image to set height
 		images.scene = scene;
 		images.loaded = function(queue) {
-			u.bug("load image:" + queue[0]._image.src)
+//			u.bug("load image:" + queue[0]._image.src)
 			u.a.setHeight(this, queue[0]._image.height);
 
 			// ready
@@ -126,8 +192,8 @@ Util.Objects["productview"] = new function() {
 		// or adding 3D view, if sequence is available
 		var sequence_index = u.qs("ul.sequence", images);
 		if(sequence_index) {
-			u.bug("add sequence")
-			scene.sequencePlayer = u.sequencePlayer(images);
+//			u.bug("add sequence")
+			scene.sequencePlayer = u.sequencePlayer(images, {"framerate":2});
 
 			scene.load_list = [];
 			var sqs = u.qsa("li", sequence_index);
@@ -136,10 +202,7 @@ Util.Objects["productview"] = new function() {
 				scene.load_list.push("/images/" + u.cv(sq, "id") + "/" + images.offsetWidth + "x.png");
 			}
 
-//			u.xInObject(load_list);
-
 			u.preloader(images, ["/images/"+u.cv(u.qs("li", images), "id")+"/"+images.offsetWidth+"x.png"]);
-
 		}
 
 
