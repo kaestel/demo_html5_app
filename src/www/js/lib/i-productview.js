@@ -88,12 +88,12 @@ Util.Objects["productview"] = new function() {
 				this._is_dragging = false;
 			}
 			carousel.swipedRight = function(event) {
-				this.sP.resume();
+//				this.sP.resume();
 //				this.sP.play({"from":this.sP._current_frame, "to":this.sP._to, "framerate":24})
 				u.bug("swipedRight:" + this.current_x + ", " + this.current_xps);
 			}
 			carousel.swipedLeft = function(event) {
-				this.sP.resume();
+//				this.sP.resume();
 //				this.sP.play({"from":this.sP._current_frame, "to":this.sP._from, "framerate":24})
 				u.bug("swipedLeft:" + this.current_x + ", " + this.current_xps);
 			}
