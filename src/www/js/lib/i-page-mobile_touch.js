@@ -1,5 +1,5 @@
-u.bug_force = true;
-u.bug_console_only = true;
+//u.bug_force = true;
+//u.bug_console_only = true;
 
 Util.Objects["page"] = new function() {
 	this.init = function(page) {
@@ -325,7 +325,7 @@ Util.Objects["page"] = new function() {
 
 			// no transition out - just show
 			page.cN.transitions.hard = function() {
-				u.bug("hard transition")
+//				u.bug("hard transition")
 
 				// clean up
 				this.page.cN.cleanScenes();
@@ -418,7 +418,7 @@ Util.Objects["page"] = new function() {
 			page.hN.bn_cart.page = page;
 			page.hN.bn_cart.clicked = function(event) {
 				u.e.kill(event);
-				u.bug("cart click:" + u.nodeId(this) + ", " + this.url)
+				u.bug("cart click:" + u.nodeId(this) + ", " + this.url, 2)
 
 				if(u.h.getCleanHash(location.hash) != u.h.getCleanUrl(this.url)) {
 					this.transition_method = this.page.cN.transitions.dropDown;
