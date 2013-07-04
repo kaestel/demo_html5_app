@@ -3172,7 +3172,6 @@ Util.init = function(scope) {
 }
 
 /*i-page-mobile_touch.js*/
-u.bug_force = true;
 Util.Objects["page"] = new function() {
 	this.init = function(page) {
 		if(u.hc(page, "i:page")) {
@@ -3407,7 +3406,6 @@ Util.Objects["page"] = new function() {
 			page.hN.bn_cart.page = page;
 			page.hN.bn_cart.clicked = function(event) {
 				u.e.kill(event);
-				u.bug("cart click:" + u.nodeId(this) + ", " + this.url, 2)
 				if(u.h.getCleanHash(location.hash) != u.h.getCleanUrl(this.url)) {
 					this.transition_method = this.page.cN.transitions.dropDown;
 					this.page.navigate(this.url, this);

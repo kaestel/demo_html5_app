@@ -1,4 +1,4 @@
-u.bug_force = true;
+//u.bug_force = true;
 //u.bug_console_only = true;
 
 Util.Objects["page"] = new function() {
@@ -418,7 +418,7 @@ Util.Objects["page"] = new function() {
 			page.hN.bn_cart.page = page;
 			page.hN.bn_cart.clicked = function(event) {
 				u.e.kill(event);
-				u.bug("cart click:" + u.nodeId(this) + ", " + this.url, 2)
+//				u.bug("cart click:" + u.nodeId(this) + ", " + this.url, 2)
 
 				if(u.h.getCleanHash(location.hash) != u.h.getCleanUrl(this.url)) {
 					this.transition_method = this.page.cN.transitions.dropDown;
