@@ -9,6 +9,8 @@
 #content .scene.additem ul.uploads li form.portrait {background-size: auto 100%; background-position: center top; background-repeat: no-repeat;}
 #content .scene.additem ul.uploads li form.landscape {background-size: 100% auto; background-position: center top;}
 
+#content .scene.additem ul.uploads li form.loading {background-size: auto auto; background-image: url(/img/gx_loader.gif); background-color: #ffffff; background-position: center center;}
+
 #content .scene.additem ul.uploads .field label {display: none;}
 #content .scene.additem ul.uploads .field {overflow: hidden; display: block;}
 #content .scene.additem ul.uploads .field input {border: none; opacity: 0; height: 160px; width: 160px; line-height: 160px;}

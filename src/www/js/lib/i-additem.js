@@ -6,7 +6,7 @@ Util.Objects["additem"] = new function() {
 
 
 		scene.ready = function() {
-			u.bug("scene ready:" + u.nodeId(this))
+//			u.bug("scene ready:" + u.nodeId(this));
 
 			if(this.cN.offsetHeight < this.offsetHeight) {
 
@@ -43,16 +43,19 @@ Util.Objects["additem"] = new function() {
 
 		var i, file;
 		for(i = 0; file = scene.files[i]; i++) {
+			file.scene = scene
 			file.changed = function() {
-				u.bug("file changed:" + u.nodeId(this) + "," + this.files + ", " + this.files[0].name)
+//				u.bug("file changed:" + u.nodeId(this) + "," + this.files + ", " + this.files[0].name)
 
 				var reader = new FileReader();
 
-			         // Closure to capture the file information.
+				u.ac(this.form, "loading");
 				reader.node = this;
 				reader.onload = function(event) {
 //					u.bug(this.node);
 
+					u.a.setOpacity(this.node.scene.bn_upload, 1);
+					u.rc(this.node.form, "loading");
 					u.rc(this.node.form, "portrait");
 					u.rc(this.node.form, "landscape");
 
@@ -79,8 +82,8 @@ Util.Objects["additem"] = new function() {
 
 		scene.bn_upload = u.qs(".actions .upload", scene);
 		scene.bn_upload.page = page;
+		u.a.setOpacity(scene.bn_upload, 0.5);
 	
-		u.bug("scene.bn_upload:" + scene.bn_upload)
 		scene.bn_upload.clicked = function(event) {
 			u.e.kill(event);
 
