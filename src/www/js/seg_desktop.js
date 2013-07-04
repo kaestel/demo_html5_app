@@ -3408,6 +3408,7 @@ Util.Objects["page"] = new function() {
 			page.hN.bn_cart.page = page;
 			page.hN.bn_cart.clicked = function(event) {
 				u.e.kill(event);
+				u.bug("cart click:" + u.nodeId(this) + ", " + this.url)
 				if(u.h.getCleanHash(location.hash) != u.h.getCleanUrl(this.url)) {
 					this.transition_method = this.page.cN.transitions.dropDown;
 					this.page.navigate(this.url, this);
@@ -3897,6 +3898,14 @@ Util.Objects["additem"] = new function() {
 				var reader = new FileReader();
 				reader.node = this;
 				reader.onload = function(event) {
+					u.rc(this.node.form, "portrait");
+					u.rc(this.node.form, "landscape");
+					if(event.target.width / event.target.height < this.node.offsetWidth / this.node.offsetHeight) {
+						u.ac(this.node.form, "landscape");
+					}
+					else {
+						u.ac(this.node.form, "portrait");
+					}
 					u.as(this.node.form, "backgroundImage", "url("+event.target.result+")");
 				}
 				reader.readAsDataURL(this.files[0]);

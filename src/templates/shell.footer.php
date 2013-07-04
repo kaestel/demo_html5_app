@@ -1,7 +1,7 @@
 	</div>
 	
 	<div id="navigation">
-		<h2>Ed Bundy - Shoes are heaven</h2>
+		<h2>HTML5 Shoes</h2>
 		<ul class="store">
 			<li class="allitems"><a href="/">Gallery</a></li>
 			<li class="cart"><a href="/cart">Cart</a></li>
