@@ -32,8 +32,8 @@
 				<span class="price">9748 kr.</span>
 			</li>
 			<li class="delivery">
-				<span class="title">Express</span>
-				<span class="price">200 kr.</span>
+				<span class="title">Express technology</span>
+				<span class="price">Free</span>
 			</li>
 			<li class="total">
 				<span class="title">Total</span>

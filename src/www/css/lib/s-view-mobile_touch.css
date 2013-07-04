@@ -6,7 +6,7 @@
 #content .scene.productview .product {position: relative;}
 
 #content .scene.productview .product dt.price {display: none;}
-#content .scene.productview .product dd.price {background: #fc335c; color: #ffffff; padding: 5px 9px; position: absolute; right: 0; top: 0px; font-family: "proximanova_bold"; font-weight: 600; font-size: 12px;}
+#content .scene.productview .product dd.price {background: #fc335c; color: #ffffff; padding: 5px 9px; position: absolute; right: 0; top: 0px; font-family: "proximanova_bold"; font-weight: 600; font-size: 12px; z-index: 5000;}
 #content .scene.productview .product dd.price:after {content:"kr";}
 
 #content .scene.productview .product h1 {font-family: "proximanova_bold"; font-size: 15px; color: #465159; font-weight: bold; line-height: 120%; padding: 7px 15px;}

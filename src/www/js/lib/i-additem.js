@@ -39,8 +39,49 @@ Util.Objects["additem"] = new function() {
 
 		scene.cN.page.hN.changeToNav();
 
+		scene.files = u.qsa("input[type=file]", scene);
 
-				
+		var i, file;
+		for(i = 0; file = scene.files[i]; i++) {
+			file.changed = function() {
+				u.bug("file changed:" + u.nodeId(this) + "," + this.files + ", " + this.files[0].name)
+
+				var reader = new FileReader();
+
+			         // Closure to capture the file information.
+				reader.node = this;
+				reader.onload = function(event) {
+//					u.bug(this.node);
+
+
+					u.as(this.node.form, "backgroundImage", "url("+event.target.result+")");
+				}
+
+
+			         // Read in the image file as a data URL.
+				reader.readAsDataURL(this.files[0]);
+   
+			}
+			u.e.addEvent(file, "change", file.changed);
+			// file.onfocus = function() {u.bug("focus file input:" + u.nodeId(this))}
+			// file.onblur = function() {u.bug("blur file input:" + u.nodeId(this))}
+//			u.xInObject(file);
+		}
+
+		scene.bn_upload = u.qs(".actions .upload", scene);
+		scene.bn_upload.page = page;
+	
+		u.bug("scene.bn_upload:" + scene.bn_upload)
+		scene.bn_upload.clicked = function(event) {
+			u.e.kill(event);
+
+			alert("Thank you for viewing our demo.")
+
+			this.page.navigate("/", this);
+		}
+		u.ce(scene.bn_upload);
+
+
 		scene.ready();
 
 	}

@@ -2952,73 +2952,207 @@ u.e._beforeScroll = function(event) {
 	}
 }
 
-/*u-hash.js*/
-Util.Hash = u.h = new function() {
-	this.catchEvent = function(callback, node) {
-		this.node = node;
-		this.node.callback = callback;
-		hashChanged = function(event) {
-			u.h.node.callback();
+/*beta-u-sequence.js*/
+u.sequencePlayer = function(node, options) {
+	var player;
+	if(node) {
+		player = u.ae(node, "div", {"class":"sequenceplayer"});
+	}
+	else {
+		player = document.createElement("div");
+		u.ac(player, "sequenceplayer");
+	}
+	player.t_playback = false;
+	player._framerate = 12;
+	if(typeof(options) == "object") {
+		var argument;
+		for(argument in options) {
+			switch(argument) {
+				case "framerate"		: this._framerate			= options[argument]; break;
+			}
 		}
-		if("onhashchange" in window && !u.browser("explorer", "<=7")) {
-			window.onhashchange = hashChanged;
+	}
+	else {
+		options = {};
+	}
+	player.load = function(images, options) {
+		this._load_callback;
+		this._autoplay = false;
+		if(typeof(options) == "object") {
+			var argument;
+			for(argument in options) {
+				switch(argument) {
+					case "load_callback"		: this._load_callback			= options[argument]; break;
+					case "autoplay"				: this._autoplay				= options[argument]; break;
+				}
+			}
+		}
+		this.setup(images);
+	}
+	player.loadAndPlay = function(images, options) {
+		if(!options) {
+			options = {};
+		}
+		options.autoplay = true;
+		this._options = options;
+		this.load(images, options);
+	}
+	player.play = function(options) {
+		this._ended_callback = null;
+		this._from = this.sequence._start;
+		this._to = this.sequence._end;
+		if(typeof(options) == "object") {
+			var argument;
+			for(argument in options) {
+				switch(argument) {
+					case "ended_callback"	: this._ended_callback			= options[argument]; break;
+					case "framerate"		: this._framerate				= options[argument]; break;
+					case "to"				: this._to						= options[argument]; break;
+					case "from"				: this._from					= options[argument]; break;
+				}
+			}
+		}
+		if(this._from <= this._to) {
+			this._direction = 1;
 		}
 		else {
-			u.current_hash = window.location.hash;
-			window.onhashchange = hashChanged;
-			setInterval(
-				function() {
-					if(window.location.hash !== u.current_hash) {
-						u.current_hash = window.location.hash;
-						window.onhashchange();
+			this._direction = -1;
+		}
+			if(this._direction > 0) {
+				var start_z_index = 4000;
+				for(i = this.sequence._start; i <= this.sequence._end; i++) {
+					if(i == this._from || i == this._from+1) {
+						u.as(this._nodes[i], "display", "block", 1);
 					}
-				}, 200
-			);
-		}
+					else {
+						u.as(this._nodes[i], "display", "none", 1);
+					}
+					u.as(this._nodes[i], "zIndex", start_z_index-i, 1);
+				}
+			}
+			else {
+				var start_z_index = 4000 - this._nodes.length;
+				for(i = this.sequence._end; i <= this.sequence._start; i--) {
+					if(i == this._from || i == this._from-1) {
+						u.as(this._nodes[i], "display", "block", 1);
+					}
+					else {
+						u.as(this._nodes[i], "display", "none", 1);
+					}
+					u.as(this._nodes[i], "zIndex", start_z_index+i, 1);
+				}
+			}
+			this.offsetHeight;
+			this._current_frame = this._from;
+		this.playback(true);
 	}
-	this.cleanHash = function(string, levels) {
-		if(!levels) {
-			return string.replace(location.protocol+"//"+document.domain, "");
+	player.playback = function(start) {
+		if(!start) {
+			this.nextFrame(this._current_frame);
+			this._current_frame = this._current_frame + this._direction;
+		}
+		if(this._to == this._current_frame) {
+			if(typeof(this._ended_callback) == "function") {
+				this._ended_callback();
+			}
+			else if(typeof(this.ended) == "function") {
+				this.ended();
+			}
 		}
 		else {
-			var i, return_string = "";
-			var hash = string.replace(location.protocol+"//"+document.domain, "").split("/");
-			for(i = 1; i <= levels; i++) {
-				return_string += "/" + hash[i];
-			}
-			return return_string;
+			this.t_playback = u.t.setTimer(this, this.playback, (1000/this._framerate));
 		}
 	}
-	this.getCleanUrl = function(string, levels) {
-		string = string.replace(location.protocol+"//"+document.domain, "").match(/[^#$]+/)[0];
-		if(!levels) {
-			return string;
+	player.nextFrame = function(frame) {
+		var after_next = (frame + (this._direction*2));
+		if(this._nodes[after_next] && (this._direction > 0 ? after_next <= this._to : after_next >= this._to)) {
+			u.as(this._nodes[after_next], "display", "block");
+		}
+		if(this._nodes[frame]) {
+			u.as(this._nodes[frame], "display", "none");
+		}
+	}
+	player.prevFrame = function(frame) {
+		var after_next = (frame + this._direction);
+		var prev = (frame - this._direction);
+		if(this._nodes[prev]) {
+			u.as(this._nodes[prev], "display", "block");
+			if(this._nodes[after_next] && (this._direction > 0 ? after_next <= this._to : after_next >= this._to)) {
+				u.as(this._nodes[after_next], "display", "none");
+			}
 		}
 		else {
-			var i, return_string = "";
-			var hash = string.split("/");
-			levels = levels > hash.length-1 ? hash.length-1 : levels;
-			for(i = 1; i <= levels; i++) {
-				return_string += "/" + hash[i];
+			for(i = this._from; i < this._to; i += this._direction) {
+				if(i == this._to || i == this._to-this._direction) {
+					u.as(this._nodes[i], "display", "block");
+				}
+				else {
+					u.as(this._nodes[i], "display", "none");
+				}
 			}
-			return return_string;
 		}
 	}
-	this.getCleanHash = function(string, levels) {
-		string = string.replace("#", "");
-		if(!levels) {
-			return string;
+	player.next = function(loop) {
+		if(!loop || this._current_frame + this._direction <= this._to) {
+			this.nextFrame(this._current_frame);
+			this._current_frame = this._current_frame + this._direction;
 		}
-		else {
-			var i, return_string = "";
-			var hash = string.split("/");
-			levels = levels > hash.length-1 ? hash.length-1 : levels;
-			for(i = 1; i <= levels; i++) {
-				return_string += "/" + hash[i];
-			}
-			return return_string;
+		else if(loop) {
+			this.play();
+			this.pause();
+			this.nextFrame(this._current_frame);
+			this._current_frame = this._current_frame + this._direction;
 		}
 	}
+	player.prev = function(loop) {
+		if(!loop || this._current_frame - this._direction >= this._from) {
+			this.prevFrame(this._current_frame);
+			this._current_frame = this._current_frame - this._direction;
+		}
+		else if(loop) {
+			this.prevFrame(this._current_frame);
+			this._current_frame = this._to;
+		}
+	}
+	player.resume = function() {
+		this.t_playback = u.t.setTimer(this, this.playback, (1000/this._framerate));
+	}
+	player.pause = function() {
+		u.t.resetTimer(this.t_playback);
+	}
+	player.stop = function() {
+		u.t.resetTimer(this.t_playback);
+	}
+	player.setup = function(images) {
+		if(this.sequence) {
+			this.removeChild(this.sequence);
+		}
+		this.sequence = u.ie(this, "ul", {"class":"sequence"});
+		this.sequence.player = this;
+		this._images = images;
+		this._nodes = new Array();
+		this.sequence._start = 0;
+		this.sequence._end = this._images.length-1;
+		this._current_frame = 0;
+		this._setup = function() {
+			for(i = 0; i <= this.sequence._end; i++) {
+				this._nodes[i] = u.ae(this.sequence, "li", {"style":"background-image: url(" + this._images[i] + ");"});
+				u.as(this._nodes[i], "display", "none", 1);
+			}
+			this.offsetHeight;
+			if(typeof(this._load_callback) == "function") {
+				this._load_callback();
+			}
+			else if(typeof(this.loaded) == "function") {
+				this.loaded();
+			}
+			if(this._autoplay) {
+			 	this.play(this._options);
+			}
+		}
+		u.preloader(this, this._images, {"callback":this._setup});
+	}
+	return player;
 }
 
 /*u-init.js*/
@@ -3422,7 +3556,7 @@ Util.Objects["page"] = new function() {
 		page.intro.sequence_player = u.sequencePlayer(page.intro);
 		page.intro.sequence_player.page = page;
 		page.intro._images = new Array();
-		for(i = 24; i <= 75; i++) {
+		for(i = 24; i <= 25; i++) {
 			page.intro._images.push("/img/intro/Untitled-1_000" + (i < 10 ? "0" : "") + i + ".jpg");
 		}
 		page.intro.sequence_player.ended = function() {
@@ -3437,7 +3571,7 @@ Util.Objects["page"] = new function() {
 				u.a.transition(this.page.intro, "all 0.2s ease-out");
 				u.a.setOpacity(this.page.intro, 0);
 			}
-			this.play({"from":51,"to":0});
+			this.play({"from":this._to,"to":this._from});
 		}
 		page.intro.sequence_player.loaded = function() {
 			u.as(this.page.intro, "display", "block");
@@ -3452,6 +3586,7 @@ Util.Objects["page"] = new function() {
 		else if(!navigator.standalone) {
 			var repeat = u.getCookie("bookmark");
 			if(repeat && Number(repeat)%1 == 0) {
+				u.ac(document.body, "bookmark");
 				page.bookmark = u.ae(document.body, "div", {"class":"bookmark"});
 				page.bookmark.moved = function(event) {
 					u.e.resetEvents(this);
@@ -3460,6 +3595,7 @@ Util.Objects["page"] = new function() {
 					this.bookmark = false;
 					this.parentNode.removeChild(this);
 					u.qs("#page").intro.sequence_player.play();
+					u.rc(document.body, "bookmark");
 				}
 				u.e.click(page.bookmark);
 				u.ae(page.bookmark, "h1", {"html":"Install this App"});
@@ -3550,7 +3686,6 @@ Util.Objects["productview"] = new function() {
 		scene.cN = u.qs("#content");
 		scene.cN.scene = scene;
 		scene.ready = function() {
-			u.bug("scene ready:" + u.nodeId(this));
 			if(this.cN.offsetHeight < this.offsetHeight) {
 				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
 				this.picked = function(event) {}
@@ -3566,50 +3701,40 @@ Util.Objects["productview"] = new function() {
 					u.rc(this, "loading");
 				}
 				this.sequencePlayer.ended = function() {
-					this.play({"framerate":12});
+					this.play();
 				}
 				u.ac(this.sequencePlayer, "loading");
 				this.sequencePlayer.loadAndPlay(this.load_list, {"framerate":12});
-			}
-			var carousel = u.ae(this.sequencePlayer, "div", {"class":"carousel"});
-			carousel.sP = this.sequencePlayer;
-			u.e.click(carousel);
-			carousel.inputStarted = function(event) {
-				this.sP.pause();
-			}
-			carousel.clicked = function(event) {
-				u.bug("clicked")
-				this.sP.resume();
-			}
-			carousel.picked = function(event) {
-				u.bug("picked:" + this.sP._current_frame)
-				this._is_dragging = 1;
-				this.sP.ended = function() {
+				var carousel = u.ae(this.sequencePlayer, "div", {"class":"carousel"});
+				carousel.sP = this.sequencePlayer;
+				u.e.click(carousel);
+				carousel.inputStarted = function(event) {
+					this.sP.pause();
 				}
-			}
-			carousel.moved = function(event) {
-				if(this._is_dragging) {
-					if(this.current_x - this._is_dragging > 15) {
-						this.sP.prev(true);
-						this._is_dragging = this.current_x;
-					}
-					if(this.current_x - this._is_dragging < -15) {
-						this.sP.next(true);
-						this._is_dragging = this.current_x;
+				carousel.clicked = function(event) {
+					this.sP.resume();
+				}
+				carousel.picked = function(event) {
+					this._is_dragging = 1;
+				}
+				carousel.moved = function(event) {
+					if(this._is_dragging) {
+						if(this.current_x - this._is_dragging > 15) {
+							this.sP.prev(true);
+							this._is_dragging = this.current_x;
+						}
+						if(this.current_x - this._is_dragging < -15) {
+							this.sP.next(true);
+							this._is_dragging = this.current_x;
+						}
 					}
 				}
-				u.bug("moved:" + this.sP._current_frame);
+				carousel.dropped = function(event) {
+					this._is_dragging = false;
+					this.sP.resume();
+				}
+				u.e.swipe(carousel, carousel, {"horizontal_lock":true});
 			}
-			carousel.dropped = function(event) {
-				this._is_dragging = false;
-			}
-			carousel.swipedRight = function(event) {
-				u.bug("swipedRight:" + this.current_x + ", " + this.current_xps);
-			}
-			carousel.swipedLeft = function(event) {
-				u.bug("swipedLeft:" + this.current_x + ", " + this.current_xps);
-			}
-			u.e.swipe(carousel, carousel);
 		}
 		scene.resized = function() {
 		}
@@ -3664,7 +3789,7 @@ Util.Objects["productview"] = new function() {
 		}
 		var sequence_index = u.qs("ul.sequence", images);
 		if(sequence_index) {
-			scene.sequencePlayer = u.sequencePlayer(images, {"framerate":2});
+			scene.sequencePlayer = u.sequencePlayer(images, {"framerate":24});
 			scene.load_list = [];
 			var sqs = u.qsa("li", sequence_index);
 			var sq, i;
@@ -3718,20 +3843,25 @@ Util.Objects["cart"] = new function() {
 			alert("Thank you for viewing our demo.")
 			u.deleteCookie("cart");
 			this.page.hN.updateCart();
+			this.page.navigate("/", this);
 		}
 		u.ce(scene.bn_checkout);
 		scene.cart_items = u.qsa(".items li", scene);
 		var in_cart = u.getCookie("cart");
 		in_cart = !isNaN(parseInt(in_cart)) ? parseInt(in_cart) : 0;
 		var item, i;
+		var total = 0;
 		for(i = 0; item = scene.cart_items[i]; i++) {
 			if(i < in_cart) {
+				total += parseInt(u.qs(".price", item).innerHTML);
 				u.as(item, "display", "block");
 			}
 			else {
 				u.as(item, "display", "none");
 			}
 		}
+		u.qs(".subtotal .price", scene).innerHTML = total + " kr.";
+		u.qs(".total .price", scene).innerHTML = total + " kr.";
 		scene.ready();
 	}
 }
@@ -3759,6 +3889,29 @@ Util.Objects["additem"] = new function() {
 		scene.navigate = function() {
 		}
 		scene.cN.page.hN.changeToNav();
+		scene.files = u.qsa("input[type=file]", scene);
+		var i, file;
+		for(i = 0; file = scene.files[i]; i++) {
+			file.changed = function() {
+				u.bug("file changed:" + u.nodeId(this) + "," + this.files + ", " + this.files[0].name)
+				var reader = new FileReader();
+				reader.node = this;
+				reader.onload = function(event) {
+					u.as(this.node.form, "backgroundImage", "url("+event.target.result+")");
+				}
+				reader.readAsDataURL(this.files[0]);
+			}
+			u.e.addEvent(file, "change", file.changed);
+		}
+		scene.bn_upload = u.qs(".actions .upload", scene);
+		scene.bn_upload.page = page;
+		u.bug("scene.bn_upload:" + scene.bn_upload)
+		scene.bn_upload.clicked = function(event) {
+			u.e.kill(event);
+			alert("Thank you for viewing our demo.")
+			this.page.navigate("/", this);
+		}
+		u.ce(scene.bn_upload);
 		scene.ready();
 	}
 }
@@ -4010,212 +4163,6 @@ u.navigation = function(page, options) {
 			return "/";
 		}
 	}
-}
-
-/*beta-u-sequence.js*/
-u.sequencePlayer = function(node, options) {
-	var player;
-	if(node) {
-		player = u.ae(node, "div", {"class":"sequenceplayer"});
-	}
-	else {
-		player = document.createElement("div");
-		u.ac(player, "sequenceplayer");
-	}
-	player.t_playback = false;
-	player._framerate = 12;
-	if(typeof(options) == "object") {
-		var argument;
-		for(argument in options) {
-			switch(argument) {
-				case "framerate"		: this._framerate			= options[argument]; break;
-			}
-		}
-	}
-	else {
-		options = {};
-	}
-	player.load = function(images, options) {
-		this._load_callback;
-		this._autoplay = false;
-		if(typeof(options) == "object") {
-			var argument;
-			for(argument in options) {
-				switch(argument) {
-					case "load_callback"		: this._load_callback			= options[argument]; break;
-					case "autoplay"				: this._autoplay				= options[argument]; break;
-				}
-			}
-		}
-		this.setup(images);
-	}
-	player.loadAndPlay = function(images, options) {
-		if(!options) {
-			options = {};
-		}
-		options.autoplay = true;
-		this._options = options;
-		this.load(images, options);
-	}
-	player.play = function(options) {
-		this._ended_callback = null;
-		this._from = this.sequence._start;
-		this._to = this.sequence._end;
-		if(typeof(options) == "object") {
-			var argument;
-			for(argument in options) {
-				switch(argument) {
-					case "ended_callback"	: this._ended_callback			= options[argument]; break;
-					case "framerate"		: this._framerate				= options[argument]; break;
-					case "to"				: this._to						= options[argument]; break;
-					case "from"				: this._from					= options[argument]; break;
-				}
-			}
-		}
-		if(this._from <= this._to) {
-			this._direction = 1;
-		}
-		else {
-			this._direction = -1;
-		}
-		u.bug("play sequence:" + this._from + " -> " + this._to + "@" + this._framerate + "fps" + " (direction:"+this._direction+")")
-			if(this._direction > 0) {
-				var start_z_index = 4000;
-				for(i = this.sequence._start; i <= this.sequence._end; i++) {
-					if(i == this._from || i == this._from+1) {
-						u.as(this._nodes[i], "display", "block", 1);
-					}
-					else {
-						u.as(this._nodes[i], "display", "none", 1);
-					}
-					u.as(this._nodes[i], "zIndex", start_z_index-i, 1);
-				}
-			}
-			else {
-				var start_z_index = 4000 - this._nodes.length;
-				for(i = this.sequence._end; i <= this.sequence._start; i--) {
-					if(i == this._from || i == this._from-1) {
-						u.as(this._nodes[i], "display", "block", 1);
-					}
-					else {
-						u.as(this._nodes[i], "display", "none", 1);
-					}
-					u.as(this._nodes[i], "zIndex", start_z_index+i, 1);
-				}
-			}
-			this.offsetHeight;
-			this._current_frame = this._from;
-		this.playback(true);
-	}
-	player.playback = function(start) {
-		if(!start) {
-			this.nextFrame(this._current_frame);
-			this._current_frame = this._current_frame + this._direction;
-		}
-		if(this._to == this._current_frame) {
-			if(typeof(this._ended_callback) == "function") {
-				this._ended_callback();
-			}
-			else if(typeof(this.ended) == "function") {
-				this.ended();
-			}
-		}
-		else {
-			this.t_playback = u.t.setTimer(this, this.playback, (1000/this._framerate));
-		}
-	}
-	player.nextFrame = function(frame) {
-		var after_next = (frame + (this._direction*2));
-		if(this._nodes[after_next] && (this._direction > 0 ? after_next <= this._to : after_next >= this._to)) {
-			u.as(this._nodes[after_next], "display", "block");
-		}
-		if(this._nodes[frame]) {
-			u.as(this._nodes[frame], "display", "none");
-		}
-	}
-	player.prevFrame = function(frame) {
-		var after_next = (frame + this._direction);
-		var prev = (frame - this._direction);
-		u.bug("prev:" + prev);
-		u.bug("after_next:" + after_next);
-		if(this._nodes[prev]) {
-			u.bug("show prev:" + prev);
-			u.as(this._nodes[prev], "display", "block");
-			if(this._nodes[after_next] && (this._direction > 0 ? after_next <= this._to : after_next >= this._to)) {
-				u.as(this._nodes[after_next], "display", "none");
-			}
-		}
-		else {
-			for(i = this._from; i < this._to; i += this._direction) {
-				if(i == this._to || i == this._to-this._direction) {
-					u.as(this._nodes[i], "display", "block");
-				}
-				else {
-					u.as(this._nodes[i], "display", "none");
-				}
-			}
-		}
-	}
-	player.next = function(loop) {
-		if(!loop || this._current_frame + this._direction <= this._to) {
-			this.nextFrame(this._current_frame);
-			this._current_frame = this._current_frame + this._direction;
-		}
-		else if(loop){
-			this.play();
-			this.pause();
-			this._current_frame = this._current_frame + this._direction;
-		}
-	}
-	player.prev = function(loop) {
-		if(!loop || this._current_frame - this._direction >= this._from) {
-			this.prevFrame(this._current_frame);
-			this._current_frame = this._current_frame - this._direction;
-		}
-		else if(loop){
-			this.prevFrame(this._current_frame);
-			this._current_frame = this._to;
-		}
-	}
-	player.resume = function() {
-		this.t_playback = u.t.setTimer(this, this.playback, (1000/this._framerate));
-	}
-	player.pause = function() {
-		u.t.resetTimer(this.t_playback);
-	}
-	player.stop = function() {
-		u.t.resetTimer(this.t_playback);
-	}
-	player.setup = function(images) {
-		if(this.sequence) {
-			this.removeChild(this.sequence);
-		}
-		this.sequence = u.ie(this, "ul", {"class":"sequence"});
-		this.sequence.player = this;
-		this._images = images;
-		this._nodes = new Array();
-		this.sequence._start = 0;
-		this.sequence._end = this._images.length-1;
-		this._current_frame = 0;
-		this._setup = function() {
-			for(i = 0; i <= this.sequence._end; i++) {
-				this._nodes[i] = u.ae(this.sequence, "li", {"style":"background-image: url(" + this._images[i] + ");"});
-				u.as(this._nodes[i], "display", "none", 1);
-			}
-			this.offsetHeight;
-			if(typeof(this._load_callback) == "function") {
-				this._load_callback();
-			}
-			else if(typeof(this.loaded) == "function") {
-				this.loaded();
-			}
-			if(this._autoplay) {
-			 	this.play(this._options);
-			}
-		}
-		u.preloader(this, this._images, {"callback":this._setup});
-	}
-	return player;
 }
 
 /*i-desktop.js*/

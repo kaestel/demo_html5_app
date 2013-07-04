@@ -665,7 +665,8 @@ Util.Objects["page"] = new function() {
 
 		// intro images
 		page.intro._images = new Array();
-		for(i = 24; i <= 75; i++) {
+//		for(i = 24; i <= 75; i++) {
+		for(i = 24; i <= 25; i++) {
 			page.intro._images.push("/img/intro/Untitled-1_000" + (i < 10 ? "0" : "") + i + ".jpg");
 		}
 
@@ -685,7 +686,7 @@ Util.Objects["page"] = new function() {
 				u.a.setOpacity(this.page.intro, 0);
 			}
 
-			this.play({"from":51,"to":0});
+			this.play({"from":this._to,"to":this._from});
 		}
 
 		page.intro.sequence_player.loaded = function() {
@@ -713,6 +714,7 @@ Util.Objects["page"] = new function() {
 			var repeat = u.getCookie("bookmark");
 			if(repeat && Number(repeat)%1 == 0) {
 				// load intro - but wait for bookmark sceen to clear
+				u.ac(document.body, "bookmark");
 				page.bookmark = u.ae(document.body, "div", {"class":"bookmark"});
 				page.bookmark.moved = function(event) {
 					u.e.resetEvents(this);
@@ -721,12 +723,14 @@ Util.Objects["page"] = new function() {
 					this.bookmark = false;
 					this.parentNode.removeChild(this);
 					u.qs("#page").intro.sequence_player.play();
+					u.rc(document.body, "bookmark");
 				}
 				u.e.click(page.bookmark);
 // 				page.bookmark.resized = function() {
 // 					u.bug("bo re")
 // //					u.a.setHeight(this, page.offsetHeight);
 // 				}
+
 				u.ae(page.bookmark, "h1", {"html":"Install this App"});
 				u.ae(page.bookmark, "h2", {"html":"Or tap to continue"});
 				u.ae(page.bookmark, "P", {"html":"Tap &quot;Add to homesceen&quot; to install this app on your phone."});

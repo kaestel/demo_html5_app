@@ -5,9 +5,7 @@ Util.Objects["productview"] = new function() {
 		scene.cN.scene = scene;
 
 		scene.ready = function() {
-			u.bug("scene ready:" + u.nodeId(this));
-
-
+//			u.bug("scene ready:" + u.nodeId(this));
 
 			if(this.cN.offsetHeight < this.offsetHeight) {
 //			if(u.qsa("li.product", this).length == u.qsa("li.product.ready", this).length) {
@@ -39,66 +37,51 @@ Util.Objects["productview"] = new function() {
 
 				this.sequencePlayer.ended = function() {
 //					u.bug("ended")
-					this.play({"framerate":12});
-//					this.play({"from":0,"to":18});
+					this.play();
 				}
 				u.ac(this.sequencePlayer, "loading");
 				this.sequencePlayer.loadAndPlay(this.load_list, {"framerate":12});
-			}
 
-			// 
-			var carousel = u.ae(this.sequencePlayer, "div", {"class":"carousel"});
-			carousel.sP = this.sequencePlayer;
-			u.e.click(carousel);
-			carousel.inputStarted = function(event) {
-
-				this.sP.pause();
-			}
-			carousel.clicked = function(event) {
-				u.bug("clicked")
-				this.sP.resume();
-			}
-			carousel.picked = function(event) {
-				u.bug("picked:" + this.sP._current_frame)
-				this._is_dragging = 1;
-				this.sP.ended = function() {
-					
+				var carousel = u.ae(this.sequencePlayer, "div", {"class":"carousel"});
+				carousel.sP = this.sequencePlayer;
+				u.e.click(carousel);
+				carousel.inputStarted = function(event) {
+					this.sP.pause();
 				}
-			}
-			carousel.moved = function(event) {
-//				u.bug("this._is_dragging:" + this._is_dragging);
-				if(this._is_dragging) {
-//					u.bug(this.current_x +"-"+ this._is_dragging)
+				carousel.clicked = function(event) {
+//					u.bug("clicked")
+					this.sP.resume();
+				}
+				carousel.picked = function(event) {
+//					u.bug("picked:" + this.sP._current_frame)
+					this._is_dragging = 1;
+				}
+				carousel.moved = function(event) {
+	//				u.bug("this._is_dragging:" + this._is_dragging);
+					if(this._is_dragging) {
+	//					u.bug(this.current_x +"-"+ this._is_dragging)
 
-					if(this.current_x - this._is_dragging > 15) {
+						if(this.current_x - this._is_dragging > 15) {
 
-						this.sP.prev(true);
-						this._is_dragging = this.current_x;
+							this.sP.prev(true);
+							this._is_dragging = this.current_x;
+						}
+						if(this.current_x - this._is_dragging < -15) {
+
+							this.sP.next(true);
+							this._is_dragging = this.current_x;
+						}
 					}
-					if(this.current_x - this._is_dragging < -15) {
 
-						this.sP.next(true);
-						this._is_dragging = this.current_x;
-					}
+//					u.bug("moved:" + this.sP._current_frame);
+				}
+				carousel.dropped = function(event) {
+					this._is_dragging = false;
+					this.sP.resume();
 				}
 
-				u.bug("moved:" + this.sP._current_frame);
+				u.e.swipe(carousel, carousel, {"horizontal_lock":true});
 			}
-			carousel.dropped = function(event) {
-				this._is_dragging = false;
-			}
-			carousel.swipedRight = function(event) {
-//				this.sP.resume();
-//				this.sP.play({"from":this.sP._current_frame, "to":this.sP._to, "framerate":24})
-				u.bug("swipedRight:" + this.current_x + ", " + this.current_xps);
-			}
-			carousel.swipedLeft = function(event) {
-//				this.sP.resume();
-//				this.sP.play({"from":this.sP._current_frame, "to":this.sP._from, "framerate":24})
-				u.bug("swipedLeft:" + this.current_x + ", " + this.current_xps);
-			}
-
-			u.e.swipe(carousel, carousel);
 
 		}
 		
@@ -193,7 +176,7 @@ Util.Objects["productview"] = new function() {
 		var sequence_index = u.qs("ul.sequence", images);
 		if(sequence_index) {
 //			u.bug("add sequence")
-			scene.sequencePlayer = u.sequencePlayer(images, {"framerate":2});
+			scene.sequencePlayer = u.sequencePlayer(images, {"framerate":24});
 
 			scene.load_list = [];
 			var sqs = u.qsa("li", sequence_index);
@@ -202,10 +185,9 @@ Util.Objects["productview"] = new function() {
 				scene.load_list.push("/images/" + u.cv(sq, "id") + "/" + images.offsetWidth + "x.png");
 			}
 
+			// Load sequence image to get height of sequence
 			u.preloader(images, ["/images/"+u.cv(u.qs("li", images), "id")+"/"+images.offsetWidth+"x.png"]);
 		}
-
-
 
 	}
 }

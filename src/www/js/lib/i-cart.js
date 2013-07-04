@@ -61,6 +61,8 @@ Util.Objects["cart"] = new function() {
 			alert("Thank you for viewing our demo.")
 			u.deleteCookie("cart");
 			this.page.hN.updateCart();
+
+			this.page.navigate("/", this);
 		}
 		u.ce(scene.bn_checkout);
 
@@ -68,15 +70,19 @@ Util.Objects["cart"] = new function() {
 		var in_cart = u.getCookie("cart");
 		in_cart = !isNaN(parseInt(in_cart)) ? parseInt(in_cart) : 0;
 		var item, i;
-
+		var total = 0;
 		for(i = 0; item = scene.cart_items[i]; i++) {
 			if(i < in_cart) {
+				total += parseInt(u.qs(".price", item).innerHTML);
 				u.as(item, "display", "block");
 			}
 			else {
 				u.as(item, "display", "none");
 			}
 		}
+		u.qs(".subtotal .price", scene).innerHTML = total + " kr.";
+
+		u.qs(".total .price", scene).innerHTML = total + " kr.";
 
 		scene.ready();
 	}
