@@ -53,6 +53,15 @@ Util.Objects["additem"] = new function() {
 				reader.onload = function(event) {
 //					u.bug(this.node);
 
+					u.rc(this.node.form, "portrait");
+					u.rc(this.node.form, "landscape");
+
+					if(event.target.width / event.target.height < this.node.offsetWidth / this.node.offsetHeight) {
+						u.ac(this.node.form, "landscape");
+					}
+					else {
+						u.ac(this.node.form, "portrait");
+					}
 
 					u.as(this.node.form, "backgroundImage", "url("+event.target.result+")");
 				}
