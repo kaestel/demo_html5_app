@@ -1,4 +1,4 @@
-//u.bug_force = true;
+u.bug_force = true;
 //u.bug_console_only = true;
 
 Util.Objects["page"] = new function() {

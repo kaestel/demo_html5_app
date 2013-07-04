@@ -3172,6 +3172,7 @@ Util.init = function(scope) {
 }
 
 /*i-page-mobile_touch.js*/
+u.bug_force = true;
 Util.Objects["page"] = new function() {
 	this.init = function(page) {
 		if(u.hc(page, "i:page")) {
