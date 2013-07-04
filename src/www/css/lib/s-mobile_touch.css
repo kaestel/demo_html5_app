@@ -14,7 +14,8 @@
 
 	#content .scene.additem ul.uploads li {margin-left: -1px;}
 	#content .scene.additem ul.uploads li:nth-child(3n+1) {border-left: none; margin-left: 0;}
-	#content .scene.additem ul.uploads li:nth-child(-n+3) {border-top: none;}
+/*	#content .scene.additem ul.uploads li:nth-child(-n+3) {border-top: none;}*/
+	#content .scene.additem ul.uploads li:nth-child(3) {display: none;}
 
 	.bookmark h1 {width: 300px; margin-left: -150px; height: 35px; margin-top: -120px; padding-top: 130px; background-size: 122px;}
 	.bookmark h2 {width: 150px; margin-left: -75px; height: 25px; margin-top: 40px;}
