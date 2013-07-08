@@ -94,7 +94,8 @@ Util.Objects["page"] = new function() {
 					var h = window.innerHeight;
 
 					// set page and navigation height
-					u.a.setHeight(this, h);
+//					u.bug(parseInt(u.gcs(document.body, "margin-top")) + ", " + u.gcs(document.body, "margin-top"));
+					u.a.setHeight(this, h - parseInt(u.gcs(document.body, "margin-top")));
 					u.a.setHeight(this.nN, h);
 
 					if(u.qs(".bookmark")) {
@@ -143,8 +144,8 @@ Util.Objects["page"] = new function() {
 				this.response = function(response) {
 //					u.bug("navigate response:" + this.request_url + ", " + response.body_class)
 
-					// set body class
-					u.setClass(document.body, response.body_class.replace("i:validdevice", "").trim());
+					// set body class (keep standalone)
+					u.setClass(document.body, response.body_class.replace("i:validdevice", "").trim() + (u.hc(document.body, "standalone") ? " standalone": ""));
 					// set title
 					document.title = response.head_title;
 					this.page.hN.h1.update(u.qs(".scene h1", response) ? u.qs(".scene h1", response).innerHTML : "");
@@ -746,9 +747,11 @@ Util.Objects["page"] = new function() {
 		}
 		// app mode
 		else {
+			u.ac(document.body, "standalone");
 			// load and play intro
 			page.intro.sequence_player.loadAndPlay(page.intro._images, {"framerate":24});
 		}
+
 
 	}
 }

@@ -3212,7 +3212,7 @@ Util.Objects["page"] = new function() {
 				}
 				else {
 					var h = window.innerHeight;
-					u.a.setHeight(this, h);
+					u.a.setHeight(this, h - parseInt(u.gcs(document.body, "margin-top")));
 					u.a.setHeight(this.nN, h);
 					if(u.qs(".bookmark")) {
 						u.a.setHeight(u.qs(".bookmark"), h);
@@ -3232,7 +3232,7 @@ Util.Objects["page"] = new function() {
 			}
 			page.cN.navigate = function(url) {
 				this.response = function(response) {
-					u.setClass(document.body, response.body_class.replace("i:validdevice", "").trim());
+					u.setClass(document.body, response.body_class.replace("i:validdevice", "").trim() + (u.hc(document.body, "standalone") ? " standalone": ""));
 					document.title = response.head_title;
 					this.page.hN.h1.update(u.qs(".scene h1", response) ? u.qs(".scene h1", response).innerHTML : "");
 					var new_scene = u.qs(".scene", response);
@@ -3607,6 +3607,7 @@ Util.Objects["page"] = new function() {
 			u.saveCookie("bookmark", repeat ? ++repeat : 1)
 		}
 		else {
+			u.ac(document.body, "standalone");
 			page.intro.sequence_player.loadAndPlay(page.intro._images, {"framerate":24});
 		}
 	}

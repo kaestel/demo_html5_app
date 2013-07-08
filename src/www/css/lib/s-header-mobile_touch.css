@@ -14,7 +14,7 @@
 #header .servicenavigation li a {display: block; text-indent: -9999px; height: 100%;}
 
 #header .servicenavigation li.navigation {top: 0; left: 0; background-position: 11px 14px; z-index: 10;}
-#header .servicenavigation li.back {top: 0; left: 0; background-position: 9px -587px; opacity: 0; z-index: 15; display: none;}
+#header .servicenavigation li.back {top: 0; left: 0; background-position: 9px -87px; opacity: 0; z-index: 15; display: none;}
 
 #header .servicenavigation li.cart {top: 0; right: 0; background-position: 9px -495px; z-index: 20;}
 #header .servicenavigation li.cart span {position: absolute; top: 5px; right: 5px; border: 2px solid #dedede; border-radius: 7px; font-size: 10px; font-family: Arial; padding: 2px 0; width: 14px; text-align: center; line-height: 10px; color: #ffffff; background: #fd0000;}
