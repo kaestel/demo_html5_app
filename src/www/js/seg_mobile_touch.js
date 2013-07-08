@@ -3628,7 +3628,7 @@ Util.Objects["productlist"] = new function() {
 		scene.ready = function() {
 			if(u.qsa("li.product", this).length == u.qsa("li.product.ready", this).length) {
 				if(this.cN.offsetHeight < this.offsetHeight) {
-					u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
+					u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false, "elastica":75});
 					this.picked = function(event) {}
 					this.moved = function(event) {}
 					this.dropped = function(event) {}
@@ -3686,7 +3686,7 @@ Util.Objects["productview"] = new function() {
 		scene.cN.scene = scene;
 		scene.ready = function() {
 			if(this.cN.offsetHeight < this.offsetHeight) {
-				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
+				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false, "elastica":75});
 				this.picked = function(event) {}
 				this.moved = function(event) {}
 				this.dropped = function(event) {}

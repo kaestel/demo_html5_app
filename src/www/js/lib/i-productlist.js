@@ -14,7 +14,7 @@ Util.Objects["productlist"] = new function() {
 
 				if(this.cN.offsetHeight < this.offsetHeight) {
 					// set drag on scene
-					u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
+					u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false, "elastica":75});
 
 					this.picked = function(event) {}
 					this.moved = function(event) {}
