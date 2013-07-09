@@ -3769,7 +3769,11 @@ Util.Objects["productview"] = new function() {
 			if(this.cN.offsetHeight < this.offsetHeight) {
 				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false, "elastica":200});
 				this.picked = function(event) {}
-				this.moved = function(event) {}
+				this.moved = function(event) {
+					if(this.current_yps < 0 && !u.hc(document.body, "standalone") && !u.qs(".desktop_wrapper")) {
+						window.scrollTo(0, 0);
+					}
+				}
 				this.dropped = function(event) {}
 				u.ac(this.cN, "ready");
 				this.cN.ready();
@@ -3890,7 +3894,11 @@ Util.Objects["cart"] = new function() {
 			if(this.cN.offsetHeight < this.offsetHeight) {
 				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false, "elastica":200});
 				this.picked = function(event) {}
-				this.moved = function(event) {}
+				this.moved = function(event) {
+					if(this.current_yps < 0 && !u.hc(document.body, "standalone") && !u.qs(".desktop_wrapper")) {
+						window.scrollTo(0, 0);
+					}
+				}
 				this.dropped = function(event) {}
 			}
 			u.ac(this.cN, "ready");
@@ -3956,7 +3964,11 @@ Util.Objects["additem"] = new function() {
 			if(this.cN.offsetHeight < this.offsetHeight) {
 				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false, "elastica":200});
 				this.picked = function(event) {}
-				this.moved = function(event) {}
+				this.moved = function(event) {
+					if(this.current_yps < 0 && !u.hc(document.body, "standalone") && !u.qs(".desktop_wrapper")) {
+						window.scrollTo(0, 0);
+					}
+				}
 				this.dropped = function(event) {}
 			}
 			u.ac(this.cN, "ready");
@@ -4188,7 +4200,11 @@ Util.Objects["scene"] = new function() {
 			if(this.cN.offsetHeight < this.offsetHeight) {
 				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false, "elastica":200});
 				this.picked = function(event) {}
-				this.moved = function(event) {}
+				this.moved = function(event) {
+					if(this.current_yps < 0 && !u.hc(document.body, "standalone") && !u.qs(".desktop_wrapper")) {
+						window.scrollTo(0, 0);
+					}
+				}
 				this.dropped = function(event) {}
 			}
 			u.ac(this.cN, "ready");

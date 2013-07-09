@@ -16,7 +16,11 @@ Util.Objects["productview"] = new function() {
 				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false, "elastica":200});
 
 				this.picked = function(event) {}
-				this.moved = function(event) {}
+				this.moved = function(event) {
+					if(this.current_yps < 0 && !u.hc(document.body, "standalone") && !u.qs(".desktop_wrapper")) {
+						window.scrollTo(0, 0);
+					}
+				}
 				this.dropped = function(event) {}
 
 
