@@ -1,5 +1,5 @@
 u.bug_force = true;
-u.bug_console_only = true;
+//u.bug_console_only = true;
 
 Util.Objects["page"] = new function() {
 	this.init = function(page) {
@@ -113,7 +113,7 @@ Util.Objects["page"] = new function() {
 //				u.bug("page.cN ready:" + this.page.intro + ", " + u.hc(this.page, "ready") + ", " + u.hc(this, "ready"));
 
 				if(!this.page.intro && u.hc(this.page, "ready") && u.hc(this, "ready")) {
-					u.bug("page is actually ready:" + this.page);
+//					u.bug("page is actually ready:" + this.page);
 
 //					u.as(this, "display", "block");
 //					u.a.transition(this, "none");
@@ -175,7 +175,7 @@ Util.Objects["page"] = new function() {
 			// clean up scenes after transitions
 			// removes all scenes, execpt for the last one
 			page.cN.cleanScenes = function() {
-				u.bug("clean scenes");
+//				u.bug("clean scenes");
 				while(u.qsa(".scene", this).length > 1) {
 					var scene = u.qs(".scene", this);
 					scene.parentNode.removeChild(scene);
@@ -187,7 +187,7 @@ Util.Objects["page"] = new function() {
 
 			// transition scenes to the left
 			page.cN.transitions.animateLeft = function() {
-				u.bug("animateLeft transition");
+//				u.bug("animateLeft transition");
 
 				var scenes = u.qsa(".scene", this.page.cN);
 
@@ -197,7 +197,7 @@ Util.Objects["page"] = new function() {
 				u.as(scenes[scenes.length-1], "display", "block");
 
 				scenes[0].transitioned = function() {
-					u.bug("cancel animateLeft 0 - clean")
+//					u.bug("cancel animateLeft 0 - clean")
 					this.transitioned = null;
 					u.a.transition(this, "none");
 
@@ -209,7 +209,7 @@ Util.Objects["page"] = new function() {
 					}
 				}
 				scenes[scenes.length-1].transitioned = function() {
-					u.bug("cancel animateLeft N");
+//					u.bug("cancel animateLeft N");
 
 					this.transitioned = null;
 					u.a.transition(this, "none");
@@ -228,7 +228,7 @@ Util.Objects["page"] = new function() {
 
 			// transition scenes to the right
 			page.cN.transitions.animateRight = function() {
-				u.bug("animateRight transition:" + u.qsa(".scene", this.page.cN).length);
+//				u.bug("animateRight transition:" + u.qsa(".scene", this.page.cN).length);
 
 				var scenes = u.qsa(".scene", this.page.cN);
 
@@ -238,7 +238,7 @@ Util.Objects["page"] = new function() {
 				u.as(scenes[scenes.length-1], "display", "block");
 
 				scenes[0].transitioned = function() {
-					u.bug("cancel animateRight 0 - clean")
+//					u.bug("cancel animateRight 0 - clean")
 					this.transitioned = null;
 					u.a.transition(this, "none");
 
@@ -250,7 +250,7 @@ Util.Objects["page"] = new function() {
 					}
 				}
 				scenes[scenes.length-1].transitioned = function() {
-					u.bug("cancel animateRight N");
+//					u.bug("cancel animateRight N");
 					this.transitioned = null;
 					u.a.transition(this, "none");
 
@@ -273,12 +273,12 @@ Util.Objects["page"] = new function() {
 
 			// drop in from top
 			page.cN.transitions.pullUp = function() {
-				u.bug("pullUp transition");
+//				u.bug("pullUp transition");
 
 				var scenes = u.qsa(".scene", this.page.cN);
 
 				scenes[0].transitioned = function() {
-					u.bug("cancel pullUp 0 - clean")
+//					u.bug("cancel pullUp 0 - clean")
 
 					this.transitioned = null;
 					u.a.transition(this, "none");
@@ -312,12 +312,12 @@ Util.Objects["page"] = new function() {
 
 			// drop in from top
 			page.cN.transitions.dropDown = function() {
-				u.bug("dropDown transition")
+//				u.bug("dropDown transition")
 
 				var scenes = u.qsa(".scene", this.page.cN);
 
 				scenes[scenes.length-1].transitioned = function() {
-					u.bug("cancel dropDown N - clean")
+//					u.bug("cancel dropDown N - clean")
 					this.transitioned = null;
 					u.a.transition(this, "none");
 
@@ -353,12 +353,12 @@ Util.Objects["page"] = new function() {
 
 			// fade in - static position
 			page.cN.transitions.fadeIn = function() {
-				u.bug("fadeIn transition:" + u.qsa(".scene", this.page.cN).length)
+//				u.bug("fadeIn transition:" + u.qsa(".scene", this.page.cN).length)
 
 				// cleanup + enter on transition
 				var scene = u.qs(".scene", this.page.cN);
 				scene.transitioned = function(event) {
-					u.bug("cancel dropDown 0 - clean")
+//					u.bug("cancel dropDown 0 - clean")
 					this.transitioned = null;
 					u.a.transition(this, "none");
 
@@ -367,7 +367,7 @@ Util.Objects["page"] = new function() {
 					// enter new scene
 					var scene = u.qs(".scene", this.cN);
 					scene.transitioned = function(event) {
-						u.bug("cancel fadeIn 0")
+//						u.bug("cancel fadeIn 0")
 						this.transitioned = null;
 						u.a.transition(this, "none");
 
@@ -400,7 +400,7 @@ Util.Objects["page"] = new function() {
 
 			// no transition out - just show
 			page.cN.transitions.hard = function() {
-				u.bug("hard transition")
+//				u.bug("hard transition");
 
 				// clean up
 				this.page.cN.cleanScenes();
@@ -408,7 +408,7 @@ Util.Objects["page"] = new function() {
 				// enter new scene
 				var scene = u.qs(".scene", this.page.cN);
 				scene.transitioned = function(event) {
-					u.bug("cancel hard 0")
+//					u.bug("cancel hard 0");
 					this.transitioned = null;
 					u.a.transition(this, "none");
 
