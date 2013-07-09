@@ -10,10 +10,10 @@ Util.Objects["productview"] = new function() {
 			if(this.cN.offsetHeight < this.offsetHeight) {
 //			if(u.qsa("li.product", this).length == u.qsa("li.product.ready", this).length) {
 
-//				u.bug((this.cN.offsetHeight - this.offsetHeight) + ", " + this.offsetHeight + ":" + u.gcs(this, "height"));
+//				u.bug("cN.oH:" + this.cN.offsetHeight + ", cN.oH-oH:" + (this.cN.offsetHeight - this.offsetHeight) + ", oH:" + this.offsetHeight + ":gcs:" + u.gcs(this, "height"));
 //				u.a.setHeight(this, this.offsetHeight);
 				// set drag on scene
-				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false, "elastica":75});
+				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false, "elastica":200});
 
 				this.picked = function(event) {}
 				this.moved = function(event) {}

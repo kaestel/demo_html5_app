@@ -769,3 +769,4 @@ function static_init() {
 }
 
 u.e.addDOMReadyEvent(static_init);
+//u.e.addOnloadEvent(static_init);

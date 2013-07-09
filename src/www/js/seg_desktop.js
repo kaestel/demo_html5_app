@@ -3628,7 +3628,7 @@ Util.Objects["productlist"] = new function() {
 		scene.ready = function() {
 			if(u.qsa("li.product", this).length == u.qsa("li.product.ready", this).length) {
 				if(this.cN.offsetHeight < this.offsetHeight) {
-					u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false, "elastica":75});
+					u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false, "elastica":150});
 					this.picked = function(event) {}
 					this.moved = function(event) {}
 					this.dropped = function(event) {}
@@ -3663,8 +3663,8 @@ Util.Objects["productlist"] = new function() {
 				}
 				product.loaded = function(queue) {
 					u.as(this, "backgroundImage", "url("+queue[0]._image.src+")");
-					u.ac(this, "ready");
 					u.as(this, "paddingTop", queue[0]._image.height+"px");
+					u.ac(this, "ready");
 					this.scene.ready();
 				}
 				u.preloader(product, ["/images/"+u.cv(product, "id")+"/"+product.scene.cN.page.offsetWidth+"x.jpg"]);
@@ -3686,7 +3686,7 @@ Util.Objects["productview"] = new function() {
 		scene.cN.scene = scene;
 		scene.ready = function() {
 			if(this.cN.offsetHeight < this.offsetHeight) {
-				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false, "elastica":75});
+				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false, "elastica":200});
 				this.picked = function(event) {}
 				this.moved = function(event) {}
 				this.dropped = function(event) {}
