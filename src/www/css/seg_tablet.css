@@ -231,9 +231,9 @@ div.bookmark p {font-size: 15px; line-height: 1.2em; padding: 10px 20px; border-
 	#content .scene.additem ul.uploads li {margin-left: -1px;}
 	#content .scene.additem ul.uploads li:nth-child(3n+1) {border-left: none; margin-left: 0;}
 	#content .scene.additem ul.uploads li:nth-child(3) {display: none;}
-	.bookmark h1 {width: 300px; margin-left: -150px; height: 35px; margin-top: -110px;}
-	.bookmark h2 {width: 150px; margin-left: -75px; height: 25px; margin-top: 80px;}
-	.bookmark p {width: 400px; margin-left: -200px; height: 20px;}
+	div.bookmark h1 {width: 300px; margin-left: -150px; height: 35px; margin-top: -110px;}
+	div.bookmark h2 {width: 150px; margin-left: -75px; height: 25px; margin-top: 80px;}
+	div.bookmark p {width: 400px; margin-left: -200px; height: 20px;}
 }
 @media all and (max-width: 480px) {
 	body {min-height: 750px; position: relative; background-color: #ffffff;}
@@ -250,8 +250,8 @@ div.bookmark p {font-size: 15px; line-height: 1.2em; padding: 10px 20px; border-
 	#content .scene.additem ul.uploads li:nth-child(2n+1) {border-left: none;}
 	#content .scene.additem ul.uploads li:nth-child(2n) {margin-left: -1px;}
 	#content .scene.additem ul.uploads li:nth-child(-n+2) {border-top: none;}
-	.bookmark h1 {width: 150px; margin-left: -75px; height: 80px; margin-top: -135px;}
-	.bookmark h2 {width: 150px; margin-left: -75px; height: 50px; margin-top: 100px;}
-	.bookmark p {width: 260px; margin-left: -150px; height: 40px;}
+	div.bookmark h1 {width: 150px; margin-left: -75px; height: 80px; margin-top: -135px;}
+	div.bookmark h2 {width: 150px; margin-left: -75px; height: 50px; margin-top: 100px;}
+	div.bookmark p {width: 260px; margin-left: -150px; height: 40px;}
 }
 

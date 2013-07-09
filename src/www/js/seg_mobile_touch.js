@@ -3574,7 +3574,7 @@ Util.Objects["page"] = new function() {
 						page._orientationchanged();
 						page._page_state = 480;
 					}
-					u.a.setHeight(page, window.innerHeight - u.qs(".desktop_mask").offsetHeight);
+					u.a.setHeight(page, u.qs(".desktop_mask").offsetHeight);
 				}
 				else {
 					u.a.setHeight(page, window.innerHeight - parseInt(u.gcs(document.body, "margin-top")));
