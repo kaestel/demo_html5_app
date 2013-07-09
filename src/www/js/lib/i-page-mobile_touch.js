@@ -741,7 +741,7 @@ Util.Objects["page"] = new function() {
 
 			// handle orientation change
 			page._orientationchanged = function(event) {
-				u.bug("orientation changed:");
+//				u.bug("orientation changed:");
 
 				u.rc(document.body, "landscape|portrait");
 				u.ac(document.body, (this.orientation == 90 || this.orientation == 270) ? "landscape" : "portrait");
@@ -752,7 +752,9 @@ Util.Objects["page"] = new function() {
 				}
 
 				page.cN.cleanScenes();
-				page.cN.removeChild(page.cN.scene);
+				if(page.cN.scene && page.cN.scene.parentNode) {
+					page.cN.removeChild(page.cN.scene);
+				}
 //				page.cN.transition_method = page.cN.transitions.hard;
 				page.cN.navigate(u.h.getCleanHash(location.hash));
 			}

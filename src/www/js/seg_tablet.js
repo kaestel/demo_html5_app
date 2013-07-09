@@ -2882,11 +2882,9 @@ u.e._drop = function(event) {
 			}
 		}
 		if(this.current_xps || this.current_yps) {
-			u.bug("speed")
 			u.a.transition(this, "all 1s cubic-bezier(0,0,0.25,1)");
 		}
 		else {
-			u.bug("no speed")
 			u.a.transition(this, "all 0.2s cubic-bezier(0,0,0.25,1)");
 		}
 		u.a.translate(this, this.current_x, this.current_y);
@@ -3611,7 +3609,6 @@ Util.Objects["page"] = new function() {
 				u.a.setHeight(this, window.innerHeight - parseInt(u.gcs(document.body, "margin-top")));
 			}
 			page._orientationchanged = function(event) {
-				u.bug("orientation changed:");
 				u.rc(document.body, "landscape|portrait");
 				u.ac(document.body, (this.orientation == 90 || this.orientation == 270) ? "landscape" : "portrait");
 				var page = u.qs("#page");
@@ -3619,7 +3616,9 @@ Util.Objects["page"] = new function() {
 					page.resetHeight();
 				}
 				page.cN.cleanScenes();
-				page.cN.removeChild(page.cN.scene);
+				if(page.cN.scene && page.cN.scene.parentNode) {
+					page.cN.removeChild(page.cN.scene);
+				}
 				page.cN.navigate(u.h.getCleanHash(location.hash));
 			}
 			u.e.addEvent(window, "orientationchange", page._orientationchanged);
