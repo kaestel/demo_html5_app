@@ -4,6 +4,7 @@
 #content .scene.productlist .product {position: relative; padding-left: 12px; padding-bottom: 15px; padding-right: 12px;
 	background-repeat: no-repeat;
 }
+/*#content .scene.productlist .product:active {opacity: 0.5;}*/
 
 #content .scene.productlist .product dt {display: none;}
 #content .scene.productlist .product dd.price {background: #fc335c; color: #ffffff; padding: 5px 9px; position: absolute; right: 0; top: 0px; font-family: "proximanova_bold"; font-weight: 600; font-size: 12px;}

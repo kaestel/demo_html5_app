@@ -3,7 +3,7 @@
 #content .scene.additem h1 {display: none;}
 
 #content .scene.additem ul.uploads {font-size: 0;}
-#content .scene.additem ul.uploads li {display: inline-block; background: #ffffff url(/img/bg_camera.svg) no-repeat center center; height: 160px; width: 160px; vertical-align: top; border-left: 1px solid #cbebd5; border-top: 1px solid #cbebd5; background-size: 60px 60px;}
+#content .scene.additem ul.uploads li {display: inline-block; background: #ffffff url(/img/bg_camera.svg) no-repeat center center; height: 30%; width: 50%; vertical-align: top; border-left: 1px solid #cbebd5; border-top: 1px solid #cbebd5; background-size: 60px 60px;}
 #content .scene.additem ul.uploads li form {display: block; background-size: 100% auto;}
 
 #content .scene.additem ul.uploads li form.portrait {background-size: auto 100%; background-position: center top; background-repeat: no-repeat;}

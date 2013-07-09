@@ -3172,6 +3172,8 @@ Util.init = function(scope) {
 }
 
 /*i-page-mobile_touch.js*/
+u.bug_force = true;
+u.bug_console_only = true;
 Util.Objects["page"] = new function() {
 	this.init = function(page) {
 		if(u.hc(page, "i:page")) {
@@ -3192,7 +3194,7 @@ Util.Objects["page"] = new function() {
 					this.cN.ready();
 				}
 				if(!u.hc(this, "ready")) {
-					if(!u.qs(".desktop_wrapper")) {
+					if(!u.qs(".desktop_wrapper") && !u.hc(document.body, "standalone")) {
 						this.resetHeight();
 					}
 					u.addClass(this, "ready");
@@ -3208,19 +3210,16 @@ Util.Objects["page"] = new function() {
 				if(u.gcs(this, "height") != "4000px") {
 					u.a.setHeight(this, 4000);
 					window.scrollTo(0, 0);
-					this, this.resetHeight();
+					this.resetHeight();
 				}
 				else {
 					var h = window.innerHeight;
-					u.a.setHeight(this, h - parseInt(u.gcs(document.body, "margin-top")));
-					u.a.setHeight(this.nN, h);
-					if(u.qs(".bookmark")) {
-						u.a.setHeight(u.qs(".bookmark"), h);
-					}
+					u.a.setHeight(document.body, h);
 				}
 			}
 			page.cN.ready = function() {
 				if(!this.page.intro && u.hc(this.page, "ready") && u.hc(this, "ready")) {
+					u.bug("page is actually ready:" + this.page);
 					if(u.qsa(".scene", this).length > 1) {
 						var transition_method = this.page.hash_node && this.page.hash_node.transition_method ? this.page.hash_node.transition_method : this.transitions.fadeIn;
 						transition_method();
@@ -3231,6 +3230,9 @@ Util.Objects["page"] = new function() {
 				}
 			}
 			page.cN.navigate = function(url) {
+				if(!u.qs("desktop_wrapper") && !u.hc(document.body, "standalone")) {
+					this.page.resetHeight();
+				}
 				this.response = function(response) {
 					u.setClass(document.body, response.body_class.replace("i:validdevice", "").trim() + (u.hc(document.body, "standalone") ? " standalone": ""));
 					document.title = response.head_title;
@@ -3243,6 +3245,7 @@ Util.Objects["page"] = new function() {
 				u.request(this, u.h.getCleanHash(url));
 			}
 			page.cN.cleanScenes = function() {
+				u.bug("clean scenes");
 				while(u.qsa(".scene", this).length > 1) {
 					var scene = u.qs(".scene", this);
 					scene.parentNode.removeChild(scene);
@@ -3251,89 +3254,149 @@ Util.Objects["page"] = new function() {
 			page.cN.transitions = new Object();
 			page.cN.transitions.page = page;
 			page.cN.transitions.animateLeft = function() {
+				u.bug("animateLeft transition");
 				var scenes = u.qsa(".scene", this.page.cN);
+				u.a.transition(scenes[scenes.length-1], "none");
+				u.a.translate(scenes[scenes.length-1], (this.page.offsetWidth), 0);
+				u.a.setOpacity(scenes[scenes.length-1], 1);
+				u.as(scenes[scenes.length-1], "display", "block");
 				scenes[0].transitioned = function() {
+					u.bug("cancel animateLeft 0 - clean")
+					this.transitioned = null;
+					u.a.transition(this, "none");
 					this.cN.cleanScenes();
 					if(typeof(this.entered) == "function") {
 						this.entered();
 					}
 				}
-				u.a.translate(scenes[scenes.length-1], (this.page.offsetWidth), 0);
-				u.a.setOpacity(scenes[scenes.length-1], 1);
-				u.as(scenes[scenes.length-1], "display", "block");
-				u.a.transition(scenes[0], "all 0.3s ease-out");
-				u.a.translate(scenes[0], -(this.page.offsetWidth), scenes[0]._y);
+				scenes[scenes.length-1].transitioned = function() {
+					u.bug("cancel animateLeft N");
+					this.transitioned = null;
+					u.a.transition(this, "none");
+				}
+				if(scenes[0]._x != -(this.page.offsetWidth)) {
+					u.a.transition(scenes[0], "all 0.3s ease-out");
+					u.a.translate(scenes[0], -(this.page.offsetWidth), scenes[0]._y);
+				}
+				else {
+					scenes[0].transitioned();
+				}
 				u.a.transition(scenes[scenes.length-1], "all 0.3s ease-out");
 				u.a.translate(scenes[scenes.length-1], 0, 0);
 			}
 			page.cN.transitions.animateRight = function() {
+				u.bug("animateRight transition:" + u.qsa(".scene", this.page.cN).length);
 				var scenes = u.qsa(".scene", this.page.cN);
+				u.a.transition(scenes[scenes.length-1], "none");
+				u.a.translate(scenes[scenes.length-1], -(this.page.offsetWidth), 0);
+				u.a.setOpacity(scenes[scenes.length-1], 1);
+				u.as(scenes[scenes.length-1], "display", "block");
 				scenes[0].transitioned = function() {
+					u.bug("cancel animateRight 0 - clean")
+					this.transitioned = null;
+					u.a.transition(this, "none");
 					this.cN.cleanScenes();
 					if(typeof(this.entered) == "function") {
 						this.entered();
 					}
 				}
-				u.a.translate(scenes[scenes.length-1], -(this.page.offsetWidth), 0);
-				u.a.setOpacity(scenes[scenes.length-1], 1);
-				u.as(scenes[scenes.length-1], "display", "block");
-				u.a.transition(scenes[0], "all 0.3s ease-out");
-				u.a.translate(scenes[0], (this.page.offsetWidth), scenes[0]._y);
+				scenes[scenes.length-1].transitioned = function() {
+					u.bug("cancel animateRight N");
+					this.transitioned = null;
+					u.a.transition(this, "none");
+					this.cN.cleanScenes();
+				}
+				if(scenes[0]._x != (this.page.offsetWidth)) {
+					u.a.transition(scenes[0], "all 0.3s ease-out");
+					u.a.translate(scenes[0], (this.page.offsetWidth), scenes[0]._y);
+				}
+				else {
+					scenes[0].transitioned();
+				}
 				u.a.transition(scenes[scenes.length-1], "all 0.3s ease-out");
 				u.a.translate(scenes[scenes.length-1], 0, 0);
 			}
 			page.cN.transitions.pullUp = function() {
+				u.bug("pullUp transition");
 				var scenes = u.qsa(".scene", this.page.cN);
 				scenes[0].transitioned = function() {
+					u.bug("cancel pullUp 0 - clean")
+					this.transitioned = null;
+					u.a.transition(this, "none");
 					this.cN.cleanScenes();
-					if(typeof(this.entered) == "function") {
-						this.entered();
+					if(typeof(this.cN.scene.entered) == "function") {
+						this.cN.scene.entered();
 					}
 				}
+				u.a.transition(scenes[0], "none");
+				u.a.transition(scenes[scenes.length-1], "none");
 				u.as(scenes[0], "zIndex", 10);
 				u.as(scenes[scenes.length-1], "zIndex", 5);
 				u.a.translate(scenes[scenes.length-1], 0, 0);
 				u.a.setOpacity(scenes[scenes.length-1], 1);
 				u.as(scenes[scenes.length-1], "display", "block");
-				u.a.transition(scenes[0], "all 0.5s ease-out");
-				u.a.translate(scenes[0], 0, -(scenes[0].offsetHeight));
+				if(scenes[0]._x != -(scenes[0].offsetHeight)) {
+					u.a.transition(scenes[0], "all 0.5s ease-out");
+					u.a.translate(scenes[0], 0, -(scenes[0].offsetHeight));
+				}
+				else {
+					scenes[0].transitioned();
+				}
 			}
 			page.cN.transitions.dropDown = function() {
+				u.bug("dropDown transition")
 				var scenes = u.qsa(".scene", this.page.cN);
 				scenes[scenes.length-1].transitioned = function() {
+					u.bug("cancel dropDown N - clean")
+					this.transitioned = null;
+					u.a.transition(this, "none");
 					this.cN.cleanScenes();
 					if(typeof(this.entered) == "function") {
 						this.entered();
 					}
 				}
+				u.a.transition(scenes[0], "none");
+				u.a.transition(scenes[scenes.length-1], "none");
 				u.as(scenes[0], "zIndex", 5);
 				u.as(scenes[scenes.length-1], "zIndex", 1);
 				u.a.setOpacity(scenes[scenes.length-1], 1);
 				u.as(scenes[scenes.length-1], "display", "block");
 				u.a.translate(scenes[scenes.length-1], 0, -(scenes[scenes.length-1].offsetHeight));
 				u.as(scenes[scenes.length-1], "zIndex", 10);
-				u.a.transition(scenes[scenes.length-1], "all 0.5s ease-out");
-				u.a.translate(scenes[scenes.length-1], 0, 0);
+				if(scenes[scenes.length-1]._y != 0) {
+					u.a.transition(scenes[scenes.length-1], "all 0.5s ease-out");
+					u.a.translate(scenes[scenes.length-1], 0, 0);
+				}
+				else {
+					scenes[scenes.length-1].transitioned();
+				}
 			}
 			page.cN.transitions.fadeIn = function() {
+				u.bug("fadeIn transition:" + u.qsa(".scene", this.page.cN).length)
 				var scene = u.qs(".scene", this.page.cN);
 				scene.transitioned = function(event) {
+					u.bug("cancel dropDown 0 - clean")
+					this.transitioned = null;
+					u.a.transition(this, "none");
 					this.cN.cleanScenes();
 					var scene = u.qs(".scene", this.cN);
 					scene.transitioned = function(event) {
+						u.bug("cancel fadeIn 0")
 						this.transitioned = null;
 						u.a.transition(this, "none");
+						this.cN.cleanScenes();
 						if(typeof(this.entered) == "function") {
 							this.entered();
 						}
 					}
+					u.a.transition(scene, "none");
 					u.a.setOpacity(scene, 0);
 					u.a.translate(scene, 0, 0);
 					u.as(scene, "display", "block");
 					u.a.transition(scene, "all 0.3s ease-out");
 					u.a.setOpacity(scene, 1);
 				}
-				if(u.gcs(scene, "opacity") != 0) {
+				if(u.gcs(scene, "opacity") == 1) {
 					u.a.transition(scene, "all 0.3s ease-out");
 					u.a.setOpacity(scene, 0);
 				}
@@ -3342,15 +3405,18 @@ Util.Objects["page"] = new function() {
 				}
 			}
 			page.cN.transitions.hard = function() {
+				u.bug("hard transition")
 				this.page.cN.cleanScenes();
 				var scene = u.qs(".scene", this.page.cN);
 				scene.transitioned = function(event) {
+					u.bug("cancel hard 0")
 					this.transitioned = null;
 					u.a.transition(this, "none");
 					if(typeof(this.entered) == "function") {
 						this.entered();
 					}
 				}
+				u.a.transition(scene, "none");
 				u.a.setOpacity(scene, 0);
 				u.a.translate(scene, 0, 0);
 				u.as(scene, "display", "block");
@@ -3472,6 +3538,10 @@ Util.Objects["page"] = new function() {
 						u.a.transition(this.page.hN.bn_back, "none");
 						u.a.setOpacity(this.page.hN.bn_back, 0);
 						u.as(this.page.hN.bn_back, "display", "block");
+						this.page.hN.bn_back.transitioned = function() {
+							this.transitioned = null;
+							u.a.transition(this, "none");
+						}
 						u.a.transition(this.page.hN.bn_back, "all 0.3s ease-in");
 						u.a.setOpacity(this.page.hN.bn_back, 1);
 					}
@@ -3493,6 +3563,10 @@ Util.Objects["page"] = new function() {
 						u.a.transition(this.page.hN.bn_nav, "none");
 						u.a.setOpacity(this.page.hN.bn_nav, 0);
 						u.as(this.page.hN.bn_nav, "display", "block");
+						this.page.hN.bn_nav.transitioned = function() {
+							this.transitioned = null;
+							u.a.transition(this, "none");
+						}
 						u.a.transition(this.page.hN.bn_nav, "all 0.3s ease-in");
 						u.a.setOpacity(this.page.hN.bn_nav, 1);
 					}
@@ -3507,6 +3581,7 @@ Util.Objects["page"] = new function() {
 			}
 			page.resized = function() {
 				var page = u.qs("#page");
+ 				u.a.setHeight(document.body, window.innerHeight);
 				if(u.qs(".desktop_wrapper")) {
 					page._page_state = page._page_state ? page._page_state : (page.offsetWidth > 480 ? 480 : 0);
 					if(u.browserW() < 480 && page._page_state != 0) {
@@ -3517,12 +3592,22 @@ Util.Objects["page"] = new function() {
 						page._orientationchanged();
 						page._page_state = 480;
 					}
+					u.a.setHeight(page, window.innerHeight - u.qs(".desktop_mask").offsetHeight);
+				}
+				else {
+					u.a.setHeight(page, window.innerHeight - parseInt(u.gcs(document.body, "margin-top")));
 				}
 				if(page.intro && typeof(page.intro.resized) == "function" && page.intro.parentNode) {
 					page.intro.resized();
 				}
+				if(page.bookmark && typeof(page.bookmark.resized) == "function" && page.bookmark.parentNode) {
+					page.bookmark.resized();
+				}
 				if(page.hN && typeof(page.hN.resized) == "function") {
 					page.hN.resized();
+				}
+				if(page.nN && typeof(page.nN.resized) == "function") {
+					page.nN.resized();
 				}
 				if(page.cN && typeof(page.cN.resized) == "function") {
 					page.cN.resized();
@@ -3536,15 +3621,21 @@ Util.Objects["page"] = new function() {
 			}
 			u.e.addEvent(window, "resize", page.resized);
 			page.cN.resized = function() {
-				u.a.setHeight(this, this.page.offsetHeight - this.page.hN.offsetHeight);
+				u.a.setHeight(this, window.innerHeight - this.page.hN.offsetHeight - parseInt(u.gcs(document.body, "margin-top")));
+			}
+			page.nN.resized = function() {
+				u.a.setHeight(this, window.innerHeight - parseInt(u.gcs(document.body, "margin-top")));
 			}
 			page._orientationchanged = function(event) {
+				u.bug("orientation changed:");
 				u.rc(document.body, "landscape|portrait");
 				u.ac(document.body, (this.orientation == 90 || this.orientation == 270) ? "landscape" : "portrait");
 				var page = u.qs("#page");
-				if(!u.qs(".desktop_wrapper")) {
+				if(!u.qs(".desktop_wrapper") && !u.hc(document.body, "standalone")) {
 					page.resetHeight();
 				}
+				page.cN.cleanScenes();
+				page.cN.removeChild(page.cN.scene);
 				page.cN.navigate(u.h.getCleanHash(location.hash));
 			}
 			u.e.addEvent(window, "orientationchange", page._orientationchanged);
@@ -3596,6 +3687,9 @@ Util.Objects["page"] = new function() {
 					u.rc(document.body, "bookmark");
 				}
 				u.e.click(page.bookmark);
+				page.bookmark.resized = function() {
+					u.a.setHeight(this, page.offsetHeight);
+				}
 				u.ae(page.bookmark, "h1", {"html":"Install this App"});
 				u.ae(page.bookmark, "h2", {"html":"Or tap to continue"});
 				u.ae(page.bookmark, "P", {"html":"Tap &quot;Add to homesceen&quot; to install this app on your phone."});
@@ -3628,9 +3722,13 @@ Util.Objects["productlist"] = new function() {
 		scene.ready = function() {
 			if(u.qsa("li.product", this).length == u.qsa("li.product.ready", this).length) {
 				if(this.cN.offsetHeight < this.offsetHeight) {
-					u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false, "elastica":150});
+					u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false, "elastica":200});
 					this.picked = function(event) {}
-					this.moved = function(event) {}
+					this.moved = function(event) {
+						if(this.current_yps < 0 && !u.hc(document.body, "standalone")) {
+							window.scrollTo(0, 0);
+						}
+					}
 					this.dropped = function(event) {}
 				}
 				u.ac(this.cN, "ready");
@@ -3749,7 +3847,6 @@ Util.Objects["productview"] = new function() {
 		u.ie(product, h1);
 		var images = u.qs("div.images", product);
 		u.ie(product, images);
-		scene.cN.page.hN.changeToBack();
 		var form = u.qs("form", product);
 		form.onsubmit = function() {return false;};
 		product.bn_buy = u.qs(".actions li.buy", product);
@@ -3774,6 +3871,7 @@ Util.Objects["productview"] = new function() {
 		var gallery_index = u.qs("ul.thumbnails", images);
 		if(gallery_index) {
 			var i, node;
+			scene.cN.page.hN.changeToBack();
 			scene.gallery = u.o.gallery.init(gallery_index)
 			scene.gallery.ready = function() {
 				if(u.h.getCleanUrl(location.href, 2) == u.h.getCleanUrl(location.href, 3)) {
@@ -3789,6 +3887,7 @@ Util.Objects["productview"] = new function() {
 		var sequence_index = u.qs("ul.sequence", images);
 		if(sequence_index) {
 			scene.sequencePlayer = u.sequencePlayer(images, {"framerate":24});
+			scene.cN.page.hN.changeToNav();
 			scene.load_list = [];
 			var sqs = u.qsa("li", sequence_index);
 			var sq, i;
@@ -3806,7 +3905,7 @@ Util.Objects["cart"] = new function() {
 		scene.cN.scene = scene;
 		scene.ready = function() {
 			if(this.cN.offsetHeight < this.offsetHeight) {
-				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
+				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false, "elastica":200});
 				this.picked = function(event) {}
 				this.moved = function(event) {}
 				this.dropped = function(event) {}
@@ -3872,7 +3971,7 @@ Util.Objects["additem"] = new function() {
 		scene.cN.scene = scene;
 		scene.ready = function() {
 			if(this.cN.offsetHeight < this.offsetHeight) {
-				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
+				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false, "elastica":200});
 				this.picked = function(event) {}
 				this.moved = function(event) {}
 				this.dropped = function(event) {}
@@ -4104,7 +4203,7 @@ Util.Objects["scene"] = new function() {
 		scene.cN.scene = scene;
 		scene.ready = function() {
 			if(this.cN.offsetHeight < this.offsetHeight) {
-				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false});
+				u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false, "elastica":200});
 				this.picked = function(event) {}
 				this.moved = function(event) {}
 				this.dropped = function(event) {}

@@ -113,8 +113,6 @@ Util.Objects["productview"] = new function() {
 		u.ie(product, images);
 
 
-		// set navigation to back link
-		scene.cN.page.hN.changeToBack();
 
 		var form = u.qs("form", product);
 		form.onsubmit = function() {return false;};
@@ -154,6 +152,9 @@ Util.Objects["productview"] = new function() {
 		if(gallery_index) {
 			var i, node;
 
+			// set navigation to back link
+			scene.cN.page.hN.changeToBack();
+
 			scene.gallery = u.o.gallery.init(gallery_index)
 			scene.gallery.ready = function() {
 				// show selected node (selectNode calls back to ready)
@@ -177,6 +178,9 @@ Util.Objects["productview"] = new function() {
 		if(sequence_index) {
 //			u.bug("add sequence")
 			scene.sequencePlayer = u.sequencePlayer(images, {"framerate":24});
+
+			// set navigation to back link
+			scene.cN.page.hN.changeToNav();
 
 			scene.load_list = [];
 			var sqs = u.qsa("li", sequence_index);

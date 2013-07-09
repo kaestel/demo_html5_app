@@ -1,5 +1,5 @@
-//u.bug_force = true;
-//u.bug_console_only = true;
+u.bug_force = true;
+u.bug_console_only = true;
 
 Util.Objects["page"] = new function() {
 	this.init = function(page) {
@@ -54,7 +54,7 @@ Util.Objects["page"] = new function() {
 				if(!u.hc(this, "ready")) {
 
 					// maximize height
-					if(!u.qs(".desktop_wrapper")) {
+					if(!u.qs(".desktop_wrapper") && !u.hc(document.body, "standalone")) {
 						this.resetHeight();
 					}
 
@@ -87,7 +87,8 @@ Util.Objects["page"] = new function() {
 
 					window.scrollTo(0, 0);
 
-					this, this.resetHeight();
+					//this, 
+					this.resetHeight();
 //					this.t_reset_height = u.t.setTimer(this, this.resetHeight, 10);
 				}
 				else {
@@ -95,12 +96,13 @@ Util.Objects["page"] = new function() {
 
 					// set page and navigation height
 //					u.bug(parseInt(u.gcs(document.body, "margin-top")) + ", " + u.gcs(document.body, "margin-top"));
-					u.a.setHeight(this, h - parseInt(u.gcs(document.body, "margin-top")));
-					u.a.setHeight(this.nN, h);
+//					u.a.setHeight(this, h - parseInt(u.gcs(document.body, "margin-top")));
+//					u.a.setHeight(this.nN, h - parseInt(u.gcs(document.body, "margin-top")));
+					u.a.setHeight(document.body, h);
 
-					if(u.qs(".bookmark")) {
-						u.a.setHeight(u.qs(".bookmark"), h);
-					}
+					// if(u.qs(".bookmark")) {
+					// 	u.a.setHeight(u.qs("div.bookmark"), h);
+					// }
 				}
 //				u.bug("resat height:" + u.gcs(this, "height"));
 			}
@@ -111,7 +113,7 @@ Util.Objects["page"] = new function() {
 //				u.bug("page.cN ready:" + this.page.intro + ", " + u.hc(this.page, "ready") + ", " + u.hc(this, "ready"));
 
 				if(!this.page.intro && u.hc(this.page, "ready") && u.hc(this, "ready")) {
-//					u.bug("page is actually ready:" + this.page);
+					u.bug("page is actually ready:" + this.page);
 
 //					u.as(this, "display", "block");
 //					u.a.transition(this, "none");
@@ -139,6 +141,10 @@ Util.Objects["page"] = new function() {
 			// Content loader
 			page.cN.navigate = function(url) {
 //				u.bug("navigation on content level")
+
+				if(!u.qs("desktop_wrapper") && !u.hc(document.body, "standalone")) {
+					this.page.resetHeight();
+				}
 
 				// content received
 				this.response = function(response) {
@@ -169,6 +175,7 @@ Util.Objects["page"] = new function() {
 			// clean up scenes after transitions
 			// removes all scenes, execpt for the last one
 			page.cN.cleanScenes = function() {
+				u.bug("clean scenes");
 				while(u.qsa(".scene", this).length > 1) {
 					var scene = u.qs(".scene", this);
 					scene.parentNode.removeChild(scene);
@@ -180,11 +187,20 @@ Util.Objects["page"] = new function() {
 
 			// transition scenes to the left
 			page.cN.transitions.animateLeft = function() {
-//				u.bug("animateLeft transition")
+				u.bug("animateLeft transition");
 
 				var scenes = u.qsa(".scene", this.page.cN);
 
+				u.a.transition(scenes[scenes.length-1], "none");
+				u.a.translate(scenes[scenes.length-1], (this.page.offsetWidth), 0);
+				u.a.setOpacity(scenes[scenes.length-1], 1);
+				u.as(scenes[scenes.length-1], "display", "block");
+
 				scenes[0].transitioned = function() {
+					u.bug("cancel animateLeft 0 - clean")
+					this.transitioned = null;
+					u.a.transition(this, "none");
+
 					// clean up
 					this.cN.cleanScenes();
 
@@ -192,25 +208,40 @@ Util.Objects["page"] = new function() {
 						this.entered();
 					}
 				}
+				scenes[scenes.length-1].transitioned = function() {
+					u.bug("cancel animateLeft N");
 
-				u.a.translate(scenes[scenes.length-1], (this.page.offsetWidth), 0);
-				u.a.setOpacity(scenes[scenes.length-1], 1);
-				u.as(scenes[scenes.length-1], "display", "block");
+					this.transitioned = null;
+					u.a.transition(this, "none");
+				}
 
-				u.a.transition(scenes[0], "all 0.3s ease-out");
-				u.a.translate(scenes[0], -(this.page.offsetWidth), scenes[0]._y);
-
+				if(scenes[0]._x != -(this.page.offsetWidth)) {
+					u.a.transition(scenes[0], "all 0.3s ease-out");
+					u.a.translate(scenes[0], -(this.page.offsetWidth), scenes[0]._y);
+				}
+				else {
+					scenes[0].transitioned();
+				}
 				u.a.transition(scenes[scenes.length-1], "all 0.3s ease-out");
 				u.a.translate(scenes[scenes.length-1], 0, 0);
 			}
 
 			// transition scenes to the right
 			page.cN.transitions.animateRight = function() {
-//				u.bug("animateRight transition")
-				
+				u.bug("animateRight transition:" + u.qsa(".scene", this.page.cN).length);
+
 				var scenes = u.qsa(".scene", this.page.cN);
 
+				u.a.transition(scenes[scenes.length-1], "none");
+				u.a.translate(scenes[scenes.length-1], -(this.page.offsetWidth), 0);
+				u.a.setOpacity(scenes[scenes.length-1], 1);
+				u.as(scenes[scenes.length-1], "display", "block");
+
 				scenes[0].transitioned = function() {
+					u.bug("cancel animateRight 0 - clean")
+					this.transitioned = null;
+					u.a.transition(this, "none");
+
 					// clean up
 					this.cN.cleanScenes();
 
@@ -218,13 +249,23 @@ Util.Objects["page"] = new function() {
 						this.entered();
 					}
 				}
+				scenes[scenes.length-1].transitioned = function() {
+					u.bug("cancel animateRight N");
+					this.transitioned = null;
+					u.a.transition(this, "none");
 
-				u.a.translate(scenes[scenes.length-1], -(this.page.offsetWidth), 0);
-				u.a.setOpacity(scenes[scenes.length-1], 1);
-				u.as(scenes[scenes.length-1], "display", "block");
+					// clean up
+					this.cN.cleanScenes();
+				}
 
-				u.a.transition(scenes[0], "all 0.3s ease-out");
-				u.a.translate(scenes[0], (this.page.offsetWidth), scenes[0]._y);
+
+				if(scenes[0]._x != (this.page.offsetWidth)) {
+					u.a.transition(scenes[0], "all 0.3s ease-out");
+					u.a.translate(scenes[0], (this.page.offsetWidth), scenes[0]._y);
+				}
+				else {
+					scenes[0].transitioned();
+				}
 
 				u.a.transition(scenes[scenes.length-1], "all 0.3s ease-out");
 				u.a.translate(scenes[scenes.length-1], 0, 0);
@@ -232,18 +273,26 @@ Util.Objects["page"] = new function() {
 
 			// drop in from top
 			page.cN.transitions.pullUp = function() {
-//				u.bug("pullUp transition")
+				u.bug("pullUp transition");
 
 				var scenes = u.qsa(".scene", this.page.cN);
 
 				scenes[0].transitioned = function() {
+					u.bug("cancel pullUp 0 - clean")
+
+					this.transitioned = null;
+					u.a.transition(this, "none");
+
 					// clean up
 					this.cN.cleanScenes();
 
-					if(typeof(this.entered) == "function") {
-						this.entered();
+					if(typeof(this.cN.scene.entered) == "function") {
+						this.cN.scene.entered();
 					}
 				}
+
+				u.a.transition(scenes[0], "none");
+				u.a.transition(scenes[scenes.length-1], "none");
 
 				u.as(scenes[0], "zIndex", 10);
 				u.as(scenes[scenes.length-1], "zIndex", 5);
@@ -252,17 +301,26 @@ Util.Objects["page"] = new function() {
 				u.a.setOpacity(scenes[scenes.length-1], 1);
 				u.as(scenes[scenes.length-1], "display", "block");
 
-				u.a.transition(scenes[0], "all 0.5s ease-out");
-				u.a.translate(scenes[0], 0, -(scenes[0].offsetHeight));
+				if(scenes[0]._x != -(scenes[0].offsetHeight)) {
+					u.a.transition(scenes[0], "all 0.5s ease-out");
+					u.a.translate(scenes[0], 0, -(scenes[0].offsetHeight));
+				}
+				else {
+					scenes[0].transitioned();
+				}
 			}
 
 			// drop in from top
 			page.cN.transitions.dropDown = function() {
-//				u.bug("dropDown transition")
+				u.bug("dropDown transition")
 
 				var scenes = u.qsa(".scene", this.page.cN);
 
 				scenes[scenes.length-1].transitioned = function() {
+					u.bug("cancel dropDown N - clean")
+					this.transitioned = null;
+					u.a.transition(this, "none");
+
 					// clean up
 					this.cN.cleanScenes();
 
@@ -270,6 +328,9 @@ Util.Objects["page"] = new function() {
 						this.entered();
 					}
 				}
+
+				u.a.transition(scenes[0], "none");
+				u.a.transition(scenes[scenes.length-1], "none");
 
 				u.as(scenes[0], "zIndex", 5);
 				u.as(scenes[scenes.length-1], "zIndex", 1);
@@ -281,31 +342,44 @@ Util.Objects["page"] = new function() {
 
 				u.as(scenes[scenes.length-1], "zIndex", 10);
 
-
-				u.a.transition(scenes[scenes.length-1], "all 0.5s ease-out");
-				u.a.translate(scenes[scenes.length-1], 0, 0);
+				if(scenes[scenes.length-1]._y != 0) {
+					u.a.transition(scenes[scenes.length-1], "all 0.5s ease-out");
+					u.a.translate(scenes[scenes.length-1], 0, 0);
+				}
+				else {
+					scenes[scenes.length-1].transitioned();
+				}
 			}
 
 			// fade in - static position
 			page.cN.transitions.fadeIn = function() {
-//				u.bug("fade in transition")
+				u.bug("fadeIn transition:" + u.qsa(".scene", this.page.cN).length)
 
 				// cleanup + enter on transition
 				var scene = u.qs(".scene", this.page.cN);
 				scene.transitioned = function(event) {
+					u.bug("cancel dropDown 0 - clean")
+					this.transitioned = null;
+					u.a.transition(this, "none");
+
 					this.cN.cleanScenes();
 
 					// enter new scene
 					var scene = u.qs(".scene", this.cN);
 					scene.transitioned = function(event) {
+						u.bug("cancel fadeIn 0")
 						this.transitioned = null;
 						u.a.transition(this, "none");
+
+						// clean up
+						this.cN.cleanScenes();
 
 						if(typeof(this.entered) == "function") {
 							this.entered();
 						}
 					}
 
+					u.a.transition(scene, "none");
 					u.a.setOpacity(scene, 0);
 					u.a.translate(scene, 0, 0);
 					u.as(scene, "display", "block");
@@ -315,7 +389,7 @@ Util.Objects["page"] = new function() {
 					
 				}
 
-				if(u.gcs(scene, "opacity") != 0) {
+				if(u.gcs(scene, "opacity") == 1) {
 					u.a.transition(scene, "all 0.3s ease-out");
 					u.a.setOpacity(scene, 0);
 				}
@@ -326,7 +400,7 @@ Util.Objects["page"] = new function() {
 
 			// no transition out - just show
 			page.cN.transitions.hard = function() {
-//				u.bug("hard transition")
+				u.bug("hard transition")
 
 				// clean up
 				this.page.cN.cleanScenes();
@@ -334,6 +408,7 @@ Util.Objects["page"] = new function() {
 				// enter new scene
 				var scene = u.qs(".scene", this.page.cN);
 				scene.transitioned = function(event) {
+					u.bug("cancel hard 0")
 					this.transitioned = null;
 					u.a.transition(this, "none");
 
@@ -341,6 +416,8 @@ Util.Objects["page"] = new function() {
 						this.entered();
 					}
 				}
+
+				u.a.transition(scene, "none");
 				u.a.setOpacity(scene, 0);
 				u.a.translate(scene, 0, 0);
 				u.as(scene, "display", "block");
@@ -527,10 +604,15 @@ Util.Objects["page"] = new function() {
 						u.a.transition(this, "none");
 						u.as(this, "display", "none");
 
+
 						u.a.transition(this.page.hN.bn_back, "none");
 						u.a.setOpacity(this.page.hN.bn_back, 0);
 						u.as(this.page.hN.bn_back, "display", "block");
 
+						this.page.hN.bn_back.transitioned = function() {
+							this.transitioned = null;
+							u.a.transition(this, "none");
+						}
 						u.a.transition(this.page.hN.bn_back, "all 0.3s ease-in");
 						u.a.setOpacity(this.page.hN.bn_back, 1);
 					}
@@ -568,6 +650,10 @@ Util.Objects["page"] = new function() {
 						u.a.setOpacity(this.page.hN.bn_nav, 0);
 						u.as(this.page.hN.bn_nav, "display", "block");
 
+						this.page.hN.bn_nav.transitioned = function() {
+							this.transitioned = null;
+							u.a.transition(this, "none");
+						}
 						u.a.transition(this.page.hN.bn_nav, "all 0.3s ease-in");
 						u.a.setOpacity(this.page.hN.bn_nav, 1);
 					}
@@ -592,7 +678,11 @@ Util.Objects["page"] = new function() {
 			// global resize handler 
 			page.resized = function() {
 				var page = u.qs("#page");
-//				u.bug("page resized: cN.oH:" + page.cN.offsetHeight + "," + (page.cN.scene ? ("sce.oH:" + page.cN.scene.offsetHeight + ":gcs-sce:" + u.gcs(page.cN.scene, "height") + ":pro-oH:" + u.qs(".product", page.cN.scene).offsetHeight) : "no scene"));
+//				u.bug("page resized: cN.oH:" + page.cN.offsetHeight + "," + (page.cN.scene ? ("sce.oH:" + page.cN.scene.offsetHeight + ":gcs-sce:" + u.gcs(page.cN.scene, "height")) : "no scene"));
+
+// 				u.a.setHeight(this, h - parseInt(u.gcs(document.body, "margin-top")));
+// //				u.a.setHeight(this.nN, h - parseInt(u.gcs(document.body, "margin-top")));
+ 				u.a.setHeight(document.body, window.innerHeight);
 
 				if(u.qs(".desktop_wrapper")) {
 					page._page_state = page._page_state ? page._page_state : (page.offsetWidth > 480 ? 480 : 0);
@@ -605,18 +695,26 @@ Util.Objects["page"] = new function() {
 						page._orientationchanged();
 						page._page_state = 480;
 					}
+					u.a.setHeight(page, window.innerHeight - u.qs(".desktop_mask").offsetHeight);
+				}
+				else {
+					u.a.setHeight(page, window.innerHeight - parseInt(u.gcs(document.body, "margin-top")));
+					
 				}
 
 
 				if(page.intro && typeof(page.intro.resized) == "function" && page.intro.parentNode) {
 					page.intro.resized();
 				}
-				// if(page.bookmark && typeof(page.bookmark.resized) == "function" && page.bookmark.parentNode) {
-				// 	page.bookmark.resized();
-				// }
+				if(page.bookmark && typeof(page.bookmark.resized) == "function" && page.bookmark.parentNode) {
+					page.bookmark.resized();
+				}
 
 				if(page.hN && typeof(page.hN.resized) == "function") {
 					page.hN.resized();
+				}
+				if(page.nN && typeof(page.nN.resized) == "function") {
+					page.nN.resized();
 				}
 				if(page.cN && typeof(page.cN.resized) == "function") {
 					page.cN.resized();
@@ -633,21 +731,29 @@ Util.Objects["page"] = new function() {
 
 			// resize content height
 			page.cN.resized = function() {
-				u.a.setHeight(this, this.page.offsetHeight - this.page.hN.offsetHeight);
+//				u.bug("set content height:" + this.page.offsetHeight +"-"+ this.page.hN.offsetHeight)
+				u.a.setHeight(this, window.innerHeight - this.page.hN.offsetHeight - parseInt(u.gcs(document.body, "margin-top")));
+			}
+			page.nN.resized = function() {
+				u.a.setHeight(this, window.innerHeight - parseInt(u.gcs(document.body, "margin-top")));
 			}
 
 
 			// handle orientation change
 			page._orientationchanged = function(event) {
-//				u.bug("orientation changed:");
+				u.bug("orientation changed:");
 
 				u.rc(document.body, "landscape|portrait");
 				u.ac(document.body, (this.orientation == 90 || this.orientation == 270) ? "landscape" : "portrait");
 
 				var page = u.qs("#page");
-				if(!u.qs(".desktop_wrapper")) {
+				if(!u.qs(".desktop_wrapper") && !u.hc(document.body, "standalone")) {
 					page.resetHeight();
 				}
+
+				page.cN.cleanScenes();
+				page.cN.removeChild(page.cN.scene);
+//				page.cN.transition_method = page.cN.transitions.hard;
 				page.cN.navigate(u.h.getCleanHash(location.hash));
 			}
 			// redraw page if orientation changes
@@ -727,10 +833,10 @@ Util.Objects["page"] = new function() {
 					u.rc(document.body, "bookmark");
 				}
 				u.e.click(page.bookmark);
-// 				page.bookmark.resized = function() {
-// 					u.bug("bo re")
-// //					u.a.setHeight(this, page.offsetHeight);
-// 				}
+				page.bookmark.resized = function() {
+//					u.bug("bookmark resized")
+					u.a.setHeight(this, page.offsetHeight);
+				}
 
 				u.ae(page.bookmark, "h1", {"html":"Install this App"});
 				u.ae(page.bookmark, "h2", {"html":"Or tap to continue"});
