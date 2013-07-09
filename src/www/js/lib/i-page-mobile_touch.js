@@ -142,7 +142,7 @@ Util.Objects["page"] = new function() {
 			page.cN.navigate = function(url) {
 //				u.bug("navigation on content level")
 
-				if(!u.qs("desktop_wrapper") && !u.hc(document.body, "standalone")) {
+				if(!u.qs(".desktop_wrapper") && !u.hc(document.body, "standalone")) {
 					this.page.resetHeight();
 				}
 
@@ -682,7 +682,6 @@ Util.Objects["page"] = new function() {
 
 // 				u.a.setHeight(this, h - parseInt(u.gcs(document.body, "margin-top")));
 // //				u.a.setHeight(this.nN, h - parseInt(u.gcs(document.body, "margin-top")));
- 				u.a.setHeight(document.body, window.innerHeight);
 
 				if(u.qs(".desktop_wrapper")) {
 					page._page_state = page._page_state ? page._page_state : (page.offsetWidth > 480 ? 480 : 0);
@@ -698,6 +697,7 @@ Util.Objects["page"] = new function() {
 					u.a.setHeight(page, u.qs(".desktop_mask").offsetHeight);
 				}
 				else {
+	 				u.a.setHeight(document.body, window.innerHeight);
 					u.a.setHeight(page, window.innerHeight - parseInt(u.gcs(document.body, "margin-top")));
 					
 				}
@@ -732,10 +732,10 @@ Util.Objects["page"] = new function() {
 			// resize content height
 			page.cN.resized = function() {
 //				u.bug("set content height:" + this.page.offsetHeight +"-"+ this.page.hN.offsetHeight)
-				u.a.setHeight(this, window.innerHeight - this.page.hN.offsetHeight - parseInt(u.gcs(document.body, "margin-top")));
+				u.a.setHeight(this, this.page.offsetHeight - this.page.hN.offsetHeight);
 			}
 			page.nN.resized = function() {
-				u.a.setHeight(this, window.innerHeight - parseInt(u.gcs(document.body, "margin-top")));
+				u.a.setHeight(this, this.page.offsetHeight);
 			}
 
 

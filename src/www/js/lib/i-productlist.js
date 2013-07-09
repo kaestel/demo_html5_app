@@ -20,7 +20,7 @@ Util.Objects["productlist"] = new function() {
 
 					this.picked = function(event) {}
 					this.moved = function(event) {
-						if(this.current_yps < 0 && !u.hc(document.body, "standalone")) {
+						if(this.current_yps < 0 && !u.hc(document.body, "standalone") && !u.qs(".desktop_wrapper")) {
 							window.scrollTo(0, 0);
 						}
 					}

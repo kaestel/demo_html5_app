@@ -3228,7 +3228,7 @@ Util.Objects["page"] = new function() {
 				}
 			}
 			page.cN.navigate = function(url) {
-				if(!u.qs("desktop_wrapper") && !u.hc(document.body, "standalone")) {
+				if(!u.qs(".desktop_wrapper") && !u.hc(document.body, "standalone")) {
 					this.page.resetHeight();
 				}
 				this.response = function(response) {
@@ -3563,7 +3563,6 @@ Util.Objects["page"] = new function() {
 			}
 			page.resized = function() {
 				var page = u.qs("#page");
- 				u.a.setHeight(document.body, window.innerHeight);
 				if(u.qs(".desktop_wrapper")) {
 					page._page_state = page._page_state ? page._page_state : (page.offsetWidth > 480 ? 480 : 0);
 					if(u.browserW() < 480 && page._page_state != 0) {
@@ -3577,6 +3576,7 @@ Util.Objects["page"] = new function() {
 					u.a.setHeight(page, u.qs(".desktop_mask").offsetHeight);
 				}
 				else {
+	 				u.a.setHeight(document.body, window.innerHeight);
 					u.a.setHeight(page, window.innerHeight - parseInt(u.gcs(document.body, "margin-top")));
 				}
 				if(page.intro && typeof(page.intro.resized) == "function" && page.intro.parentNode) {
@@ -3603,10 +3603,10 @@ Util.Objects["page"] = new function() {
 			}
 			u.e.addEvent(window, "resize", page.resized);
 			page.cN.resized = function() {
-				u.a.setHeight(this, window.innerHeight - this.page.hN.offsetHeight - parseInt(u.gcs(document.body, "margin-top")));
+				u.a.setHeight(this, this.page.offsetHeight - this.page.hN.offsetHeight);
 			}
 			page.nN.resized = function() {
-				u.a.setHeight(this, window.innerHeight - parseInt(u.gcs(document.body, "margin-top")));
+				u.a.setHeight(this, this.page.offsetHeight);
 			}
 			page._orientationchanged = function(event) {
 				u.rc(document.body, "landscape|portrait");
@@ -3708,7 +3708,7 @@ Util.Objects["productlist"] = new function() {
 					u.e.drag(this, [0, this.cN.offsetHeight - this.offsetHeight, this.offsetWidth, this.offsetHeight], {"show_bounds":false, "strict":false, "elastica":200});
 					this.picked = function(event) {}
 					this.moved = function(event) {
-						if(this.current_yps < 0 && !u.hc(document.body, "standalone")) {
+						if(this.current_yps < 0 && !u.hc(document.body, "standalone") && !u.qs(".desktop_wrapper")) {
 							window.scrollTo(0, 0);
 						}
 					}
