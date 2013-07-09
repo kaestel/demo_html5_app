@@ -35,4 +35,4 @@ input, textarea {outline: none;
 }
 
 body.standalone {/*margin-top: 20px;*/}
-body.standalone #navigation {margin-top: 20px;}
+body.standalone #navigation {/*margin-top: 20px;*/}
