@@ -774,8 +774,8 @@ Util.Objects["page"] = new function() {
 
 		// intro images
 		page.intro._images = new Array();
-//		for(i = 24; i <= 75; i++) {
-		for(i = 24; i <= 25; i++) {
+		for(i = 24; i <= 75; i++) {
+//		for(i = 24; i <= 25; i++) {
 			page.intro._images.push("/img/intro/Untitled-1_000" + (i < 10 ? "0" : "") + i + ".jpg");
 		}
 
@@ -821,7 +821,7 @@ Util.Objects["page"] = new function() {
 
 			// show bookmark screen
 			var repeat = u.getCookie("bookmark");
-			if(repeat && Number(repeat)%1 == 0) {
+			if(repeat && Number(repeat)%5 == 0) {
 				// load intro - but wait for bookmark sceen to clear
 				u.ac(document.body, "bookmark");
 				page.bookmark = u.ae(document.body, "div", {"class":"bookmark"});

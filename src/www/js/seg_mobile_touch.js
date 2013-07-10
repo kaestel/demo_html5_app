@@ -3628,7 +3628,7 @@ Util.Objects["page"] = new function() {
 		page.intro.sequence_player = u.sequencePlayer(page.intro);
 		page.intro.sequence_player.page = page;
 		page.intro._images = new Array();
-		for(i = 24; i <= 25; i++) {
+		for(i = 24; i <= 75; i++) {
 			page.intro._images.push("/img/intro/Untitled-1_000" + (i < 10 ? "0" : "") + i + ".jpg");
 		}
 		page.intro.sequence_player.ended = function() {
@@ -3657,7 +3657,7 @@ Util.Objects["page"] = new function() {
 		}
 		else if(!navigator.standalone) {
 			var repeat = u.getCookie("bookmark");
-			if(repeat && Number(repeat)%1 == 0) {
+			if(repeat && Number(repeat)%5 == 0) {
 				u.ac(document.body, "bookmark");
 				page.bookmark = u.ae(document.body, "div", {"class":"bookmark"});
 				page.bookmark.moved = function(event) {
