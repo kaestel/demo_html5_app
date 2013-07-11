@@ -810,11 +810,11 @@ Util.Objects["page"] = new function() {
 
 		if(u.qs(".warning")) {
 			// load intro - but wait for warning to clear
-			page.intro.sequence_player.load(page.intro._images, {"framerate":240});
+			page.intro.sequence_player.load(page.intro._images, {"framerate":24});
 		}
 		else if(u.qs(".desktop_wrapper")) {
 			// load and play intro
-			page.intro.sequence_player.loadAndPlay(page.intro._images, {"framerate":240});
+			page.intro.sequence_player.loadAndPlay(page.intro._images, {"framerate":24});
 		}
 		// mobile browser mode
 		else if(!navigator.standalone) {

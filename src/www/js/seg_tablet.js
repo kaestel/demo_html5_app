@@ -3650,10 +3650,10 @@ Util.Objects["page"] = new function() {
 			this.page.ready();
 		}
 		if(u.qs(".warning")) {
-			page.intro.sequence_player.load(page.intro._images, {"framerate":240});
+			page.intro.sequence_player.load(page.intro._images, {"framerate":24});
 		}
 		else if(u.qs(".desktop_wrapper")) {
-			page.intro.sequence_player.loadAndPlay(page.intro._images, {"framerate":240});
+			page.intro.sequence_player.loadAndPlay(page.intro._images, {"framerate":24});
 		}
 		else if(!navigator.standalone) {
 			var repeat = u.getCookie("bookmark");
