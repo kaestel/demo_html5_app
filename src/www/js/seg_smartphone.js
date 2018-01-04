@@ -3744,11 +3744,11 @@ Util.Objects["productlist"] = new function() {
 				}
 				product.loaded = function(queue) {
 					u.as(this, "backgroundImage", "url("+queue[0]._image.src+")");
-					u.as(this, "paddingTop", queue[0]._image.height+"px");
+					u.as(this, "paddingTop", this.offsetWidth * (queue[0]._image.height / queue[0]._image.width) +"px");
 					u.ac(this, "ready");
 					this.scene.ready();
 				}
-				u.preloader(product, ["/images/"+u.cv(product, "id")+"/"+product.scene.cN.page.offsetWidth+"x.jpg"]);
+				u.preloader(product, ["/images/"+u.cv(product, "id")+"/480x.jpg"]);
 			}
 		}
 		else {
@@ -3852,7 +3852,7 @@ Util.Objects["productview"] = new function() {
 		u.ce(product.bn_map);
 		images.scene = scene;
 		images.loaded = function(queue) {
-			u.a.setHeight(this, queue[0]._image.height);
+			u.a.setHeight(this, this.offsetWidth * (queue[0]._image.height / queue[0]._image.width));
 			this.scene.ready();
 		}
 		var gallery_index = u.qs("ul.thumbnails", images);
@@ -3869,7 +3869,7 @@ Util.Objects["productview"] = new function() {
 					this.selectNode(index);
 				}
 			}
-			u.preloader(images, ["/images/"+u.cv(u.qs("li", images), "id")+"/"+images.offsetWidth+"x.jpg"]);
+			u.preloader(images, ["/images/"+u.cv(u.qs("li", images), "id")+"/480x.jpg"]);
 		}
 		var sequence_index = u.qs("ul.sequence", images);
 		if(sequence_index) {
@@ -3879,9 +3879,9 @@ Util.Objects["productview"] = new function() {
 			var sqs = u.qsa("li", sequence_index);
 			var sq, i;
 			for(i = 0; sq = sqs[i]; i++) {
-				scene.load_list.push("/images/" + u.cv(sq, "id") + "/" + images.offsetWidth + "x.png");
+				scene.load_list.push("/images/" + u.cv(sq, "id") + "/480x.png");
 			}
-			u.preloader(images, ["/images/"+u.cv(u.qs("li", images), "id")+"/"+images.offsetWidth+"x.png"]);
+			u.preloader(images, ["/images/"+u.cv(u.qs("li", images), "id")+"/480x.png"]);
 		}
 	}
 }
@@ -4126,7 +4126,7 @@ Util.Objects["gallery"] = new function() {
 					u.ac(this, "ready");
 					this.gallery._ready();
 				}
-				u.preloader(node, ["/images/"+u.cv(node, "id")+"/"+this.image_width+"x.jpg"]);
+				u.preloader(node, ["/images/"+u.cv(node, "id")+"/480x.jpg"]);
 			}
 			else {
 				this.gallery._ready();

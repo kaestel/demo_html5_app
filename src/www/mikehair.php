@@ -41,10 +41,10 @@
 
 		<div class="images">
 			<ul class="thumbnails">
-				<li class="id:mikehair2"><a href="/images/mikehair2/250x.png">Mike Hair Relax, Left</a></li>
-				<li class="id:mikehair1"><a href="/images/mikehair1/250x.png">Mike Hair Relax, Front</a></li>
-				<li class="id:mikehair3"><a href="/images/mikehair3/250x.png">Mike Hair Relax, Right</a></li>
-				<li class="id:mikehair4"><a href="/images/mikehair4/250x.png">Mike Hair Relax, Back</a></li>
+				<li class="id:mikehair2"><a href="/images/mikehair2/480x.png">Mike Hair Relax, Left</a></li>
+				<li class="id:mikehair1"><a href="/images/mikehair1/480x.png">Mike Hair Relax, Front</a></li>
+				<li class="id:mikehair3"><a href="/images/mikehair3/480x.png">Mike Hair Relax, Right</a></li>
+				<li class="id:mikehair4"><a href="/images/mikehair4/480x.png">Mike Hair Relax, Back</a></li>
 			</ul>
 		</div>
 

@@ -39,10 +39,10 @@
 
 		<div class="images">
 			<ul class="thumbnails">
-				<li class="id:cookshoe2"><a href="/images/cookshoe2/250x.png">The Cooking Shoe, Left</a></li>
-				<li class="id:cookshoe1"><a href="/images/cookshoe1/250x.png">The Cooking Shoe, Front</a></li>
-				<li class="id:cookshoe3"><a href="/images/cookshoe3/250x.png">The Cooking Shoe, Right</a></li>
-				<li class="id:cookshoe4"><a href="/images/cookshoe4/250x.png">The Cooking Shoe, Back</a></li>
+				<li class="id:cookshoe2"><a href="/images/cookshoe2/480x.png">The Cooking Shoe, Left</a></li>
+				<li class="id:cookshoe1"><a href="/images/cookshoe1/480x.png">The Cooking Shoe, Front</a></li>
+				<li class="id:cookshoe3"><a href="/images/cookshoe3/480x.png">The Cooking Shoe, Right</a></li>
+				<li class="id:cookshoe4"><a href="/images/cookshoe4/480x.png">The Cooking Shoe, Back</a></li>
 			</ul>
 		</div>
 

@@ -192,7 +192,7 @@ Util.Objects["gallery"] = new function() {
 					// callback to _ready controller (will monitor if all nodes are ready)
 					this.gallery._ready();
 				}
-				u.preloader(node, ["/images/"+u.cv(node, "id")+"/"+this.image_width+"x.jpg"]);
+				u.preloader(node, ["/images/"+u.cv(node, "id")+"/480x.jpg"]);
 			}
 			else {
 				this.gallery._ready();

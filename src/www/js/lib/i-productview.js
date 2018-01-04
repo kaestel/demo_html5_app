@@ -145,7 +145,7 @@ Util.Objects["productview"] = new function() {
 		images.scene = scene;
 		images.loaded = function(queue) {
 //			u.bug("load image:" + queue[0]._image.src)
-			u.a.setHeight(this, queue[0]._image.height);
+			u.a.setHeight(this, this.offsetWidth * (queue[0]._image.height / queue[0]._image.width));
 
 			// ready
 			this.scene.ready();
@@ -174,7 +174,7 @@ Util.Objects["productview"] = new function() {
 			}
 
 
-			u.preloader(images, ["/images/"+u.cv(u.qs("li", images), "id")+"/"+images.offsetWidth+"x.jpg"]);
+			u.preloader(images, ["/images/"+u.cv(u.qs("li", images), "id")+"/480x.jpg"]);
 		}
 
 		// or adding 3D view, if sequence is available
@@ -190,11 +190,11 @@ Util.Objects["productview"] = new function() {
 			var sqs = u.qsa("li", sequence_index);
 			var sq, i;
 			for(i = 0; sq = sqs[i]; i++) {
-				scene.load_list.push("/images/" + u.cv(sq, "id") + "/" + images.offsetWidth + "x.png");
+				scene.load_list.push("/images/" + u.cv(sq, "id") + "/480x.png");
 			}
 
 			// Load sequence image to get height of sequence
-			u.preloader(images, ["/images/"+u.cv(u.qs("li", images), "id")+"/"+images.offsetWidth+"x.png"]);
+			u.preloader(images, ["/images/"+u.cv(u.qs("li", images), "id")+"/480x.png"]);
 		}
 
 	}

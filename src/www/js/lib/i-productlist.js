@@ -73,13 +73,14 @@ Util.Objects["productlist"] = new function() {
 				product.loaded = function(queue) {
 //					u.bug(u.nodeId(this, 1))
 					u.as(this, "backgroundImage", "url("+queue[0]._image.src+")");
-					u.as(this, "paddingTop", queue[0]._image.height+"px");
+					u.as(this, "paddingTop", this.offsetWidth * (queue[0]._image.height / queue[0]._image.width) +"px");
+//					u.as(this, "paddingTop", queue[0]._image.height+"px");
 					u.ac(this, "ready");
 				
 //					u.bug("product height:" + this.offsetHeight + ", scene.h:" + this.scene.offsetHeight + ", gcs:" + u.gcs(this, "height"))
 					this.scene.ready();
 				}
-				u.preloader(product, ["/images/"+u.cv(product, "id")+"/"+product.scene.cN.page.offsetWidth+"x.jpg"]);
+				u.preloader(product, ["/images/"+u.cv(product, "id")+"/480x.jpg"]);
 
 			}
 

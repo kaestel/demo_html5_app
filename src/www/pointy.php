@@ -39,10 +39,10 @@
 
 		<div class="images">
 			<ul class="thumbnails">
-				<li class="id:pointy2"><a href="/images/pointy2/250x.png">Pointy 2D, Left</a></li>
-				<li class="id:pointy1"><a href="/images/pointy1/250x.png">Pointy 2D, Front</a></li>
-				<li class="id:pointy3"><a href="/images/pointy3/250x.png">Pointy 2D, Right</a></li>
-				<li class="id:pointy4"><a href="/images/pointy4/250x.png">Pointy 2D, Back</a></li>
+				<li class="id:pointy2"><a href="/images/pointy2/480x.png">Pointy 2D, Left</a></li>
+				<li class="id:pointy1"><a href="/images/pointy1/480x.png">Pointy 2D, Front</a></li>
+				<li class="id:pointy3"><a href="/images/pointy3/480x.png">Pointy 2D, Right</a></li>
+				<li class="id:pointy4"><a href="/images/pointy4/480x.png">Pointy 2D, Back</a></li>
 			</ul>
 		</div>
 

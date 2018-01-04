@@ -37,7 +37,9 @@
 #content .scene.productview .product .gallery {width: 100%; height: 100%; position: relative; overflow: hidden;}
 #content .scene.productview .product .gallery ul.thumbnails {width: 100%; height: 100%; padding: 0;}
 #content .scene.productview .product .gallery.loading ul.thumbnails {background: transparent url(/img/gx_loader.gif) no-repeat center center;}
-#content .scene.productview .product .gallery ul.thumbnails li {width: 100%; height: 100%; display: none; padding: 0; position: absolute; background-position: center center; background-repeat: no-repeat; background-color: transparent;}
+#content .scene.productview .product .gallery ul.thumbnails li {width: 100%; height: 100%; display: none; padding: 0; position: absolute; background-position: center center; background-repeat: no-repeat; background-color: transparent;
+	background-size: 100% auto;
+}
 #content .scene.productview .product .gallery ul.thumbnails li a {display: none;}
 
 #content .scene.productview .product .gallery .next {display: none;}
@@ -46,7 +48,9 @@
 #content .scene.productview .product .images ul.sequence {display: none;}
 #content .scene.productview .product .images .sequenceplayer {width: 100%; height: 100%; position: relative; overflow: hidden; background: transparent url(/img/bg_3d.png) no-repeat top left; background-size: 100%;}
 #content .scene.productview .product .images .sequenceplayer ul.sequence {display: block; width: 100%; height: 100%; padding: 0; position: relative;}
-#content .scene.productview .product .images .sequenceplayer ul li {width: 100%; height: 100%; position: absolute; top: 0; left: 0; background-position: center center; background-repeat: no-repeat;}
+#content .scene.productview .product .images .sequenceplayer ul li {width: 100%; height: 100%; position: absolute; top: 0; left: 0; background-position: center center; background-repeat: no-repeat;
+	background-size: 100% auto;
+}
 
 #content .scene.productview .product .images .sequenceplayer.loading ul.sequence {background: transparent url(/img/gx_loader.gif) no-repeat center center;}
 #content .scene.productview .product .images .sequenceplayer .carousel {position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4500;}
