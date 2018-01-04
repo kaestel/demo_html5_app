@@ -28,58 +28,6 @@ $segments_config = array(
 		"mobile_light"  => "mobile_light",
 
 		"seo"           => "basic"
-	),
-	"janitor" => array(
-
-		"desktop_edge"  => "desktop",
-		"desktop_ie11"  => "desktop",
-		"desktop_ie10"  => "desktop",
-		"desktop"       => "desktop",
-
-		"smartphone"    => "smartphone",
-
-		"desktop_light" => "unsupported",
-		"desktop_ie9"   => "unsupported",
-		"tv"            => "unsupported",
-		"tablet"        => "desktop",
-		"tablet_light"  => "desktop",
-		"mobile"        => "unsupported",
-		"mobile_light"  => "unsupported",
-		"seo"           => "unsupported"
-
-	),
-	"login" => array(
-	
-		"desktop_edge"  => "desktop",
-		"desktop_ie11"  => "desktop",
-		"desktop_ie10"  => "desktop",
-		"desktop"       => "desktop",
-
-		"smartphone"    => "smartphone",
-
-		"desktop_light" => "unsupported",
-		"tv"            => "unsupported",
-		"tablet"        => "desktop",
-		"tablet_light"  => "desktop",
-		"mobile"        => "unsupported",
-		"mobile_light"  => "unsupported",
-		"seo"           => "unsupported"
-	),
-	"setup" => array(
-	
-		"desktop_edge"  => "desktop",
-		"desktop_ie11"  => "desktop",
-		"desktop_ie10"  => "desktop",
-		"desktop"       => "desktop",
-
-		"smartphone"    => "unsupported",
-		"desktop_light" => "unsupported",
-		"tv"            => "unsupported",
-		"tablet"        => "unsupported",
-		"tablet_light"  => "unsupported",
-		"mobile"        => "unsupported",
-		"mobile_light"  => "unsupported",
-		"seo"           => "unsupported"
 	)
 
 );

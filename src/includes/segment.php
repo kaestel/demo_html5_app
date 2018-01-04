@@ -1,6 +1,7 @@
 <?php
 
 	session_start();
+	unset($_SESSION["segment"]);
 	// segment parameter sent
 	if(isset($_GET["segment"])) {
 
@@ -21,13 +22,8 @@
 	if(isset($segment) && $segment) {
 
 		// DOES PROJECT HAVE FRAMEWORK SEGMENTS
-		if(isset($_SERVER["FRAMEWORK_PATH"]) && file_exists("segments.core.php")) {
-			@include_once("segments.core.php");
-
-			// // DOES PROJECT HAVE CUSTOM SEGMENTS
-			// if(isset($_SERVER["LOCAL_PATH"]) && file_exists($_SERVER["LOCAL_PATH"]."/config/segments.php")) {
-			// 	@include_once($_SERVER["LOCAL_PATH"]."/config/segments.php");
-			// }
+		if(file_exists($_SERVER["LOCAL_PATH"]."/includes/segments.core.php")) {
+			@include_once($_SERVER["LOCAL_PATH"]."/includes/segments.core.php");
 		}
 
 		if(isset($segments_config) && isset($segments_config["www"][$segment])) {
@@ -39,6 +35,7 @@
 		
 	}
 
+//	print $_SESSION["segment"];
 	// debug helper
 	if(isset($_GET["dev"])) {
 		$_SESSION["dev"] = $_GET["dev"];
