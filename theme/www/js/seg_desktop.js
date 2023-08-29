@@ -1,5 +1,5 @@
 
-/*seg_tablet.js*/
+/*seg_desktop.js*/
 if(!u || !Util) {
 	var u, Util = u = new function() {}
 	u.version = 0.7;
@@ -2260,8 +2260,8 @@ Util.isStringHTML = function(string) {
 			var test = document.createElement("div");
 			test.innerHTML = string;
 			if(test.childNodes.length) {
-				var body_class = string.match(/<body class="([a-z0-9A-Z_: ]+)"/);
-				test.body_class = body_class ? body_class[1] : "";
+				var body_class = string.match(/<body class="([a-zA-Z0-9_: ]+)"/);
+				test.body_class = body_class ? body_class[1] : "test";
 				var head_title = string.match(/<title>([^$]+)<\/title>/);
 				test.head_title = head_title ? head_title[1] : "";
 				test.isHTML = true;
